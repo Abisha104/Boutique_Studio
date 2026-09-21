@@ -1,0 +1,340 @@
+<section class="product-listing-section" id="product-listing">
+
+    <div class="breadcrumb-custom">
+        Home /
+
+        {% if selected_category and selected_category != "All" %}
+            <span>{{ selected_category }}</span>
+        {% else %}
+            <span>All Collections</span>
+        {% endif %}
+    </div>
+
+
+    <div class="listing-header">
+
+        <div class="result-count">
+
+            <strong>
+                {% if selected_category and selected_category != "All" %}
+                    {{ selected_category }}
+                {% else %}
+                    All Designs
+                {% endif %}
+            </strong>
+
+            {% if designs %}
+                — {{ designs|length }}
+                {% if designs|length == 1 %}
+                    design
+                {% else %}
+                    designs
+                {% endif %}
+            {% endif %}
+
+        </div>
+
+
+        <form method="GET"
+              action="{% url 'designs' %}"
+              class="d-inline">
+
+            <input
+                type="hidden"
+                name="category"
+                value="{{ selected_category }}"
+            >
+
+            <input
+                type="hidden"
+                name="search"
+                value="{{ search }}"
+            >
+
+            <select
+                name="sort"
+                class="sort-select"
+                onchange="this.form.submit()"
+            >
+
+                <option value="Newest"
+                    {% if selected_sort == "Newest" %}selected{% endif %}>
+                    Newest First
+                </option>
+
+                <option value="PriceLow"
+                    {% if selected_sort == "PriceLow" %}selected{% endif %}>
+                    Price: Low → High
+                </option>
+
+                <option value="PriceHigh"
+                    {% if selected_sort == "PriceHigh" %}selected{% endif %}>
+                    Price: High → Low
+                </option>
+
+                <option value="Popular"
+                    {% if selected_sort == "Popular" %}selected{% endif %}>
+                    Popular
+                </option>
+
+            </select>
+
+        </form>
+
+    </div>
+
+
+    <!-- PRODUCT GRID -->
+
+    <div class="product-grid">
+
+        {% for design in designs %}
+
+        <article class="product-card">
+
+            <!-- IMAGE -->
+
+            <div class="product-image">
+
+                {% if design.image %}
+
+                    <img
+                        src="{{ design.image.url }}"
+                        alt="{{ design.name }}"
+                        loading="lazy"
+                    >
+
+                {% else %}
+
+                    <img
+                        src="{% static 'images/default-product.jpg' %}"
+                        alt="{{ design.name }}"
+                        loading="lazy"
+                    >
+
+                {% endif %}
+
+
+                {% if design.featured %}
+
+                    <span class="product-badge">
+                        FEATURED
+                    </span>
+
+                {% else %}
+
+                    <span class="product-badge">
+                        NEW
+                    </span>
+
+                {% endif %}
+
+
+                <!-- WISHLIST -->
+
+                <a
+                    href="{% url 'toggle_favorite' design.design_id %}"
+                    class="wishlist-btn"
+                    aria-label="Wishlist"
+                >
+
+                    {% if design.design_id in favorite_ids %}
+
+                        <i class="bi bi-heart-fill"></i>
+
+                    {% else %}
+
+                        <i class="bi bi-heart"></i>
+
+                    {% endif %}
+
+                </a>
+
+
+                <!-- QUICK VIEW -->
+
+                <a
+                    href="{% url 'design_details' design.design_id %}"
+                    class="quick-view"
+                >
+
+                    <i class="bi bi-eye"></i>
+
+                    Quick View
+
+                </a>
+
+            </div>
+
+
+            <!-- PRODUCT INFO -->
+
+            <div class="product-info">
+
+                <div class="product-category">
+
+                    {{ design.category.name|default:"Boutique" }}
+
+                </div>
+
+
+                <div class="product-name">
+
+                    {{ design.name }}
+
+                </div>
+
+
+                <div class="rating-line">
+
+                    <span class="rating">
+                        4.8 ★
+                    </span>
+
+                    <span class="rating-text">
+                        120+ ratings
+                    </span>
+
+                </div>
+
+
+                <div class="price-line">
+
+                    <span class="current-price">
+                        ₹{{ design.price|floatformat:0 }}
+                    </span>
+
+                    <span class="old-price">
+                        ₹{{ design.price|add:"1500"|floatformat:0 }}
+                    </span>
+
+                    <span class="discount">
+                        Special
+                    </span>
+
+                </div>
+
+
+                <div class="product-meta">
+
+                    {% if design.is_in_stock %}
+
+                        <i class="bi bi-check-circle-fill"></i>
+
+                        In Stock
+
+                    {% else %}
+
+                        <i class="bi bi-x-circle-fill"></i>
+
+                        Out of Stock
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- ACTIONS -->
+
+                <div class="product-actions">
+
+                    {% if user.is_authenticated %}
+
+                        {% if design.is_in_stock %}
+
+                            <a
+                                href="{% url 'add_to_cart' design.design_id %}"
+                                class="product-btn cart-btn"
+                            >
+
+                                <i class="bi bi-bag-plus"></i>
+
+                                Add to Cart
+
+                            </a>
+
+                            <a
+                                href="{% url 'buy_now' design.design_id %}"
+                                class="product-btn buy-btn"
+                            >
+
+                                Order Now
+
+                                <i class="bi bi-arrow-right"></i>
+
+                            </a>
+
+                        {% else %}
+
+                            <button
+                                class="product-btn cart-btn"
+                                disabled
+                            >
+
+                                Out of Stock
+
+                            </button>
+
+                        {% endif %}
+
+                    {% else %}
+
+                        <a
+                            href="{% url 'login' %}?next={% url 'designs' %}?category={{ selected_category }}"
+                            class="product-btn cart-btn"
+                        >
+
+                            <i class="bi bi-bag-plus"></i>
+
+                            Add to Cart
+
+                        </a>
+
+                        <a
+                            href="{% url 'login' %}"
+                            class="product-btn buy-btn"
+                        >
+
+                            Login to Order
+
+                            <i class="bi bi-arrow-right"></i>
+
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </article>
+
+        {% empty %}
+
+            <div class="empty-state col-12">
+
+                <i class="bi bi-box-seam"></i>
+
+                <h4>
+                    No designs found
+                </h4>
+
+                <p>
+                    No products are available in
+                    {{ selected_category }} right now.
+                </p>
+
+                <a
+                    href="{% url 'designs' %}"
+                    class="btn"
+                >
+                    Browse All
+                </a>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>

@@ -1,0 +1,97 @@
+{% extends "custom_admin/base.html" %}
+{% load admin_tags %}
+
+{% block title %}
+Delete {{ model|get_verbose_name|title }} | Admin
+{% endblock %}
+
+{% block page_title %}
+Delete Record
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="delete-page">
+
+
+    <div class="delete-card">
+
+
+        <div class="delete-icon">
+
+            <i class="bi bi-trash3"></i>
+
+        </div>
+
+
+        <span class="section-eyebrow">
+            DELETE RECORD
+        </span>
+
+
+        <h2>
+            Are you sure?
+        </h2>
+
+
+        <p>
+            You are about to permanently delete
+            this {{ model|get_verbose_name }}.    <!-- ✅ FIXED: removed underscore -->
+        </p>
+
+
+        <div class="delete-object">
+
+            {{ object }}
+
+        </div>
+
+
+        <div class="delete-warning">
+
+            <i class="bi bi-exclamation-triangle"></i>
+
+            <span>
+                This action cannot be undone.
+            </span>
+
+        </div>
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <div class="delete-actions">
+
+                <a href="{% url 'custom_admin_model_list' model_name %}"
+                   class="secondary-button">
+
+                    Cancel
+
+                </a>
+
+
+                <button type="submit"
+                        class="danger-button">
+
+                    <i class="bi bi-trash3"></i>
+
+                    Delete Permanently
+
+                </button>
+
+            </div>
+
+        </form>
+
+
+    </div>
+
+</div>
+
+
+{% endblock %}

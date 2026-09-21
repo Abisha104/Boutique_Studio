@@ -1,0 +1,532 @@
+{% extends "footer.html" %}
+
+{% block title %}
+  Shylu Threads • Boutique Collection
+{% endblock %}
+
+{% block content %}
+ 
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shylu Threads • Boutique Collection</title>
+     <link rel="icon" type="image/png" href="{% static 'images/tailorshop_logo.png' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'app/css/designs/style.css' %} ">
+</head>
+<body>
+
+<!-- ─── TOP OFFER ─── -->
+<div class="top-offer">
+    <i class="bi bi-stars"></i>
+    <span>New customers get</span>
+    <strong>exclusive first-order offers</strong>
+</div>
+
+<!-- ─── HEADER ─── -->
+<header class="main-header">
+    <div class="container">
+        <div class="header-inner">
+            <a href="{% url 'home' %}" class="brand">
+                   <span class="brand-mark">
+    <img src="{% static 'images/tailorshop_logo.png' %}" alt="Shylu Threads Logo">
+</span>
+                <div class="brand-content">
+                    <span class="brand-name">Shylu Threads</span>
+                    <span class="brand-sub">BOUTIQUE STUDIO</span>
+                </div>
+            </a>
+
+            <div class="search-wrap">
+                <form method="GET" action="{% url 'designs' %}" class="search-box">
+                    <i class="bi bi-search"></i>
+                    <input type="search" name="search" value="{{ search }}" placeholder="Search designs..." autocomplete="off">
+                    <button type="submit" class="search-submit"><i class="bi bi-arrow-right"></i></button>
+                </form>
+            </div>
+
+            <div class="header-actions">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'customer_dashboard' %}" class="header-action">
+                        <i class="bi bi-person-circle"></i>
+                        <span>{{ user.first_name|default:user.username }}</span>
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="header-action">
+                        <i class="bi bi-person"></i><span>Login</span>
+                    </a>
+                {% endif %}
+                <a href="{% url 'favorites' %}" class="header-action" aria-label="Wishlist">
+                    <i class="bi bi-heart"></i><span>Wishlist</span>
+                </a>
+                <a href="{% url 'cart' %}" class="header-action" aria-label="Cart">
+                    <i class="bi bi-bag-heart"></i>
+                    {% if user.is_authenticated and cart_count > 0 %}
+                        <span class="cart-badge">{{ cart_count }}</span>
+                    {% endif %}
+                    <span>Cart</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- ─── CATEGORY NAV ─── -->
+<!-- CATEGORY NAV -->
+<nav class="category-nav">
+    <div class="container">
+        <div class="category-scroll">
+            <a href="{% url 'designs' %}#product-listing" class="nav-category {% if not selected_category or selected_category == 'All' %}active{% endif %}">
+                <i class="bi bi-grid"></i> All
+            </a>
+
+            {% for cat in categories %}
+                <a href="?category={{ cat.name|urlencode }}#product-listing" class="nav-category {% if selected_category == cat.name %}active{% endif %}">
+                    <i class="bi bi-tag"></i> {{ cat.name }}
+                </a>
+            {% endfor %}
+
+            <!-- Extra static categories -->
+            <a href="?category=Blouse#product-listing" class="nav-category"><i class="bi bi-person-standing-dress"></i> Blouses</a>
+            <a href="?category=Saree#product-listing" class="nav-category"><i class="bi bi-stars"></i> Sarees</a>
+            <a href="?category=Lehenga#product-listing" class="nav-category"><i class="bi bi-gem"></i> Lehengas</a>
+            <a href="?category=Kurti#product-listing" class="nav-category"><i class="bi bi-person"></i> Kurtis</a>
+            <a href="?category=Gown#product-listing" class="nav-category"><i class="bi bi-stars"></i> Gowns</a>
+            <a href="?category=Bridal#product-listing" class="nav-category"><i class="bi bi-heart"></i> Bridal</a>
+            <a href="?category=Party%20Wear#product-listing" class="nav-category"><i class="bi bi-balloon-heart"></i> Party Wear</a>
+            <a href="?category=Accessories#product-listing" class="nav-category"><i class="bi bi-handbag"></i> Accessories</a>
+            <a href="?category=Kids%20Wear#product-listing" class="nav-category"><i class="bi bi-balloon"></i> Kids Wear</a>
+            <a href="?category=Salwar%20Suits#product-listing" class="nav-category"><i class="bi bi-person-badge"></i> Salwar Suits</a>
+            <a href="?category=Pavadai%20%2F%20Half%20Saree#product-listing" class="nav-category"><i class="bi bi-flower1"></i> Half Saree</a>
+            <a href="#custom-stitching" class="nav-category"><i class="bi bi-scissors"></i> Custom Stitch</a>
+        </div>
+    </div>
+</nav>
+
+<main class="container">
+
+    <!-- ─── HERO SLIDER ─── -->
+    <section class="hero-slider">
+        <div class="slides" id="heroSlides">
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1900&q=90');">
+                <div class="slide-content">
+                    <div class="slide-eyebrow">SMART TAILOR BOUTIQUE</div>
+                    <h2>Wear your <span>story.</span><br>Own your <span>style.</span></h2>
+                    <p>Explore beautifully crafted blouses, sarees, lehengas, bridal collections and custom-tailored outfits.</p>
+                    <div class="slide-buttons">
+                        <a href="#category-grid" class="slide-btn slide-btn-primary">Shop Now <i class="bi bi-arrow-right"></i></a>
+                        <a href="#custom-stitching" class="slide-btn slide-btn-secondary"><i class="bi bi-scissors"></i> Custom Order</a>
+                    </div>
+                </div>
+            </div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=1900&q=90');">
+                <div class="slide-content">
+                    <div class="slide-eyebrow">CUSTOM TAILORING</div>
+                    <h2>Designed <span>for you.</span><br>Stitched with <span>care.</span></h2>
+                    <p>From measurements to fabric selection, embroidery to finishing — every detail is personalised to your unique style.</p>
+                    <div class="slide-buttons">
+                        <a href="#custom-stitching" class="slide-btn slide-btn-primary">Start Custom Order <i class="bi bi-arrow-right"></i></a>
+                        <a href="#category-grid" class="slide-btn slide-btn-secondary">Browse Categories</a>
+                    </div>
+                </div>
+            </div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=1900&q=90');">
+                <div class="slide-content">
+                    <div class="slide-eyebrow">BRIDAL & FESTIVE</div>
+                    <h2>Your dream <span>outfit.</span><br>Our <span>craftsmanship.</span></h2>
+                    <p>Bridal blouses, lehengas, sarees and reception wear — each piece crafted with premium fabrics and exquisite detailing.</p>
+                    <div class="slide-buttons">
+                        <a href="?category=Bridal" class="slide-btn slide-btn-primary">Explore Bridal <i class="bi bi-arrow-right"></i></a>
+                        <a href="#category-grid" class="slide-btn slide-btn-secondary">All Categories</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="slider-arrow prev" id="prevSlide"><i class="bi bi-chevron-left"></i></button>
+        <button class="slider-arrow next" id="nextSlide"><i class="bi bi-chevron-right"></i></button>
+        <div class="slider-dots" id="sliderDots">
+            <button class="slider-dot active" data-index="0"></button>
+            <button class="slider-dot" data-index="1"></button>
+            <button class="slider-dot" data-index="2"></button>
+        </div>
+    </section>
+
+    <section class="category-grid-section" id="category-grid">
+
+    <div class="section-header">
+        <div>
+            <div class="section-kicker">SHOP BY CATEGORY</div>
+
+            <h2 class="section-title">
+                Explore Our Collections
+            </h2>
+
+            <div class="section-sub">
+                Discover carefully curated styles for every occasion
+            </div>
+        </div>
+    </div>
+
+
+    <div class="category-grid">
+
+        {% for cat in categories %}
+
+        <a href="?category={{ cat.name }}"
+           class="category-card"
+           onclick="handleCategoryClick(event)">
+
+            <div class="card-image">
+
+                <img
+                    src="{% if cat.image %}
+                            {{ cat.image.url }}
+                         {% else %}
+                            https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=900&q=90
+                         {% endif %}"
+                    alt="{{ cat.name }}"
+                    loading="lazy"
+                >
+
+                <span class="category-badge">
+                    COLLECTION
+                </span>
+
+                <span class="category-arrow">
+                    <i class="bi bi-arrow-up-right"></i>
+                </span>
+
+            </div>
+
+
+            <div class="card-body">
+
+                <div class="cat-name">
+                    {{ cat.name }}
+                </div>
+
+                <div class="cat-desc">
+                    {{ cat.description|truncatechars:65|default:"Explore our exclusive boutique collection." }}
+                </div>
+
+                <div class="cat-count">
+
+                    {% if cat.designs.count %}
+                        {{ cat.designs.count }} Designs
+                    {% else %}
+                        Explore Collection
+                    {% endif %}
+
+                </div>
+
+                <div class="shop-now">
+
+                    <span>EXPLORE COLLECTION</span>
+
+                    <i class="bi bi-arrow-right"></i>
+
+                </div>
+
+            </div>
+
+        </a>
+
+        {% endfor %}
+
+
+       
+
+    </div>
+</section>
+
+    <!-- ─── PRODUCT LISTING (shown when a category is selected) ─── -->
+    {% if selected_category and selected_category != 'All' or designs %}
+<section class="product-listing-section" id="product-listing">
+    <div class="breadcrumb-custom">
+            Home / 
+            {% if selected_category and selected_category != 'All' %}
+                <span>{{ selected_category }}</span>
+            {% else %}
+                <span>All Collections</span>
+            {% endif %}
+        </div>
+
+        <div class="listing-header">
+            <div class="result-count">
+                <strong>
+                    {% if selected_category and selected_category != 'All' %}
+                        {{ selected_category }}
+                    {% else %}
+                        All Designs
+                    {% endif %}
+                </strong>
+                {% if designs %}
+                    — {{ designs|length }} {% if designs|length == 1 %}design{% else %}designs{% endif %}
+                {% endif %}
+            </div>
+            <div>
+                <form method="GET" action="{% url 'designs' %}" class="d-inline">
+                    <input type="hidden" name="category" value="{{ selected_category|default:'All' }}">
+                    <input type="hidden" name="search" value="{{ search }}">
+                    <select name="sort" class="sort-select" onchange="this.form.submit()">
+                        <option value="Newest" {% if selected_sort == 'Newest' %}selected{% endif %}>Newest First</option>
+                        <option value="PriceLow" {% if selected_sort == 'PriceLow' %}selected{% endif %}>Price: Low → High</option>
+                        <option value="PriceHigh" {% if selected_sort == 'PriceHigh' %}selected{% endif %}>Price: High → Low</option>
+                        <option value="Popular" {% if selected_sort == 'Popular' %}selected{% endif %}>Popular</option>
+                    </select>
+                </form>
+            </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="product-grid" id="products-section" style="scroll-margin-top: 100px;">
+            {% for design in designs %}
+                <article class="product-card"
+    data-design-id="{{ design.design_id }}"
+    data-detail-url="{% url 'design_details' design.design_id %}"
+    onclick="window.location.href=this.dataset.detailUrl">
+                    <div class="product-image">
+                        <img src="{% if design.image %}{{ design.image.url }}{% else %}https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=85{% endif %}" alt="{{ design.name }}" loading="lazy">
+                        {% if design.badge %}
+                            <span class="product-badge">{{ design.get_badge_display|upper }}</span>
+                        {% elif design.featured %}
+                            <span class="product-badge">FEATURED</span>
+                        {% endif %}
+
+                        <button type="button" class="wishlist-btn" onclick="toggleFavorite(event, '{{ design.design_id }}')" aria-label="Wishlist" title="{% if design.id in favorite_ids %}Remove from favorites{% else %}Add to favorites{% endif %}">
+                            <i class="bi {% if design.id in favorite_ids %}bi-heart-fill{% else %}bi-heart{% endif %}"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">{{ design.category.name|default:"Boutique" }} • {{ design.design_id }}</div>
+                        <div class="product-name">{{ design.name }}</div>
+                        <div class="rating-line">
+                            {% if design.rating and design.rating > 0 %}
+                                <span class="rating">{{ design.rating|floatformat:1 }} ★</span>
+                                <span class="rating-text">{{ design.review_count|default:0 }} reviews</span>
+                            {% else %}
+                                <span class="rating-text">New Arrival</span>
+                            {% endif %}
+                        </div>
+                        <div class="price-line">
+                            <span class="current-price">₹{{ design.price|floatformat:0 }}</span>
+                            {% if design.is_in_stock %}
+                                <span class="stock-status in-stock"><i class="bi bi-check-circle-fill"></i> In Stock</span>
+                            {% else %}
+                                <span class="stock-status out-of-stock"><i class="bi bi-x-circle-fill"></i> Out of Stock</span>
+                            {% endif %}
+                        </div>
+                        <div class="product-meta">
+                            <i class="bi bi-check-circle-fill"></i> Custom tailoring available
+                        </div>
+                        <div class="product-actions" onclick="event.stopPropagation();">
+                            {% if design.is_in_stock %}
+                                {% if user.is_authenticated %}
+                                    <button type="button" class="product-btn cart-btn" onclick="addToCart(event, '{{ design.design_id }}')">
+                                        <i class="bi bi-bag-plus"></i> Add to Cart
+                                    </button>
+                                    <a href="{% url 'checkout' %}?buy_now=1&design_id={{ design.design_id }}" class="product-btn buy-btn" onclick="event.stopPropagation();">
+                                        Order Now <i class="bi bi-arrow-right"></i>
+                                    </a>
+                                {% else %}
+                                    <a href="{% url 'login' %}?next={% url 'design_details' design.design_id %}" class="product-btn cart-btn" onclick="event.stopPropagation();">
+                                        <i class="bi bi-bag-plus"></i> Add to Cart
+                                    </a>
+                                    <a href="{% url 'login' %}?next={% url 'checkout' %}%3Fbuy_now%3D1%26design_id%3D{{ design.design_id }}" class="product-btn buy-btn" onclick="event.stopPropagation();">
+                                        Order Now <i class="bi bi-arrow-right"></i>
+                                    </a>
+                                {% endif %}
+                            {% else %}
+                                <a href="{% url 'design_details' design.design_id %}" class="product-btn cart-btn" onclick="event.stopPropagation();">
+                                    <i class="bi bi-eye"></i> View Details
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </article>
+            {% empty %}
+                <div class="empty-state col-12">
+                    <i class="bi bi-box-seam"></i>
+                    <h4>No designs found</h4>
+                    <p>Try adjusting your filters or choose another category.</p>
+                    <a href="{% url 'designs' %}" class="btn" style="background:var(--rose);color:#fff;border-radius:40px;padding:10px 30px;display:inline-block;margin-top:10px;">Browse All</a>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- ─── OFFER BANNER ─── -->
+    <section class="offer-banner">
+        <div class="offer-content">
+            <div class="offer-kicker">EXCLUSIVE BOUTIQUE OFFER</div>
+            <h2 class="offer-title">Style More.<br>Save More.</h2>
+            <p class="offer-desc">Enjoy special pricing on selected collections, custom stitching and seasonal designs.</p>
+            <div class="offer-row">
+                <div class="coupon-code">CODE: <strong>STYLE10</strong></div>
+                <a href="#category-grid" class="offer-btn">Shop Now <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── CUSTOM STITCHING ─── -->
+    <section class="custom-stitch-section" id="custom-stitching">
+        <div class="custom-card">
+            <div class="row g-0">
+                <div class="col-lg-6 custom-image"></div>
+                <div class="col-lg-6 custom-body">
+                    <div class="custom-tag">MADE FOR YOU</div>
+                    <h3>Custom Stitching</h3>
+                    <p>Choose your favourite design and let our tailoring service create a personalised outfit according to your measurements.</p>
+                    <div class="custom-features">
+                        <div class="custom-feature"><i class="bi bi-check-circle-fill"></i> Custom measurements</div>
+                        <div class="custom-feature"><i class="bi bi-check-circle-fill"></i> Neck & sleeve design</div>
+                        <div class="custom-feature"><i class="bi bi-check-circle-fill"></i> Fabric & colour selection</div>
+                        <div class="custom-feature"><i class="bi bi-check-circle-fill"></i> Embroidery options</div>
+                    </div>
+                    <a href="{% url 'contact' %}" class="custom-btn">
+                        Start Custom Order <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- ─── BACK TO TOP ─── -->
+<button class="back-top" id="backTop"><i class="bi bi-arrow-up"></i></button>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// ─── HERO SLIDER ───
+(function() {
+    const slides = document.getElementById('heroSlides');
+    const dots = document.querySelectorAll('.slider-dot');
+    const prev = document.getElementById('prevSlide');
+    const next = document.getElementById('nextSlide');
+    let idx = 0, total = 3, interval;
+    function goTo(i) {
+        idx = (i + total) % total;
+        slides.style.transform = 'translateX(' + (-idx * 100) + '%)';
+        dots.forEach((d, j) => d.classList.toggle('active', j === idx));
+        resetAuto();
+    }
+    function nextSlide() { goTo(idx + 1); }
+    function prevSlide() { goTo(idx - 1); }
+    function resetAuto() { if (interval) clearInterval(interval); interval = setInterval(nextSlide, 5000); }
+    if (next) next.addEventListener('click', nextSlide);
+    if (prev) prev.addEventListener('click', prevSlide);
+    dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
+    const slider = document.querySelector('.hero-slider');
+    if (slider) {
+        slider.addEventListener('mouseenter', () => { if (interval) clearInterval(interval); });
+        slider.addEventListener('mouseleave', resetAuto);
+    }
+    resetAuto();
+})();
+
+// ─── BACK TO TOP ───
+const back = document.getElementById('backTop');
+window.addEventListener('scroll', () => back.classList.toggle('show', window.scrollY > 900));
+back.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+function handleCategoryClick(event) {
+    const section = document.getElementById('product-listing');
+    if (!section) return;
+
+    setTimeout(() => {
+        // Sticky/Fixed header இருந்தால் அதன் உயரத்தை (headerOffset) கழித்து scroll செய்யும்
+        const headerOffset = 80; 
+        const elementPosition = section.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+        });
+    }, 100);
+}
+
+function toggleFavorite(event, designId, currentlyFavorite) {
+    event.preventDefault();
+    event.stopPropagation();
+    const btn = event.currentTarget;
+    const icon = btn.querySelector('i');
+    btn.classList.add('heart-animating');
+
+    fetch(`{% url 'toggle_favorite' 'DESIGN_ID' %}`.replace('DESIGN_ID', designId), {
+        method: 'GET',
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            const isFavorite = !!data.is_favorite;
+            icon.classList.toggle('bi-heart-fill', isFavorite);
+            icon.classList.toggle('bi-heart', !isFavorite);
+            btn.title = isFavorite ? 'Remove from favorites' : 'Add to favorites';
+        }
+    })
+    .catch(() => {
+        // no-op to avoid breaking the page; existing backend handles normal fallback
+    })
+    .finally(() => {
+        btn.classList.remove('heart-animating');
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('category') || window.location.hash === '#product-listing') {
+        const listingSection = document.getElementById('product-listing');
+        if (listingSection) {
+            setTimeout(() => {
+                listingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 150);
+        }
+    }
+});
+function addToCart(event, designId) {
+    event.preventDefault();
+    event.stopPropagation();
+    const btn = event.currentTarget;
+    const originalHtml = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Adding...';
+
+    fetch(`{% url 'add_to_cart' 'DESIGN_ID' %}`.replace('DESIGN_ID', designId), {
+        method: 'GET',
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            const badge = document.querySelector('.cart-badge');
+            if (badge) {
+                badge.textContent = data.cart_count || 0;
+                badge.style.display = data.cart_count > 0 ? 'inline-flex' : 'none';
+            }
+        }
+    })
+    .catch(() => {
+        // no-op
+    })
+    .finally(() => {
+        btn.disabled = false;
+        btn.innerHTML = originalHtml;
+    });
+}
+</script>
+
+{% endblock %}
+</body>
+</html> 

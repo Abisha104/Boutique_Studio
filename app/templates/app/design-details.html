@@ -1,0 +1,778 @@
+{% extends "footer.html" %}
+{% load static %}
+
+{% block title %}{{ design.name }} | Shylu Threads{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'app/css/design_details/style.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<main class="product-page">
+
+    <!-- Breadcrumb -->
+    <div class="container">
+        <div class="breadcrumb-bar">
+            <a href="{% url 'customer_dashboard' %}">
+                <i class="bi bi-house"></i> Home
+            </a>
+            <i class="bi bi-chevron-right"></i>
+
+            <a href="{% url 'designs' %}">
+                Designs
+            </a>
+
+            <i class="bi bi-chevron-right"></i>
+
+            <span>{{ design.name }}</span>
+        </div>
+    </div>
+
+
+    <!-- ================= PRODUCT SECTION ================= -->
+
+    <section class="container">
+
+        <div class="product-layout">
+
+            <!-- LEFT : IMAGE AREA -->
+            <div class="product-gallery">
+
+                <div class="main-image-card">
+
+                    {% if design.badge %}
+                    <span class="product-badge">
+                        {{ design.badge }}
+                    </span>
+                    {% endif %}
+
+                    {% if design.image %}
+
+                        <img
+                            src="{{ design.image.url }}"
+                            alt="{{ design.name }}"
+                            id="mainProductImage"
+                        >
+
+                    {% else %}
+
+                        <div class="no-image">
+                            <i class="bi bi-image"></i>
+                            <span>No Image Available</span>
+                        </div>
+
+                    {% endif %}
+
+                    <!-- Wishlist -->
+                    <a
+                        href="{% url 'toggle_favorite' design.design_id %}"
+                        class="image-wishlist"
+                        title="Add to Wishlist"
+                    >
+                        <i class="bi
+                        {% if is_favorite %}
+                            bi-heart-fill
+                        {% else %}
+                            bi-heart
+                        {% endif %}
+                        "></i>
+                    </a>
+
+                </div>
+
+                <!-- Image Info -->
+                <div class="image-info">
+
+                    <span>
+                        <i class="bi bi-shield-check"></i>
+                        Quality Checked
+                    </span>
+
+                    <span>
+                        <i class="bi bi-patch-check"></i>
+                        Boutique Verified
+                    </span>
+
+                    <span>
+                        <i class="bi bi-truck"></i>
+                        Secure Delivery
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT : PRODUCT INFORMATION -->
+
+            <div class="product-information">
+
+                <!-- Category -->
+                <div class="product-category">
+                    {{ design.category.name|default:"Boutique Collection" }}
+                </div>
+
+
+                <!-- Product Name -->
+                <h1 class="product-title">
+                    {{ design.name }}
+                </h1>
+
+
+                <!-- Rating -->
+                <div class="rating-row">
+
+                    <div class="rating-box">
+                        {{ design.rating|default:"4.5" }}
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+
+                    <span class="review-text">
+                        {{ design.review_count|default:"0" }} Reviews
+                    </span>
+
+                    <span class="separator">•</span>
+
+                    <span class="verified-review">
+                        <i class="bi bi-patch-check-fill"></i>
+                        Verified Product
+                    </span>
+
+                </div>
+
+
+                <div class="product-divider"></div>
+
+
+                <!-- PRICE -->
+
+                <div class="price-section">
+
+                    <div class="price-row">
+
+                        <span class="current-price">
+                            ₹{{ design.price|floatformat:0 }}
+                        </span>
+
+                        {% if design.original_price %}
+                        <span class="original-price">
+                            ₹{{ design.original_price|floatformat:0 }}
+                        </span>
+
+                        <span class="discount">
+                            {{ design.discount_percentage }}% OFF
+                        </span>
+                        {% endif %}
+
+                    </div>
+
+                    <p class="tax-note">
+                        Inclusive of all applicable taxes
+                    </p>
+
+                </div>
+
+
+                <!-- OFFERS -->
+
+                <div class="offers-box">
+
+                    <div class="offers-title">
+                        <i class="bi bi-tag-fill"></i>
+                        Available Offers
+                    </div>
+
+                    <div class="offer-item">
+                        <i class="bi bi-check-circle-fill"></i>
+
+                        <div>
+                            <strong>Special Boutique Offer</strong>
+                            <p>Get exclusive pricing on selected designs.</p>
+                        </div>
+                    </div>
+
+                    <div class="offer-item">
+                        <i class="bi bi-check-circle-fill"></i>
+
+                        <div>
+                            <strong>Free Delivery</strong>
+                            <p>Free delivery on orders above ₹1000.</p>
+                        </div>
+                    </div>
+
+                    <div class="offer-item">
+                        <i class="bi bi-check-circle-fill"></i>
+
+                        <div>
+                            <strong>Secure Shopping</strong>
+                            <p>Safe payment and secure order processing.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- STOCK -->
+
+                <div class="stock-section">
+
+                    {% if design.is_in_stock %}
+
+                        <div class="stock-available">
+                            <i class="bi bi-check-circle-fill"></i>
+                            In Stock
+                        </div>
+
+                        <span class="stock-count">
+                            {{ design.stock_quantity }} pieces available
+                        </span>
+
+                    {% else %}
+
+                        <div class="stock-unavailable">
+                            <i class="bi bi-x-circle-fill"></i>
+                            Currently Out of Stock
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- SIZE -->
+
+                {% if design.size %}
+
+                <div class="selection-section">
+
+                    <div class="selection-header">
+
+                        <strong>Select Size</strong>
+
+                        <a href="#">
+                            Size Guide
+                            <i class="bi bi-arrow-up-right"></i>
+                        </a>
+
+                    </div>
+
+                    <div class="size-options">
+
+                        {% for size in design.size|cut:","|make_list %}
+
+                        <button type="button" class="size-btn">
+                            {{ size }}
+                        </button>
+
+                        {% empty %}
+
+                        <button type="button" class="size-btn active">
+                            {{ design.size }}
+                        </button>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+                {% endif %}
+
+
+                <!-- COLOR -->
+
+                {% if design.color %}
+
+                <div class="detail-selection">
+
+                    <strong>Color:</strong>
+
+                    <span class="selected-value">
+                        {{ design.color }}
+                    </span>
+
+                </div>
+
+                {% endif %}
+
+
+                <!-- QUANTITY -->
+
+                {% if design.is_in_stock %}
+
+                <div class="quantity-section">
+
+                    <strong>Quantity</strong>
+
+                    <div class="quantity-control">
+
+                        <button type="button" id="minusBtn">
+                            <i class="bi bi-dash"></i>
+                        </button>
+
+                        <input
+                            type="number"
+                            id="quantity"
+                            value="1"
+                            min="1"
+                            max="{{ design.stock_quantity }}"
+                            readonly
+                        >
+
+                        <button type="button" id="plusBtn">
+                            <i class="bi bi-plus"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+                {% endif %}
+
+
+                <!-- DELIVERY -->
+
+                <div class="delivery-box">
+
+                    <div class="delivery-title">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        Delivery Information
+                    </div>
+
+                    <div class="delivery-input">
+
+                        <input
+                            type="text"
+                            id="pincode"
+                            placeholder="Enter delivery pincode"
+                            maxlength="6"
+                        >
+
+                        <button type="button" onclick="checkDelivery()">
+                            Check
+                        </button>
+
+                    </div>
+
+                    <small id="deliveryResult">
+                        Enter your pincode to check delivery availability.
+                    </small>
+
+                </div>
+
+
+                <!-- ACTION BUTTONS -->
+
+                {% if design.is_in_stock %}
+
+                <div class="action-buttons">
+
+                    <a
+                        href="{% url 'add_to_cart' design.design_id %}"
+                        class="add-cart-btn"
+                    >
+                        <i class="bi bi-cart3"></i>
+                        Add to Cart
+                    </a>
+
+                    <a
+                        href="{% url 'add_to_cart' design.design_id %}?buy_now=1"
+                        class="buy-now-btn"
+                    >
+                        <i class="bi bi-lightning-fill"></i>
+                        Buy Now
+                    </a>
+
+                </div>
+
+                {% else %}
+
+                <button class="out-stock-btn" disabled>
+                    Currently Unavailable
+                </button>
+
+                {% endif %}
+
+
+                <!-- PRODUCT DETAILS -->
+
+                <div class="product-details-card">
+
+                    <div class="details-heading">
+                        <i class="bi bi-info-circle"></i>
+                        Product Details
+                    </div>
+
+                    <div class="details-grid">
+
+                        <div class="detail-item">
+                            <span>Design ID</span>
+                            <strong>{{ design.design_id }}</strong>
+                        </div>
+
+                        <div class="detail-item">
+                            <span>Category</span>
+                            <strong>
+                                {{ design.category.name|default:"Boutique" }}
+                            </strong>
+                        </div>
+
+                        {% if design.fabric %}
+                        <div class="detail-item">
+                            <span>Fabric</span>
+                            <strong>{{ design.fabric }}</strong>
+                        </div>
+                        {% endif %}
+
+                        {% if design.color %}
+                        <div class="detail-item">
+                            <span>Color</span>
+                            <strong>{{ design.color }}</strong>
+                        </div>
+                        {% endif %}
+
+                        {% if design.size %}
+                        <div class="detail-item">
+                            <span>Available Size</span>
+                            <strong>{{ design.size }}</strong>
+                        </div>
+                        {% endif %}
+
+                        <div class="detail-item">
+                            <span>Product Type</span>
+                            <strong>Boutique Wear</strong>
+                        </div>
+
+                        <div class="detail-item">
+                            <span>Availability</span>
+
+                            <strong>
+                                {% if design.is_in_stock %}
+                                    In Stock
+                                {% else %}
+                                    Out of Stock
+                                {% endif %}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= DESCRIPTION ================= -->
+
+    <section class="container">
+
+        <div class="information-section">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="heading-label">
+                        SHYLU THREADS
+                    </span>
+
+                    <h2>About This Design</h2>
+                </div>
+
+                <i class="bi bi-stars"></i>
+
+            </div>
+
+            <div class="description-content">
+
+                <p>
+                    {{ design.description|default:"Experience the elegance of carefully selected boutique wear from Shylu Threads. Every design is chosen with attention to comfort, style and quality." }}
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- HIGHLIGHTS -->
+
+        <div class="information-section">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="heading-label">
+                        PRODUCT HIGHLIGHTS
+                    </span>
+
+                    <h2>Why You'll Love It</h2>
+                </div>
+
+                <i class="bi bi-heart"></i>
+
+            </div>
+
+
+            <div class="highlight-grid">
+
+                <div class="highlight-card">
+                    <i class="bi bi-scissors"></i>
+                    <h4>Boutique Quality</h4>
+                    <p>
+                        Carefully selected designs with premium finishing.
+                    </p>
+                </div>
+
+                <div class="highlight-card">
+                    <i class="bi bi-handbag"></i>
+                    <h4>Elegant Style</h4>
+                    <p>
+                        Beautiful designs suitable for different occasions.
+                    </p>
+                </div>
+
+                <div class="highlight-card">
+                    <i class="bi bi-person-check"></i>
+                    <h4>Comfort Focused</h4>
+                    <p>
+                        Designed with comfort and everyday wearability in mind.
+                    </p>
+                </div>
+
+                <div class="highlight-card">
+                    <i class="bi bi-shield-check"></i>
+                    <h4>Quality Checked</h4>
+                    <p>
+                        Products are checked before being prepared for delivery.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- TAILORING INFORMATION -->
+
+        <div class="tailoring-banner">
+
+            <div class="tailoring-icon">
+                <i class="bi bi-rulers"></i>
+            </div>
+
+            <div class="tailoring-content">
+
+                <span>
+                    SHYLU THREADS TAILORING
+                </span>
+
+                <h3>
+                    Need a Custom Fit?
+                </h3>
+
+                <p>
+                    Share your measurements with us and get your outfit
+                    prepared with a personalized boutique finish.
+                </p>
+
+                <a href="{% url 'measurements' %}">
+                    Add / Update Measurements
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= RELATED PRODUCTS ================= -->
+
+        {% if related_designs %}
+
+        <div class="related-section">
+
+            <div class="related-header">
+
+                <div>
+                    <span class="heading-label">
+                        YOU MAY ALSO LIKE
+                    </span>
+
+                    <h2>Related Designs</h2>
+                </div>
+
+                <a href="{% url 'designs' %}">
+                    View All
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+
+            </div>
+
+
+            <div class="related-grid">
+
+                {% for rel in related_designs %}
+
+                <article class="related-card">
+
+                    <a href="{% url 'design_details' rel.design_id %}">
+
+                        <div class="related-image">
+
+                            {% if rel.image %}
+
+                            <img
+                                src="{{ rel.image.url }}"
+                                alt="{{ rel.name }}"
+                            >
+
+                            {% else %}
+
+                            <div class="related-no-image">
+                                <i class="bi bi-image"></i>
+                            </div>
+
+                            {% endif %}
+
+                            {% if rel.badge %}
+                            <span class="related-badge">
+                                {{ rel.badge }}
+                            </span>
+                            {% endif %}
+
+                        </div>
+
+                    </a>
+
+
+                    <div class="related-body">
+
+                        <span class="related-category">
+                            {{ rel.category.name|default:"Boutique" }}
+                        </span>
+
+                        <h3>
+                            {{ rel.name }}
+                        </h3>
+
+                        <div class="related-rating">
+                            <span>
+                                {{ rel.rating|default:"4.5" }}
+                                <i class="bi bi-star-fill"></i>
+                            </span>
+
+                            <small>
+                                {{ rel.review_count|default:"0" }} reviews
+                            </small>
+                        </div>
+
+                        <div class="related-price">
+                            ₹{{ rel.price|floatformat:0 }}
+                        </div>
+
+                        <a
+                            href="{% url 'design_details' rel.design_id %}"
+                            class="related-btn"
+                        >
+                            View Details
+                        </a>
+
+                    </div>
+
+                </article>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+    </section>
+
+</main>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const quantityInput = document.getElementById("quantity");
+    const minusBtn = document.getElementById("minusBtn");
+    const plusBtn = document.getElementById("plusBtn");
+
+    if (quantityInput && minusBtn && plusBtn) {
+
+        minusBtn.addEventListener("click", function () {
+
+            let value = parseInt(quantityInput.value);
+
+            if (value > 1) {
+                quantityInput.value = value - 1;
+            }
+
+        });
+
+
+        plusBtn.addEventListener("click", function () {
+
+            let value = parseInt(quantityInput.value);
+            let max = parseInt(quantityInput.max);
+
+            if (value < max) {
+                quantityInput.value = value + 1;
+            }
+
+        });
+
+    }
+
+
+    /* Size Selection */
+
+    document.querySelectorAll(".size-btn").forEach(function (button) {
+
+        button.addEventListener("click", function () {
+
+            document.querySelectorAll(".size-btn")
+                .forEach(btn => btn.classList.remove("active"));
+
+            this.classList.add("active");
+
+        });
+
+    });
+
+});
+
+
+/* Delivery Check */
+
+function checkDelivery() {
+
+    const pincode = document.getElementById("pincode").value.trim();
+    const result = document.getElementById("deliveryResult");
+
+    if (!/^[0-9]{6}$/.test(pincode)) {
+
+        result.innerHTML =
+            '<span class="delivery-error">Please enter a valid 6-digit pincode.</span>';
+
+        return;
+    }
+
+    result.innerHTML =
+        '<span class="delivery-success"><i class="bi bi-check-circle-fill"></i> Delivery is available to this pincode.</span>';
+
+}
+
+</script>
+
+{% endblock %}
+

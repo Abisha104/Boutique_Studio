@@ -1,0 +1,1702 @@
+{% extends "footer.html" %}
+
+{% block title %}
+  Shylu Threads • Boutique Collection
+{% endblock %}
+
+{% block content %}
+ 
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Contact | Shylu Threads Boutique</title>
+ <link rel="icon" type="image/png" href="{% static 'images/tailorshop_logo.png' %}">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+<link rel="stylesheet" href="{% static 'app/css/contact/style.css' %}">
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+ <div id="progress"></div>
+
+    <!-- ─── NAVBAR ─── -->
+    <nav class="navbar" id="navbar">
+        <a class="brand" href="#home">
+            <span class="brand-mark">
+    <img src="{% static 'images/tailorshop_logo.png' %}" alt="Shylu Threads Logo">
+</span>
+            <span class="brand-text">
+                <strong>Shylu Threads</strong>
+                <small>Boutique Studio</small>
+            </span>
+        </a>
+
+        <div class="mobile-nav-panel">
+            <div class="nav-links">
+               <a href="{% url 'home' %}"
+   class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+    Home
+</a>
+
+<a href="{% url 'about' %}"
+   class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">
+    About
+</a>
+
+<a href="{% url 'designs' %}"
+   class="{% if request.resolver_match.url_name == 'designs' %}active{% endif %}">
+    Designs
+</a>
+
+<a href="{% url 'services' %}"
+   class="{% if request.resolver_match.url_name == 'services' %}active{% endif %}">
+    Services
+</a>
+
+<a href="{% url 'how_it_works' %}"
+   class="{% if request.resolver_match.url_name == 'how_it_works' %}active{% endif %}">
+    How It Works
+</a>
+
+<a href="{% url 'contact' %}"
+   class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">
+    Contact
+</a>
+            </div>
+
+            <div class="nav-actions">
+                <a class="btn btn-out auth-login" href="{% url 'login' %}" id="loginNavBtn">Login</a>
+
+                <a class="btn btn-gold" href="{% url 'contact' %}">Book Now</a>
+            </div>
+        </div>
+
+        <button class="mobile-btn" id="menuBtn"><i class="bi bi-list"></i></button>
+    </nav>
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="contact-hero">
+
+    <div class="hero-glow"></div>
+
+    <div class="container">
+
+        <div class="hero-content reveal">
+
+            <div class="hero-label">
+
+                <span></span>
+
+                PERSONAL TAILORING
+
+                <span></span>
+
+            </div>
+
+            <h1>
+
+                Let's create something
+
+                <span>beautiful.</span>
+
+            </h1>
+
+            <p>
+
+                From your first idea to the final fitting,
+                we're here to create a garment that feels
+                completely yours.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     OUTFIT JOURNEY
+========================================================= -->
+
+<section class="journey-wrapper">
+
+    <div class="container">
+
+        <div class="journey-card reveal">
+
+            <div class="journey-title">
+
+                <small>
+                    YOUR OUTFIT JOURNEY
+                </small>
+
+                <h3>
+                    From idea to perfectly tailored
+                </h3>
+
+            </div>
+
+
+            <div class="journey">
+
+                <div class="journey-step">
+
+                    <div class="journey-icon">
+                        <i class="bi bi-lightbulb"></i>
+                    </div>
+
+                    <strong>
+                        Your Idea
+                    </strong>
+
+                    <span>
+                        Tell us your vision
+                    </span>
+
+                </div>
+
+
+                <div class="journey-step">
+
+                    <div class="journey-icon">
+                        <i class="bi bi-chat-heart"></i>
+                    </div>
+
+                    <strong>
+                        Consultation
+                    </strong>
+
+                    <span>
+                        Discuss your design
+                    </span>
+
+                </div>
+
+
+                <div class="journey-step">
+
+                    <div class="journey-icon">
+                        <i class="bi bi-rulers"></i>
+                    </div>
+
+                    <strong>
+                        Fitting
+                    </strong>
+
+                    <span>
+                        Perfect measurements
+                    </span>
+
+                </div>
+
+
+                <div class="journey-step">
+
+                    <div class="journey-icon">
+                        <i class="bi bi-stars"></i>
+                    </div>
+
+                    <strong>
+                        Creation
+                    </strong>
+
+                    <span>
+                        Made specially for you
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CONTACT AREA
+========================================================= -->
+
+<section class="contact-area">
+
+    <div class="container">
+
+        <div class="row g-4">
+
+
+            <!-- =================================================
+                 INFORMATION
+            ================================================== -->
+
+            <div class="col-lg-5">
+
+                <div class="info-card reveal">
+
+                    <div class="info-card-header">
+
+                        <span class="info-label">
+                            VISIT OUR STUDIO
+                        </span>
+
+                        <h2>
+                            We'd love to hear from you.
+                        </h2>
+
+                        <p>
+                            Have a question about your design,
+                            measurements, pricing or occasion?
+                            Our team is ready to help.
+                        </p>
+
+                    </div>
+
+
+                    <div class="contact-info-item">
+
+                        <div class="info-icon">
+                            <i class="bi bi-geo-alt"></i>
+                        </div>
+
+                        <div>
+
+                            <small>
+                                Studio Address
+                            </small>
+
+                            <strong>
+                                123 Fashion Avenue
+                            </strong>
+
+                            <p>
+                                Mumbai, India
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="contact-info-item">
+
+                        <div class="info-icon">
+                            <i class="bi bi-telephone"></i>
+                        </div>
+
+                        <div>
+
+                            <small>
+                                Call Us
+                            </small>
+
+                            <a href="tel:+919876543210">
+                                +91 98765 43210
+                            </a>
+
+                            <p>
+                                Available during studio hours
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="contact-info-item">
+
+                        <div class="info-icon">
+                            <i class="bi bi-envelope"></i>
+                        </div>
+
+                        <div>
+
+                            <small>
+                                Email
+                            </small>
+
+                            <a href="mailto:hello@smarttailor.com">
+                                hello@smarttailor.com
+                            </a>
+
+                            <p>
+                                We usually reply within 24 hours
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="contact-info-item">
+
+                        <div class="info-icon">
+                            <i class="bi bi-clock"></i>
+                        </div>
+
+                        <div>
+
+                            <small>
+                                Opening Hours
+                            </small>
+
+                            <strong>
+                                Monday – Saturday
+                            </strong>
+
+                            <p>
+                                10:00 AM – 7:00 PM
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="open-status">
+
+                        <span class="status-dot"></span>
+
+                        <span>
+                            Studio is open today · Closes at 7:00 PM
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-social">
+
+                        <a href="#" aria-label="Instagram">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+
+                        <a href="#" aria-label="Facebook">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+
+                        <a href="#" aria-label="Pinterest">
+                            <i class="bi bi-pinterest"></i>
+                        </a>
+
+                        <a href="#" aria-label="WhatsApp">
+                            <i class="bi bi-whatsapp"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 FORM
+            ================================================== -->
+
+            <div class="col-lg-7">
+
+                <div class="form-card reveal">
+
+                    <div class="form-header">
+
+                        <span class="form-label-top">
+                            PERSONALIZED CONSULTATION
+                        </span>
+
+                        <h2>
+                            Tell us your idea
+                        </h2>
+
+                        <p>
+                            Share a few details about what you want
+                            to create. Our team will guide you through
+                            the next step.
+                        </p>
+
+                    </div>
+
+
+                    <!-- Django messages -->
+
+                    {% if messages %}
+
+                        {% for message in messages %}
+
+                            <div
+                                class="django-message {% if message.tags == 'error' %}error{% else %}success{% endif %}"
+                            >
+
+                                {% if message.tags == 'error' %}
+
+                                    <i class="bi bi-exclamation-circle-fill"></i>
+
+                                {% else %}
+
+                                    <i class="bi bi-check-circle-fill"></i>
+
+                                {% endif %}
+
+                                <span>
+                                    {{ message }}
+                                </span>
+
+                            </div>
+
+                        {% endfor %}
+
+                    {% endif %}
+
+
+                    <form
+                        method="POST"
+                        action="{% url 'contact' %}"
+                        id="contactForm"
+                    >
+
+                        {% csrf_token %}
+
+
+                        <div class="row g-3">
+
+
+                            <!-- NAME -->
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+
+                                    <label class="form-label-custom">
+
+                                        Full Name
+
+                                        <span class="required">*</span>
+
+                                    </label>
+
+                                    <div class="input-with-icon">
+
+                                        <i class="bi bi-person"></i>
+
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            class="custom-input"
+                                            placeholder="Your full name"
+                                            autocomplete="name"
+                                            required
+                                        >
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- EMAIL -->
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+
+                                    <label class="form-label-custom">
+
+                                        Email Address
+
+                                        <span class="required">*</span>
+
+                                    </label>
+
+                                    <div class="input-with-icon">
+
+                                        <i class="bi bi-envelope"></i>
+
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            class="custom-input"
+                                            placeholder="you@example.com"
+                                            autocomplete="email"
+                                            required
+                                        >
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- PHONE -->
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+
+                                    <label class="form-label-custom">
+
+                                        Phone Number
+
+                                        <span class="required">*</span>
+
+                                    </label>
+
+                                    <div class="input-with-icon">
+
+                                        <i class="bi bi-telephone"></i>
+
+                                        <input
+                                            type="tel"
+                                            name="phone"
+                                            class="custom-input"
+                                            placeholder="+91 98765 43210"
+                                            autocomplete="tel"
+                                            required
+                                        >
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- SUBJECT -->
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+
+                                    <label class="form-label-custom">
+                                        Subject
+                                    </label>
+
+                                    <div class="input-with-icon">
+
+                                        <i class="bi bi-chat-left-text"></i>
+
+                                        <input
+                                            type="text"
+                                            name="subject"
+                                            class="custom-input"
+                                            placeholder="What can we help you with?"
+                                        >
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+
+
+                            <!-- DATE -->
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+
+                                    <label class="form-label-custom">
+                                        Preferred Date
+                                    </label>
+
+                                    <input
+                                        type="date"
+                                        name="preferredDate"
+                                        class="custom-input"
+                                        id="preferredDate"
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- MESSAGE -->
+
+                            <div class="col-12">
+
+                                <div class="form-group">
+
+                                    <label class="form-label-custom">
+
+                                        Your Message
+
+                                        <span class="required">*</span>
+
+                                    </label>
+
+                                    <textarea
+                                        name="message"
+                                        class="custom-textarea"
+                                        id="messageBox"
+                                        maxlength="1000"
+                                        placeholder="Tell us about your outfit, occasion, preferred style, fabric, measurements or special requirements..."
+                                        required
+                                    ></textarea>
+
+
+                                    <div class="message-meta">
+
+                                        <span>
+                                            The more details you share, the better we can help.
+                                        </span>
+
+                                        <span>
+                                            <b id="charCount">0</b>/1000
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- SUBMIT -->
+
+                            <div class="col-12">
+
+                                <button
+                                    type="submit"
+                                    class="submit-btn"
+                                    id="submitBtn"
+                                >
+
+                                    <span id="submitText">
+                                        Send My Enquiry
+                                    </span>
+
+                                    <i
+                                        class="bi bi-arrow-right"
+                                        id="submitIcon"
+                                    ></i>
+
+                                </button>
+
+
+                                <div class="form-note">
+
+                                    <i class="bi bi-shield-check"></i>
+
+                                    Your information is private and secure.
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SERVICES
+========================================================= -->
+
+<section class="services-section">
+
+    <div class="container">
+
+        <div class="section-heading reveal">
+
+            <small>
+                WHAT WE CAN CREATE
+            </small>
+
+            <h2>
+                Made specially for you
+            </h2>
+
+            <p>
+                From everyday elegance to unforgettable occasions,
+                every piece is designed around your measurements,
+                style and personality.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="service-mini-card reveal">
+
+                    <div class="service-mini-icon">
+                        <i class="bi bi-stars"></i>
+                    </div>
+
+                    <h4>
+                        Custom Blouses
+                    </h4>
+
+                    <p>
+                        Personalized necklines, sleeves,
+                        embroidery and finishing crafted
+                        to your measurements.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="service-mini-card reveal">
+
+                    <div class="service-mini-icon">
+                        <i class="bi bi-gem"></i>
+                    </div>
+
+                    <h4>
+                        Bridal Wear
+                    </h4>
+
+                    <p>
+                        Elegant bridal outfits with
+                        detailed finishing designed
+                        for unforgettable moments.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="service-mini-card reveal">
+
+                    <div class="service-mini-icon">
+                        <i class="bi bi-scissors"></i>
+                    </div>
+
+                    <h4>
+                        Alterations
+                    </h4>
+
+                    <p>
+                        Professional alterations designed
+                        to improve comfort, fit and
+                        overall appearance.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="service-mini-card reveal">
+
+                    <div class="service-mini-icon">
+                        <i class="bi bi-rulers"></i>
+                    </div>
+
+                    <h4>
+                        Custom Tailoring
+                    </h4>
+
+                    <p>
+                        Completely personalized designs
+                        created around your vision and
+                        measurements.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     WHAT HAPPENS NEXT
+========================================================= -->
+
+<section class="next-section">
+
+    <div class="container">
+
+        <div class="section-heading reveal">
+
+            <small>
+                AFTER YOU CONTACT US
+            </small>
+
+            <h2>
+                What happens next?
+            </h2>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <div class="col-md-3">
+
+                <div class="next-card reveal">
+
+                    <div class="next-number">
+                        01
+                    </div>
+
+                    <h4>
+                        We Review
+                    </h4>
+
+                    <p>
+                        Our team reviews your requirements
+                        and preferred design.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="next-card reveal">
+
+                    <div class="next-number">
+                        02
+                    </div>
+
+                    <h4>
+                        We Contact
+                    </h4>
+
+                    <p>
+                        We'll contact you to discuss your
+                        requirements and answer questions.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="next-card reveal">
+
+                    <div class="next-number">
+                        03
+                    </div>
+
+                    <h4>
+                        We Plan
+                    </h4>
+
+                    <p>
+                        We discuss measurements, fabric,
+                        design and estimated timeline.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="next-card reveal">
+
+                    <div class="next-number">
+                        04
+                    </div>
+
+                    <h4>
+                        We Create
+                    </h4>
+
+                    <p>
+                        Your garment is carefully tailored
+                        and finished for you.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FAQ
+========================================================= -->
+
+<section class="faq-section">
+
+    <div class="container">
+
+        <div class="section-heading reveal">
+
+            <small>
+                QUICK ANSWERS
+            </small>
+
+            <h2>
+                Frequently asked questions
+            </h2>
+
+            <p>
+                Everything you need to know before starting
+                your tailoring journey.
+            </p>
+
+        </div>
+
+
+        <div class="faq-box">
+
+
+            <div class="faq-item reveal">
+
+                <button
+                    class="faq-button"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#faqOne"
+                >
+
+                    How do I book a tailoring consultation?
+
+                    <i class="bi bi-chevron-down"></i>
+
+                </button>
+
+                <div
+                    id="faqOne"
+                    class="collapse show"
+                >
+
+                    <div class="faq-answer">
+
+                        Fill out the enquiry form above,
+                        choose your preferred service and date,
+                        and our team will contact you to confirm
+                        the consultation.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="faq-item reveal">
+
+                <button
+                    class="faq-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#faqTwo"
+                >
+
+                    Can I request my own design?
+
+                    <i class="bi bi-chevron-down"></i>
+
+                </button>
+
+                <div
+                    id="faqTwo"
+                    class="collapse"
+                >
+
+                    <div class="faq-answer">
+
+                        Absolutely. You can discuss your
+                        reference design, fabric, neckline,
+                        sleeves, embroidery and other
+                        preferences with our team.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="faq-item reveal">
+
+                <button
+                    class="faq-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#faqThree"
+                >
+
+                    How long does tailoring usually take?
+
+                    <i class="bi bi-chevron-down"></i>
+
+                </button>
+
+                <div
+                    id="faqThree"
+                    class="collapse"
+                >
+
+                    <div class="faq-answer">
+
+                        Completion time depends on the design,
+                        fabric, embroidery and order volume.
+                        We'll provide an estimated timeline
+                        during your consultation.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="faq-item reveal">
+
+                <button
+                    class="faq-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#faqFour"
+                >
+
+                    Can I contact you before placing an order?
+
+                    <i class="bi bi-chevron-down"></i>
+
+                </button>
+
+                <div
+                    id="faqFour"
+                    class="collapse"
+                >
+
+                    <div class="faq-answer">
+
+                        Yes. We encourage customers to contact
+                        us before ordering if they have questions
+                        about measurements, designs, pricing or
+                        delivery timelines.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CTA
+========================================================= -->
+
+<section class="contact-cta">
+
+    <div class="cta-content reveal">
+
+        <small>
+            YOUR STYLE. YOUR FIT. YOUR DESIGN.
+        </small>
+
+        <h2>
+            Ready to create your perfect outfit?
+        </h2>
+
+        <p>
+            Tell us what you have in mind and let our
+            experienced tailors turn your idea into
+            something beautifully made just for you.
+        </p>
+
+        <a
+            href="#contactForm"
+            class="cta-btn"
+        >
+
+            Start Your Consultation
+
+            <i class="bi bi-arrow-right"></i>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+
+
+<!-- =========================================================
+     FLOATING ACTIONS
+========================================================= -->
+
+<div class="floating-actions">
+
+
+    <button
+        class="float-btn back-top"
+        id="backTop"
+        aria-label="Back to top"
+    >
+
+        <i class="bi bi-arrow-up"></i>
+
+    </button>
+
+
+    <a
+        href="https://wa.me/919876543210"
+        class="float-btn whatsapp-btn"
+        target="_blank"
+        aria-label="Chat on WhatsApp"
+    >
+
+        <i class="bi bi-whatsapp"></i>
+
+    </a>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+const navbar = document.getElementById("navbar");
+const progress = document.getElementById("progress");
+const menuBtn = document.getElementById("menuBtn");
+const backTop = document.getElementById("backTop");
+
+const AUTH_KEY = "isLoggedIn";
+
+
+/* =========================================================
+   LOGIN STATUS
+========================================================= */
+
+function isUserLoggedIn() {
+    return localStorage.getItem(AUTH_KEY) === "true";
+}
+
+
+function updateAuthNavbar() {
+
+    if (!navbar) return;
+
+    const loggedIn = isUserLoggedIn();
+
+    navbar.classList.toggle("authenticated", loggedIn);
+
+    const loginBtn = document.getElementById("loginNavBtn");
+    const accountBtn = document.getElementById("accountNavBtn");
+    const ordersBtn = document.getElementById("ordersNavBtn");
+    const logoutBtn = document.getElementById("logoutNavBtn");
+
+    if (loginBtn) {
+        loginBtn.style.display =
+            loggedIn ? "none" : "inline-flex";
+    }
+
+    if (accountBtn) {
+        accountBtn.style.display =
+            loggedIn ? "inline-flex" : "none";
+    }
+
+    if (ordersBtn) {
+        ordersBtn.style.display =
+            loggedIn ? "inline-flex" : "none";
+    }
+
+    if (logoutBtn) {
+        logoutBtn.style.display =
+            loggedIn ? "inline-flex" : "none";
+    }
+}
+
+updateAuthNavbar();
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+const logoutBtn =
+    document.getElementById("logoutNavBtn");
+
+if (logoutBtn) {
+
+    logoutBtn.addEventListener("click", function(e) {
+
+        e.preventDefault();
+
+        if (!isUserLoggedIn()) return;
+
+        localStorage.removeItem(AUTH_KEY);
+
+        updateAuthNavbar();
+
+        if (navbar) {
+            navbar.classList.remove("menu-open");
+        }
+
+        if (menuBtn) {
+            menuBtn.innerHTML =
+                '<i class="bi bi-list"></i>';
+
+            menuBtn.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+        }
+
+        window.location.href =
+            "{% url 'home' %}";
+
+    });
+
+}
+
+
+/* =========================================================
+   NAVBAR SCROLL
+========================================================= */
+
+window.addEventListener("scroll", function() {
+
+    if (navbar) {
+
+        navbar.classList.toggle(
+            "scrolled",
+            window.scrollY > 40
+        );
+
+    }
+
+
+    /* BACK TO TOP */
+
+    if (backTop) {
+
+        backTop.classList.toggle(
+            "show",
+            window.scrollY > 500
+        );
+
+    }
+
+
+    /* SCROLL PROGRESS */
+
+    if (progress) {
+
+        const pageHeight =
+            document.documentElement.scrollHeight -
+            window.innerHeight;
+
+        if (pageHeight > 0) {
+
+            const percentage =
+                (window.scrollY / pageHeight) * 100;
+
+            progress.style.width =
+                Math.min(percentage, 100) + "%";
+
+        }
+
+    }
+
+});
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+if (menuBtn && navbar) {
+
+    menuBtn.addEventListener("click", function() {
+
+        const isOpen =
+            navbar.classList.toggle("menu-open");
+
+        menuBtn.innerHTML =
+            isOpen
+                ? '<i class="bi bi-x-lg"></i>'
+                : '<i class="bi bi-list"></i>';
+
+        menuBtn.setAttribute(
+            "aria-expanded",
+            String(isOpen)
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   CLOSE MOBILE MENU
+========================================================= */
+
+document
+    .querySelectorAll(".nav-links a, .nav-actions a")
+    .forEach(function(link) {
+
+        link.addEventListener("click", function() {
+
+            if (navbar) {
+                navbar.classList.remove("menu-open");
+            }
+
+            if (menuBtn) {
+
+                menuBtn.innerHTML =
+                    '<i class="bi bi-list"></i>';
+
+                menuBtn.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+            }
+
+        });
+
+    });
+
+
+/* =========================================================
+   RESET MOBILE MENU ON RESIZE
+========================================================= */
+
+window.addEventListener("resize", function() {
+
+    if (window.innerWidth > 900) {
+
+        if (navbar) {
+            navbar.classList.remove("menu-open");
+        }
+
+        if (menuBtn) {
+
+            menuBtn.innerHTML =
+                '<i class="bi bi-list"></i>';
+
+            menuBtn.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+        }
+
+    }
+
+});
+
+
+/* =========================================================
+   BACK TO TOP
+========================================================= */
+
+if (backTop) {
+
+    backTop.addEventListener("click", function() {
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    });
+
+}
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+const revealElements =
+    document.querySelectorAll(".reveal");
+
+
+if (revealElements.length > 0) {
+
+    const revealObserver =
+        new IntersectionObserver(
+
+            function(entries) {
+
+                entries.forEach(function(entry) {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.classList.add(
+                            "visible"
+                        );
+
+                        revealObserver.unobserve(
+                            entry.target
+                        );
+
+                    }
+
+                });
+
+            },
+
+            {
+                threshold: 0.12
+            }
+
+        );
+
+
+    revealElements.forEach(function(element) {
+
+        revealObserver.observe(element);
+
+    });
+
+}
+
+
+/* =========================================================
+   FORM SUBMIT
+========================================================= */
+
+const contactForm =
+    document.getElementById("contactForm");
+
+const submitBtn =
+    document.getElementById("submitBtn");
+
+const submitText =
+    document.getElementById("submitText");
+
+const submitIcon =
+    document.getElementById("submitIcon");
+
+
+if (contactForm) {
+
+    contactForm.addEventListener(
+        "submit",
+        function() {
+
+            if (submitBtn) {
+                submitBtn.disabled = true;
+            }
+
+            if (submitText) {
+
+                submitText.textContent =
+                    "Sending your enquiry...";
+
+            }
+
+            if (submitIcon) {
+
+                submitIcon.className =
+                    "bi bi-arrow-repeat";
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CHARACTER COUNTER
+========================================================= */
+
+const messageBox =
+    document.getElementById("messageBox");
+
+const charCount =
+    document.getElementById("charCount");
+
+
+if (messageBox && charCount) {
+
+    messageBox.addEventListener(
+        "input",
+        function() {
+
+            charCount.textContent =
+                this.value.length;
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   DATE = TODAY
+========================================================= */
+
+const dateInput =
+    document.getElementById("preferredDate");
+
+
+if (dateInput) {
+
+    const now = new Date();
+
+    const localDate =
+        new Date(
+            now.getTime() -
+            now.getTimezoneOffset() * 60000
+        )
+        .toISOString()
+        .split("T")[0];
+
+    dateInput.min = localDate;
+
+}
+
+
+/* =========================================================
+   AUTO CLOSE DJANGO MESSAGE
+========================================================= */
+
+setTimeout(function() {
+
+    document
+        .querySelectorAll(".django-message")
+        .forEach(function(message) {
+
+            message.style.transition =
+                "opacity .5s ease, transform .5s ease";
+
+            message.style.opacity = "0";
+
+            message.style.transform =
+                "translateY(-8px)";
+
+            setTimeout(function() {
+
+                message.remove();
+
+            }, 500);
+
+        });
+
+}, 7000);
+
+
+/* =========================================================
+   SMOOTH CTA SCROLL
+========================================================= */
+
+document
+    .querySelectorAll('a[href="#contactForm"]')
+    .forEach(function(link) {
+
+        link.addEventListener(
+            "click",
+            function(event) {
+
+                event.preventDefault();
+
+                const form =
+                    document.getElementById(
+                        "contactForm"
+                    );
+
+                if (form) {
+
+                    form.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+
+
+                    setTimeout(function() {
+
+                        const firstInput =
+                            form.querySelector(
+                                "input"
+                            );
+
+                        if (firstInput) {
+                            firstInput.focus();
+                        }
+
+                    }, 700);
+
+                }
+
+            }
+        );
+
+    });
+
+</script>
+
+</body>
+</html>
+{% endblock %}

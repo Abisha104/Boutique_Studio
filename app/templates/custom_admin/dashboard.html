@@ -1,0 +1,720 @@
+{% extends "custom_admin/base.html" %}
+{% load admin_tags %}
+
+{% block title %}Dashboard | Shylu Threads Admin{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+<style>
+    /* ============================================================
+       DASHBOARD — MODERN UNIQUE DESIGN
+       ============================================================ */
+
+    .dashboard-page {
+        animation: pageFadeIn .7s ease both;
+    }
+
+    /* ---------- HERO SECTION ---------- */
+    .dash-hero {
+        position: relative;
+        padding: 32px 38px;
+        margin-bottom: 28px;
+        border-radius: 24px;
+        background: linear-gradient(135deg, #17151a 0%, #2d1e23 45%, #53333e 80%, #7a4350 100%);
+        color: #fff;
+        box-shadow: 0 20px 50px rgba(38, 25, 30, .22);
+        overflow: hidden;
+        isolation: isolate;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 30px;
+    }
+    .dash-hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse at 20% 30%, rgba(199,154,82,.10), transparent 50%),
+                    radial-gradient(ellipse at 80% 70%, rgba(166,93,104,.12), transparent 50%);
+        pointer-events: none;
+    }
+    /* floating orbs */
+    .dash-hero .orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(70px);
+        opacity: .25;
+        pointer-events: none;
+    }
+    .dash-hero .orb-1 { width: 300px; height: 300px; top: -150px; right: -80px; background: var(--gold); }
+    .dash-hero .orb-2 { width: 220px; height: 220px; bottom: -120px; left: -60px; background: var(--rose); }
+    .dash-hero .orb-3 {
+        width: 160px; height: 160px;
+        top: 30px; left: 40%;
+        background: rgba(255,255,255,.05);
+        filter: blur(50px);
+    }
+
+    .dash-hero-copy {
+        position: relative;
+        z-index: 1;
+        flex: 1;
+    }
+    .dash-hero-copy .eyebrow {
+        display: inline-block;
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        background: rgba(255,255,255,.08);
+        padding: 4px 14px;
+        border-radius: 100px;
+        border: 1px solid rgba(255,255,255,.06);
+        backdrop-filter: blur(4px);
+        margin-bottom: 12px;
+    }
+    .dash-hero-copy h2 {
+        margin: 6px 0 6px;
+        font-family: "Playfair Display", serif;
+        font-size: 34px;
+        letter-spacing: -.3px;
+        line-height: 1.15;
+    }
+    .dash-hero-copy h2 em {
+        font-style: normal;
+        color: var(--gold);
+        position: relative;
+    }
+    .dash-hero-copy h2 em::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 2px;
+        width: 100%;
+        height: 3px;
+        background: var(--gold);
+        border-radius: 4px;
+        opacity: .4;
+    }
+    .dash-hero-copy p {
+        margin: 0;
+        opacity: .75;
+        font-size: 13px;
+        max-width: 480px;
+        line-height: 1.5;
+    }
+
+    .dash-hero-actions {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        flex-shrink: 0;
+    }
+    .hero-quick-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        border-radius: 14px;
+        background: rgba(255,255,255,.08);
+        border: 1px solid rgba(255,255,255,.12);
+        color: #fff;
+        text-decoration: none;
+        font-size: 11px;
+        font-weight: 700;
+        transition: transform .3s ease, background .3s ease, box-shadow .3s ease;
+        backdrop-filter: blur(6px);
+    }
+    .hero-quick-btn:hover {
+        transform: translateY(-4px);
+        background: rgba(255,255,255,.18);
+        box-shadow: 0 12px 30px rgba(0,0,0,.15);
+        color: #fff;
+        text-decoration: none;
+    }
+    .hero-quick-btn i { font-size: 16px; }
+
+    /* ---------- STATS GRID ---------- */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+    .stat-card {
+        position: relative;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 22px 24px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        box-shadow: 0 6px 24px rgba(38, 25, 30, .045);
+        transition: transform .35s cubic-bezier(.2, .8, .2, 1), box-shadow .4s ease, border-color .3s ease;
+        animation: statSlideUp .6s ease both;
+        text-decoration: none;
+        color: inherit;
+        overflow: hidden;
+    }
+    .stat-card:nth-child(1) { animation-delay: .08s; }
+    .stat-card:nth-child(2) { animation-delay: .14s; }
+    .stat-card:nth-child(3) { animation-delay: .20s; }
+    .stat-card:nth-child(4) { animation-delay: .26s; }
+
+    .stat-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        border-radius: 18px 18px 0 0;
+        opacity: 0;
+        transition: opacity .4s ease;
+        background: linear-gradient(90deg, var(--rose), var(--gold));
+    }
+    .stat-card:hover::before {
+        opacity: 1;
+    }
+    .stat-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 14px 36px rgba(38, 25, 30, .09);
+        border-color: rgba(166, 93, 104, .15);
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .stat-icon {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        font-size: 20px;
+        background: #f4e4e6;
+        color: var(--rose-dark);
+        transition: transform .35s ease;
+    }
+    .stat-card:hover .stat-icon {
+        transform: scale(1.05) rotate(-3deg);
+    }
+    .stat-icon.rose { background: #f4e4e6; color: var(--rose-dark); }
+    .stat-icon.gold { background: #f5ecd9; color: #967035; }
+    .stat-icon.dark { background: #ece9eb; color: var(--ink); }
+    .stat-icon.green { background: #e4eee8; color: #527c61; }
+
+    .stat-content {
+        flex: 1;
+        min-width: 0;
+    }
+    .stat-content span {
+        display: block;
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: .5px;
+        text-transform: uppercase;
+    }
+    .stat-content strong {
+        display: block;
+        margin-top: 4px;
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: -.4px;
+    }
+    .stat-arrow {
+        position: absolute;
+        right: 18px;
+        top: 18px;
+        color: #bbb;
+        font-size: 14px;
+        opacity: .5;
+        transition: transform .3s ease, opacity .3s ease;
+    }
+    .stat-card:hover .stat-arrow {
+        transform: translateX(4px);
+        opacity: 1;
+    }
+
+    /* ---------- MINI STATS ---------- */
+    .mini-stats {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        margin-bottom: 26px;
+        box-shadow: 0 6px 20px rgba(38, 25, 30, .04);
+        animation: cardSlideUp .7s .32s ease both;
+    }
+    .mini-stats > div {
+        padding: 18px 20px;
+        border-right: 1px solid var(--line);
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        transition: background .25s ease;
+    }
+    .mini-stats > div:last-child {
+        border-right: 0;
+    }
+    .mini-stats > div:hover {
+        background: #fcfaf8;
+    }
+    .mini-stats span {
+        color: var(--muted);
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: .5px;
+        text-transform: uppercase;
+    }
+    .mini-stats strong {
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: -.2px;
+        color: var(--ink);
+    }
+
+    /* ---------- DASHBOARD COLUMNS ---------- */
+    .dashboard-columns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 22px;
+        animation: cardSlideUp .7s .44s ease both;
+    }
+
+    .admin-panel {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 8px 28px rgba(38, 25, 30, .045);
+        transition: transform .3s ease, box-shadow .3s ease;
+    }
+    .admin-panel:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 14px 36px rgba(38, 25, 30, .07);
+    }
+
+    .panel-header {
+        padding: 20px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--line);
+        background: linear-gradient(180deg, #fefcf9, #faf8f5);
+    }
+    .panel-header .section-eyebrow {
+        color: var(--rose);
+        font-size: 8px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 2px;
+    }
+    .panel-header h3 {
+        margin: 0;
+        font-family: "Playfair Display", serif;
+        font-size: 18px;
+        letter-spacing: -.2px;
+    }
+    .panel-header > a {
+        color: var(--rose);
+        font-size: 10px;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        transition: transform .25s ease;
+        text-decoration: none;
+    }
+    .panel-header > a:hover {
+        transform: translateX(4px);
+        text-decoration: underline;
+    }
+
+    .recent-list {
+        padding: 4px 0;
+    }
+    .recent-item {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 20px;
+        border-bottom: 1px solid rgba(23, 21, 26, .05);
+        transition: background .25s ease, transform .2s ease;
+        text-decoration: none;
+        color: inherit;
+    }
+    .recent-item:last-child {
+        border-bottom: 0;
+    }
+    .recent-item:hover {
+        background: #fffaf8;
+        transform: translateX(2px);
+        text-decoration: none;
+        color: inherit;
+    }
+    .recent-icon {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+        background: #f4e4e6;
+        color: var(--rose-dark);
+        font-size: 16px;
+        transition: transform .3s ease;
+    }
+    .recent-item:hover .recent-icon {
+        transform: scale(1.05) rotate(-3deg);
+    }
+
+    .recent-info {
+        flex: 1;
+        min-width: 0;
+    }
+    .recent-info strong {
+        display: block;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--ink);
+    }
+    .recent-info span {
+        display: block;
+        margin-top: 2px;
+        color: var(--muted);
+        font-size: 10px;
+    }
+    .recent-value {
+        text-align: right;
+        flex-shrink: 0;
+    }
+    .recent-value strong {
+        display: block;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--ink);
+    }
+    .recent-value span {
+        display: block;
+        margin-top: 2px;
+        font-size: 9px;
+        font-weight: 600;
+        color: var(--rose);
+    }
+
+    .empty-state {
+        padding: 50px 20px;
+        text-align: center;
+        color: var(--muted);
+    }
+    .empty-state i {
+        font-size: 32px;
+        color: var(--gold);
+        opacity: .5;
+        margin-bottom: 10px;
+        display: block;
+    }
+    .empty-state p {
+        font-size: 11px;
+        margin: 0;
+    }
+
+    /* ---------- ANIMATIONS ---------- */
+    @keyframes pageFadeIn {
+        from { opacity: 0; transform: translateY(14px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes statSlideUp {
+        from { opacity: 0; transform: translateY(18px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes cardSlideUp {
+        from { opacity: 0; transform: translateY(22px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 1100px) {
+        .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .dashboard-columns {
+            grid-template-columns: 1fr;
+        }
+        .mini-stats {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        .mini-stats > div:nth-child(3) { border-right: 0; }
+        .mini-stats > div:nth-child(4),
+        .mini-stats > div:nth-child(5) { border-top: 1px solid var(--line); }
+    }
+
+    @media (max-width: 768px) {
+        .dash-hero {
+            flex-direction: column;
+            align-items: stretch;
+            padding: 24px 20px;
+            border-radius: 18px;
+        }
+        .dash-hero-copy h2 {
+            font-size: 28px;
+        }
+        .dash-hero-actions {
+            flex-wrap: wrap;
+        }
+        .hero-quick-btn {
+            flex: 1;
+            justify-content: center;
+        }
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+        .mini-stats {
+            grid-template-columns: 1fr 1fr;
+        }
+        .mini-stats > div {
+            border-right: 0;
+            border-bottom: 1px solid var(--line);
+        }
+        .mini-stats > div:nth-child(2) { border-right: 0; }
+        .mini-stats > div:nth-child(odd) { border-right: 1px solid var(--line); }
+        .mini-stats > div:nth-last-child(-n+2) { border-bottom: 0; }
+        .panel-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
+        }
+        .recent-item {
+            padding: 12px 16px;
+            gap: 12px;
+        }
+        .recent-value strong {
+            font-size: 11px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .dash-hero-copy h2 {
+            font-size: 24px;
+        }
+        .mini-stats {
+            grid-template-columns: 1fr;
+        }
+        .mini-stats > div {
+            border-right: 0 !important;
+            border-bottom: 1px solid var(--line);
+        }
+        .mini-stats > div:last-child {
+            border-bottom: 0;
+        }
+        .stat-card {
+            padding: 18px 20px;
+        }
+        .stat-content strong {
+            font-size: 22px;
+        }
+        .hero-quick-btn {
+            font-size: 10px;
+            padding: 8px 14px;
+        }
+    }
+</style>
+
+<div class="dashboard-page">
+    <!-- ============================================================
+    HERO
+    ============================================================ -->
+    <div class="dash-hero">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+
+        <div class="dash-hero-copy">
+            <span class="eyebrow">
+                <i class="bi bi-house-door-fill me-1"></i> Boutique Management
+            </span>
+            <h2>Welcome back, <em>{{ request.user.get_full_name|default:request.user.username }}</em>.</h2>
+            <p>Here's what's happening across your Shylu Threads store today. Monitor orders, customers, and bookings at a glance.</p>
+        </div>
+
+        <div class="dash-hero-actions">
+            <a href="{% url 'custom_admin_model_list' 'orders' %}" class="hero-quick-btn">
+                <i class="bi bi-bag-check"></i> Orders
+            </a>
+            <a href="{% url 'custom_admin_model_list' 'customers' %}" class="hero-quick-btn">
+                <i class="bi bi-people"></i> Customers
+            </a>
+            <a href="{% url 'custom_admin_model_list' 'designs' %}" class="hero-quick-btn">
+                <i class="bi bi-grid-1x2-fill"></i> Designs
+            </a>
+            <a href="{% url 'custom_admin_inventory' %}" class="hero-quick-btn" style="background:rgba(199,154,82,.15);border-color:rgba(199,154,82,.25);">
+                <i class="bi bi-boxes"></i> Inventory
+            </a>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    STATS
+    ============================================================ -->
+    <div class="stats-grid">
+        <a href="{% url 'custom_admin_model_list' 'orders' %}" class="stat-card">
+            <div class="stat-icon rose">
+                <i class="bi bi-bag-check"></i>
+            </div>
+            <div class="stat-content">
+                <span>Total Orders</span>
+                <strong>{{ total_orders }}</strong>
+            </div>
+            <i class="bi bi-arrow-up-right stat-arrow"></i>
+        </a>
+
+        <a href="{% url 'custom_admin_model_list' 'customers' %}" class="stat-card">
+            <div class="stat-icon gold">
+                <i class="bi bi-people"></i>
+            </div>
+            <div class="stat-content">
+                <span>Customers</span>
+                <strong>{{ total_customers }}</strong>
+            </div>
+            <i class="bi bi-arrow-up-right stat-arrow"></i>
+        </a>
+
+        <a href="{% url 'custom_admin_model_list' 'designs' %}" class="stat-card">
+            <div class="stat-icon dark">
+                <i class="bi bi-grid-1x2-fill"></i>
+            </div>
+            <div class="stat-content">
+                <span>Designs</span>
+                <strong>{{ total_designs }}</strong>
+            </div>
+            <i class="bi bi-arrow-up-right stat-arrow"></i>
+        </a>
+
+        <a href="{% url 'custom_admin_model_list' 'bookings' %}" class="stat-card">
+            <div class="stat-icon green">
+                <i class="bi bi-calendar-check"></i>
+            </div>
+            <div class="stat-content">
+                <span>Bookings</span>
+                <strong>{{ total_bookings }}</strong>
+            </div>
+            <i class="bi bi-arrow-up-right stat-arrow"></i>
+        </a>
+    </div>
+
+    <!-- ============================================================
+    MINI STATS
+    ============================================================ -->
+    <div class="mini-stats">
+        <div>
+            <span><i class="bi bi-tags me-1"></i> Categories</span>
+            <strong>{{ total_categories }}</strong>
+        </div>
+        <div>
+            <span><i class="bi bi-tools me-1"></i> Services</span>
+            <strong>{{ total_services }}</strong>
+        </div>
+        <div>
+            <span><i class="bi bi-credit-card me-1"></i> Payments</span>
+            <strong>{{ total_payments }}</strong>
+        </div>
+        <div>
+            <span><i class="bi bi-star me-1"></i> Feedback</span>
+            <strong>{{ total_feedback }}</strong>
+        </div>
+        <div>
+            <span><i class="bi bi-envelope me-1"></i> Messages</span>
+            <strong>{{ total_messages }}</strong>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    RECENT ACTIVITY PANELS
+    ============================================================ -->
+    <div class="dashboard-columns">
+        <!-- Recent Orders -->
+        <div class="admin-panel">
+            <div class="panel-header">
+                <div>
+                    <span class="section-eyebrow">Sales</span>
+                    <h3>Recent Orders</h3>
+                </div>
+                <a href="{% url 'custom_admin_model_list' 'orders' %}">
+                    View all <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+
+            {% if recent_orders %}
+                <div class="recent-list">
+                    {% for order in recent_orders %}
+                        <a href="{% url 'custom_admin_edit' 'orders' order.pk %}" class="recent-item">
+                            <div class="recent-icon">
+                                <i class="bi bi-bag"></i>
+                            </div>
+                            <div class="recent-info">
+                                <strong>{{ order.order_number|default:order.pk }}</strong>
+                                <span>{{ order.customer|default:"Guest Customer" }}</span>
+                            </div>
+                            <div class="recent-value">
+                                <strong>₹{{ order.total_amount|default:"0.00" }}</strong>
+                                <span>{{ order.get_order_status_display|default:order.order_status }}</span>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <i class="bi bi-bag"></i>
+                    <p>No orders yet.</p>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Recent Bookings -->
+        <div class="admin-panel">
+            <div class="panel-header">
+                <div>
+                    <span class="section-eyebrow">Appointments</span>
+                    <h3>Recent Bookings</h3>
+                </div>
+                <a href="{% url 'custom_admin_model_list' 'bookings' %}">
+                    View all <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+
+            {% if recent_bookings %}
+                <div class="recent-list">
+                    {% for booking in recent_bookings %}
+                        <a href="{% url 'custom_admin_edit' 'bookings' booking.pk %}" class="recent-item">
+                            <div class="recent-icon">
+                                <i class="bi bi-calendar-event"></i>
+                            </div>
+                            <div class="recent-info">
+                                <strong>{{ booking.customer|default:"Guest" }}</strong>
+                                <span>{{ booking.service|default:"Custom Stitching" }}</span>
+                            </div>
+                            <div class="recent-value">
+                                <strong>{{ booking.booking_date|date:"d M Y"|default:booking.booking_date }}</strong>
+                                <span>{{ booking.get_status_display|default:booking.status }}</span>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <i class="bi bi-calendar"></i>
+                    <p>No bookings yet.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,156 @@
+{% extends "custom_admin/base.html" %}
+{% load admin_tags %}
+
+{% block title %}{{ verbose_name_plural|title }} | Admin{% endblock %}
+{% block page_title %}{{ verbose_name|title }}{% endblock %}
+
+{% block content %}
+<div class="list-header">
+    <div>
+        <span class="section-eyebrow">MANAGEMENT</span>
+        <h2>{{ verbose_name_plural|title }}</h2>
+        <p>{{ objects|length }} record{{ objects|length|pluralize }}</p>
+    </div>
+
+    <a href="{% url 'custom_admin_add' model_name %}" class="primary-button">
+        <i class="bi bi-plus-lg"></i>
+        Add {{ verbose_name|title }}
+    </a>
+</div>
+
+<div class="table-toolbar">
+    <form method="GET" class="search-form">
+        <i class="bi bi-search"></i>
+        <input
+            type="search"
+            name="q"
+            value="{{ search }}"
+            placeholder="Search {{ verbose_name_plural }}..."
+        >
+        {% if search %}
+            <a href="{% url 'custom_admin_model_list' model_name %}" title="Clear Search">
+                <i class="bi bi-x"></i>
+            </a>
+        {% endif %}
+    </form>
+</div>
+
+<div class="data-card">
+    <div class="table-responsive">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    {% for field in fields %}
+                        <th>{{ field.verbose_name|title }}</th>
+                    {% endfor %}
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for object in objects %}
+                    <tr>
+                        <td>
+                            <span class="record-id">#{{ object.pk }}</span>
+                        </td>
+
+                        {% for field in fields %}
+                            <td class="field-cell">
+                                {% with field_value=object|get_field_value:field.name %}
+                                    {% if field_value|is_image_field %}
+                                        <div class="admin-image-wrapper">
+                                            <img
+                                                src="{{ field_value.url }}"
+                                                alt="{{ field.verbose_name }}"
+                                                class="admin-thumbnail"
+                                                style="width: 42px; height: 42px; object-fit: cover; border-radius: 8px;"
+                                            >
+                                        </div>
+                                    {% elif field_value is True %}
+                                        <span class="badge bg-success-subtle text-success"><i class="bi bi-check-circle"></i> Yes</span>
+                                    {% elif field_value is False %}
+                                        <span class="badge bg-danger-subtle text-danger"><i class="bi bi-x-circle"></i> No</span>
+                                    {% elif field_value %}
+                                        <span class="table-value">{{ field_value|truncatechars:45 }}</span>
+                                    {% else %}
+                                        <span class="muted-value">—</span>
+                                    {% endif %}
+                                {% endwith %}
+                            </td>
+                        {% endfor %}
+
+                        <td>
+                            <div class="table-actions justify-content-end">
+                                <a
+                                    href="{% url 'custom_admin_edit' model_name object.pk %}"
+                                    class="action-button edit"
+                                    title="Edit"
+                                >
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+
+                                <a
+                                    href="{% url 'custom_admin_delete' model_name object.pk %}"
+                                    class="action-button delete"
+                                    title="Delete"
+                                >
+                                    <i class="bi bi-trash3"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="50">
+                            <div class="table-empty text-center py-5">
+                                <div class="mb-3">
+                                    <i class="bi bi-inbox fs-1 text-muted"></i>
+                                </div>
+                                <h3>No records found</h3>
+                                <p class="text-muted">Add your first {{ verbose_name }} to get started.</p>
+                                <a href="{% url 'custom_admin_add' model_name %}" class="primary-button mt-2">
+                                    <i class="bi bi-plus-lg"></i>
+                                    Add Record
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{% if model_name == "newsletter-subscribers" %}
+<script>
+    (function () {
+        const statusUrl = "{% url 'admin_api_newsletter_subscriber_status' %}";
+        const initialCount = "{{ total_count|default:0 }}";
+        const initialLatest = "{{ latest_updated_at|date:'c'|default:'' }}";
+
+        async function refreshWhenChanged() {
+            try {
+                const response = await fetch(statusUrl, {
+                    headers: {"X-Requested-With": "XMLHttpRequest"},
+                    cache: "no-store"
+                });
+                if (!response.ok) return;
+                const status = await response.json();
+                if (
+                    String(status.count) !== initialCount ||
+                    (status.latest_updated_at || "") !== initialLatest
+                ) {
+                    window.location.reload();
+                }
+            } catch (error) {
+                console.warn("Newsletter subscriber sync is temporarily unavailable.", error);
+            }
+        }
+
+        window.setInterval(refreshWhenChanged, 5000);
+    })();
+</script>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,338 @@
+{% extends "custom_admin/base.html" %}
+
+{% block title %}Stock Out | Shylu Threads Admin{% endblock %}
+{% block page_title %}Inventory Stock Out{% endblock %}
+
+{% block content %}
+<style>
+    .stock-out-page {
+        animation: pageFadeIn .7s ease both;
+    }
+
+    .hero-stock-out {
+        position: relative;
+        padding: 32px 38px;
+        margin-bottom: 28px;
+        border-radius: 22px;
+        background: linear-gradient(135deg, #3d1e26, #6e3a47 50%, #a65d68);
+        color: #fff;
+        box-shadow: 0 20px 50px rgba(127,63,74,.25);
+        overflow: hidden;
+        isolation: isolate;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+    }
+    .hero-stock-out::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse at 70% 30%, rgba(255,255,255,.08), transparent 60%);
+        pointer-events: none;
+    }
+    .hero-stock-out .orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(70px);
+        opacity: .25;
+        pointer-events: none;
+    }
+    .hero-stock-out .orb-1 { width: 280px; height: 280px; top: -120px; left: -60px; background: #c79a52; }
+    .hero-stock-out .orb-2 { width: 200px; height: 200px; bottom: -80px; right: -40px; background: #b4424f; }
+    .hero-copy { position: relative; z-index: 1; flex: 1; }
+    .hero-copy .eyebrow {
+        display: inline-block;
+        font-size: 9px; font-weight: 800; letter-spacing: 2px;
+        text-transform: uppercase;
+        background: rgba(255,255,255,.12);
+        padding: 4px 14px;
+        border-radius: 100px;
+        border: 1px solid rgba(255,255,255,.08);
+        backdrop-filter: blur(4px);
+        margin-bottom: 10px;
+    }
+    .hero-copy h2 {
+        margin: 6px 0 6px;
+        font-family: "Playfair Display", serif;
+        font-size: 32px;
+        letter-spacing: -.3px;
+        line-height: 1.15;
+    }
+    .hero-copy h2 em { font-style: normal; color: #ff9e8a; position: relative; }
+    .hero-copy h2 em::after {
+        content: ""; position: absolute; left: 0; bottom: 2px;
+        width: 100%; height: 3px; background: #ff9e8a; border-radius: 4px; opacity: .4;
+    }
+    .hero-copy p { margin: 0; opacity: .8; font-size: 13px; max-width: 400px; }
+
+    .hero-stock-out .stock-out-actions {
+        position: relative; z-index: 1;
+        display: flex; gap: 12px;
+    }
+    .hero-action-btn {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 12px 22px;
+        border-radius: 14px;
+        background: rgba(255,255,255,.12);
+        border: 1px solid rgba(255,255,255,.15);
+        color: #fff;
+        text-decoration: none;
+        font-size: 11px; font-weight: 700;
+        transition: transform .3s ease, background .3s ease, box-shadow .3s ease;
+        backdrop-filter: blur(6px);
+    }
+    .hero-action-btn:hover {
+        transform: translateY(-4px);
+        background: rgba(255,255,255,.22);
+        box-shadow: 0 12px 30px rgba(0,0,0,.15);
+        color: #fff;
+        text-decoration: none;
+    }
+    .hero-action-btn i { font-size: 16px; }
+
+    .stock-out-card {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(38,25,30,.045);
+        overflow: hidden;
+        animation: cardSlideUp .7s .2s ease both;
+    }
+    .stock-out-card .card-header {
+        padding: 22px 28px;
+        border-bottom: 1px solid var(--line);
+        background: linear-gradient(180deg, #fefcf9, #faf8f5);
+    }
+    .stock-out-card .card-header h2 {
+        margin: 0 0 4px;
+        font-family: "Playfair Display", serif;
+        font-size: 20px;
+    }
+    .stock-out-card .card-header p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 11px;
+    }
+
+    .stock-out-form {
+        padding: 28px 28px 32px;
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    .form-group label {
+        display: block;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: .5px;
+        text-transform: uppercase;
+        color: var(--ink);
+        margin-bottom: 6px;
+    }
+    .form-group .form-control {
+        width: 100%;
+        height: 44px;
+        padding: 0 14px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: #fff;
+        font-size: 11px;
+        transition: border-color .25s ease, box-shadow .25s ease;
+        outline: none;
+    }
+    .form-group .form-control:focus {
+        border-color: var(--rose);
+        box-shadow: 0 0 0 3px rgba(166,93,104,.08);
+    }
+    .form-group .form-control:hover { border-color: rgba(166,93,104,.3); }
+    .form-group .form-text {
+        display: block;
+        margin-top: 5px;
+        color: var(--muted);
+        font-size: 9px;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 8px;
+        flex-wrap: wrap;
+    }
+    .btn-danger-glow {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 12px 28px;
+        border: 0;
+        border-radius: 12px;
+        font-size: 11px; font-weight: 800;
+        background: linear-gradient(135deg, #c0392b, #962d22);
+        color: #fff;
+        box-shadow: 0 8px 24px rgba(192,57,43,.25);
+        transition: transform .3s ease, box-shadow .3s ease;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    .btn-danger-glow:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 14px 32px rgba(192,57,43,.35);
+        color: #fff;
+    }
+    .btn-secondary-outline {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 12px 28px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: #fff;
+        color: var(--ink);
+        font-size: 11px; font-weight: 700;
+        transition: border-color .3s ease, transform .3s ease;
+        text-decoration: none;
+    }
+    .btn-secondary-outline:hover {
+        border-color: var(--rose);
+        color: var(--rose);
+        transform: translateY(-3px);
+        text-decoration: none;
+    }
+
+    @keyframes pageFadeIn { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes cardSlideUp { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:translateY(0); } }
+
+    @media (max-width: 768px) {
+        .hero-stock-out { flex-direction: column; align-items: stretch; padding: 24px 20px; }
+        .hero-stock-out .stock-out-actions { flex-wrap: wrap; }
+        .stock-out-form { padding: 20px 18px; }
+        .form-actions { flex-direction: column; }
+        .btn-danger-glow, .btn-secondary-outline { justify-content: center; }
+    }
+</style>
+
+<div class="stock-out-page">
+    <!-- HERO -->
+    <div class="hero-stock-out">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="hero-copy">
+            <span class="eyebrow"><i class="bi bi-box-arrow-up me-1"></i> Inventory Outflow</span>
+            <h2>Remove <em>Stock</em></h2>
+            <p>Decrease quantities for fabrics used, damaged, or sold. The current stock level is shown to avoid over‑deduction.</p>
+        </div>
+        <div class="stock-out-actions">
+            <a href="{% url 'custom_admin_stock_in' %}" class="hero-action-btn">
+                <i class="bi bi-arrow-left"></i> Back to Stock In
+            </a>
+            <a href="{% url 'custom_admin_inventory' %}" class="hero-action-btn">
+                <i class="bi bi-grid"></i> Dashboard
+            </a>
+        </div>
+    </div>
+
+    <!-- FORM CARD -->
+    <div class="stock-out-card">
+        <div class="card-header">
+            <h2>Remove Stock Details</h2>
+            <p>Select the design and specify the quantity to subtract.</p>
+        </div>
+
+        <form method="POST" id="stockOutForm" class="stock-out-form">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="category_filter">Category Filter</label>
+                <select id="category_filter" class="form-control">
+                    <option value="">— All Categories —</option>
+                    {% for cat in categories %}
+                        <option value="{{ cat.id }}">{{ cat.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="design_select">Select Design</label>
+                <select name="design" id="design_select" class="form-control" required>
+                    <option value="">— Select Design —</option>
+                    {% for d in designs %}
+                        <option value="{{ d.id }}" data-design-id="{{ d.design_id }}" data-stock="{{ d.stock_quantity }}">
+                            [{{ d.design_id }}] {{ d.name }} — Available: {{ d.stock_quantity }} pcs
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="design_id_input">Design ID (auto‑detected)</label>
+                <input type="text" name="design_id" id="design_id_input" class="form-control" placeholder="e.g. DSN001">
+                <span class="form-text">Select a design above – this field will fill automatically.</span>
+            </div>
+
+            <div class="form-group">
+                <label for="quantity">Quantity (Pcs)</label>
+                <input type="number" name="quantity" id="quantity" class="form-control" min="1" placeholder="Enter quantity to remove" required>
+                <span id="available_stock" class="form-text" style="color:var(--rose);"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="reason">Reason</label>
+                <input type="text" name="reason" id="reason" class="form-control" placeholder="e.g. Used for tailoring / Damaged items">
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-danger-glow">
+                    <i class="bi bi-check-lg"></i> Confirm Stock Out
+                </button>
+                <a href="{% url 'custom_admin_inventory' %}" class="btn-secondary-outline">
+                    <i class="bi bi-x-lg"></i> Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const categoryFilter = document.getElementById("category_filter");
+    const designSelect = document.getElementById("design_select");
+    const designIdInput = document.getElementById("design_id_input");
+    const quantityInput = document.getElementById("quantity");
+    const availableStock = document.getElementById("available_stock");
+
+    categoryFilter.addEventListener("change", function () {
+        fetch(`{% url 'admin_api_designs_by_category' %}?category_id=${encodeURIComponent(this.value)}`)
+            .then(response => {
+                if (!response.ok) throw new Error("Unable to load designs");
+                return response.json();
+            })
+            .then(data => {
+                designSelect.innerHTML = '<option value="">-- Select Design --</option>';
+                data.designs.forEach(item => {
+                    const option = document.createElement("option");
+                    option.value = item.id;
+                    option.dataset.designId = item.design_id;
+                    option.dataset.stock = item.stock_quantity;
+                    option.textContent = `[${item.design_id}] ${item.name} — Available: ${item.stock_quantity} pcs`;
+                    designSelect.appendChild(option);
+                });
+                designIdInput.value = "";
+                quantityInput.removeAttribute("max");
+                availableStock.textContent = "";
+            })
+            .catch(() => {
+                availableStock.textContent = "⚠️ Unable to load designs. Please refresh.";
+            });
+    });
+
+    designSelect.addEventListener("change", function () {
+        const selected = this.options[this.selectedIndex];
+        const stock = selected.dataset.stock;
+        designIdInput.value = selected.dataset.designId || "";
+        if (stock !== undefined) {
+            quantityInput.max = stock;
+            availableStock.textContent = `📦 Available stock: ${stock} pcs`;
+        } else {
+            quantityInput.removeAttribute("max");
+            availableStock.textContent = "";
+        }
+    });
+});
+</script>
+{% endblock %}

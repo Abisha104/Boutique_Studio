@@ -1,0 +1,1344 @@
+{% extends "footer.html" %}
+
+{% block title %}
+  Shylu Threads • Boutique Collection
+{% endblock %}
+
+{% block content %}
+ 
+
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About | Shylu Threads Boutique</title>
+     <link rel="icon" type="image/png" href="{% static 'images/tailorshop_logo.png' %}">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+   <link rel="stylesheet" href="{% static 'app/css/about/style.css' %}">
+ 
+
+</head>
+
+
+<body>
+
+<!-- HEADER -->
+ <div id="progress"></div>
+
+    <!-- ─── NAVBAR ─── -->
+    <nav class="navbar" id="navbar">
+        <a class="brand" href="#home">
+            <span class="brand-mark">
+    <img src="{% static 'images/tailorshop_logo.png' %}" alt="Shylu Threads Logo">
+</span>
+            <span class="brand-text">
+                <strong>Shylu Threads</strong>
+                <small>Boutique Studio</small>
+            </span>
+        </a>
+
+        <div class="mobile-nav-panel">
+            <div class="nav-links">
+               <a href="{% url 'home' %}"
+   class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+    Home
+</a>
+
+<a href="{% url 'about' %}"
+   class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">
+    About
+</a>
+
+<a href="{% url 'designs' %}"
+   class="{% if request.resolver_match.url_name == 'designs' %}active{% endif %}">
+    Designs
+</a>
+
+<a href="{% url 'services' %}"
+   class="{% if request.resolver_match.url_name == 'services' %}active{% endif %}">
+    Services
+</a>
+
+<a href="{% url 'how_it_works' %}"
+   class="{% if request.resolver_match.url_name == 'how_it_works' %}active{% endif %}">
+    How It Works
+</a>
+
+<a href="{% url 'contact' %}"
+   class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">
+    Contact
+</a>
+            </div>
+
+            <div class="nav-actions">
+                <a class="btn btn-out auth-login" href="{% url 'login' %}" id="loginNavBtn">Login</a>
+
+                <a class="btn btn-booknow" href="{% url 'contact' %}">Book Now</a>
+            </div>
+        </div>
+
+        <button class="mobile-btn" id="menuBtn"><i class="bi bi-list"></i></button>
+    </nav>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="about-hero">
+
+    <div class="hero-circle circle-one"></div>
+    <div class="hero-circle circle-two"></div>
+
+
+    <div class="container">
+
+        <div class="hero-content reveal">
+
+            <div class="eyebrow">
+                OUR STORY
+            </div>
+
+            <h1>
+                Where your
+                <span>style</span>
+                becomes personal.
+            </h1>
+
+            <p>
+                Smart Tailor Boutique combines traditional
+                craftsmanship with modern convenience to create
+                outfits that feel uniquely yours — from the first
+                idea to the final fitting.
+            </p>
+
+
+            <div class="hero-actions">
+
+                <a
+                    href="{% url 'designs' %}"
+                    class="hero-btn hero-btn-primary"
+                >
+
+                    Explore Designs
+
+                    <i class="bi bi-arrow-right"></i>
+
+                </a>
+
+
+                <a
+                    href="{% url 'contact' %}"
+                    class="hero-btn hero-btn-outline"
+                >
+
+                    Talk to Our Team
+
+                    <i class="bi bi-chat"></i>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     STATS
+========================================================= -->
+
+<section class="stats-section">
+
+    <div class="container">
+
+        <div class="stats-box reveal">
+
+            <div class="stat-item">
+
+                <div class="stat-number">
+                    10+
+                </div>
+
+                <div class="stat-label">
+                    Years Experience
+                </div>
+
+            </div>
+
+
+            <div class="stat-item">
+
+                <div class="stat-number">
+                    5K+
+                </div>
+
+                <div class="stat-label">
+                    Outfits Crafted
+                </div>
+
+            </div>
+
+
+            <div class="stat-item">
+
+                <div class="stat-number">
+                    500+
+                </div>
+
+                <div class="stat-label">
+                    Designs
+                </div>
+
+            </div>
+
+
+            <div class="stat-item">
+
+                <div class="stat-number">
+                    98%
+                </div>
+
+                <div class="stat-label">
+                    Happy Clients
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     OUR STORY
+========================================================= -->
+
+<section class="section story-section">
+
+    <div class="container">
+
+        <div class="row align-items-center gy-5">
+
+
+            <div class="col-lg-6">
+
+                <div class="story-images reveal">
+
+                    <div class="story-image-main">
+
+                        <img
+                            src="https://img.freepik.com/premium-photo/blending-traditional-craftsmanship-with-modern-technology-women-mastering-hand-embroidery-while-wor_983420-105393.jpg"
+                            alt="Smart Tailor Boutique tailoring studio"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+
+                    <div class="story-image-small">
+
+                        <img
+                            src="https://static.vecteezy.com/system/resources/thumbnails/037/149/552/small_2x/beautiful-seamstress-woman-photo.jpg"
+                            alt="Boutique fashion details"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+
+                    <div class="experience-badge">
+
+                        <strong>
+                            2016
+                        </strong>
+
+                        <span>
+                            Established
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-6">
+
+                <div class="reveal">
+
+                    <div class="section-label">
+                        OUR STORY
+                    </div>
+
+                    <h2 class="section-title">
+                        Craftsmanship with
+                        a modern mindset.
+                    </h2>
+
+                    <p class="section-description">
+                        Smart Tailor Boutique was created with one
+                        simple idea: custom clothing should feel
+                        personal, effortless and beautiful.
+                    </p>
+
+                    <p class="section-description mt-3">
+                        From carefully selected fabrics and precise
+                        measurements to finishing details, every
+                        piece is handled with attention and care.
+                        Whether it is an everyday blouse or an
+                        important bridal outfit, we treat every
+                        order as something special.
+                    </p>
+
+
+                    <div class="story-points">
+
+                        <div class="story-point">
+
+                            <div class="story-point-icon">
+                                <i class="bi bi-rulers"></i>
+                            </div>
+
+                            <div>
+
+                                <h5>
+                                    Precision Fit
+                                </h5>
+
+                                <p>
+                                    Measurements and finishing are
+                                    carefully considered for comfort
+                                    and confidence.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="story-point">
+
+                            <div class="story-point-icon">
+                                <i class="bi bi-stars"></i>
+                            </div>
+
+                            <div>
+
+                                <h5>
+                                    Personal Design
+                                </h5>
+
+                                <p>
+                                    Your preferred neckline, sleeve,
+                                    fabric, embroidery and silhouette
+                                    can become part of the design.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="story-point">
+
+                            <div class="story-point-icon">
+                                <i class="bi bi-heart"></i>
+                            </div>
+
+                            <div>
+
+                                <h5>
+                                    Made With Care
+                                </h5>
+
+                                <p>
+                                    We focus on the small details that
+                                    make a finished outfit feel truly
+                                    yours.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     MISSION / VISION / VALUES
+========================================================= -->
+
+<section class="section mv-section">
+
+    <div class="container">
+
+        <div class="text-center mb-5 reveal">
+
+            <div class="section-label">
+                WHAT DRIVES US
+            </div>
+
+            <h2 class="section-title">
+                Built around your style.
+            </h2>
+
+            <p
+                class="section-description mx-auto"
+                style="max-width:650px;"
+            >
+                Every decision we make comes back to quality,
+                individuality and the experience our customers
+                receive.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <div class="col-lg-4">
+
+                <div class="mv-card reveal">
+
+                    <div class="mv-number">
+                        01
+                    </div>
+
+                    <div class="mv-icon">
+                        <i class="bi bi-bullseye"></i>
+                    </div>
+
+                    <h4>
+                        Our Mission
+                    </h4>
+
+                    <p>
+                        To make custom tailoring approachable,
+                        convenient and enjoyable while maintaining
+                        the quality of traditional craftsmanship.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4">
+
+                <div class="mv-card reveal">
+
+                    <div class="mv-number">
+                        02
+                    </div>
+
+                    <div class="mv-icon">
+                        <i class="bi bi-eye"></i>
+                    </div>
+
+                    <h4>
+                        Our Vision
+                    </h4>
+
+                    <p>
+                        To become a trusted boutique destination
+                        where customers can discover designs,
+                        personalize outfits and order with confidence.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4">
+
+                <div class="mv-card reveal">
+
+                    <div class="mv-number">
+                        03
+                    </div>
+
+                    <div class="mv-icon">
+                        <i class="bi bi-gem"></i>
+                    </div>
+
+                    <h4>
+                        Our Values
+                    </h4>
+
+                    <p>
+                        Precision, honesty, creativity, quality and
+                        customer-first service guide every outfit
+                        we create.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     WHY CHOOSE US
+========================================================= -->
+
+<section class="section why-section">
+
+    <div class="container">
+
+        <div class="row align-items-center mb-5">
+
+            <div class="col-lg-6 reveal">
+
+                <div class="section-label">
+                    WHY SMART TAILOR
+                </div>
+
+                <h2 class="section-title">
+                    More than tailoring.
+                    It's your experience.
+                </h2>
+
+            </div>
+
+            <div class="col-lg-5 ms-auto reveal">
+
+                <p class="section-description">
+                    From choosing a design to receiving your finished
+                    outfit, we want every step to feel simple,
+                    transparent and personal.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="why-card reveal">
+
+                    <div class="why-icon">
+                        <i class="bi bi-phone"></i>
+                    </div>
+
+                    <div>
+
+                        <h5>
+                            Easy Online Experience
+                        </h5>
+
+                        <p>
+                            Browse designs, explore services and
+                            contact the boutique from anywhere.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="why-card reveal">
+
+                    <div class="why-icon">
+                        <i class="bi bi-person-check"></i>
+                    </div>
+
+                    <div>
+
+                        <h5>
+                            Personalized Service
+                        </h5>
+
+                        <p>
+                            Every customer's preferences and
+                            requirements are treated individually.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="why-card reveal">
+
+                    <div class="why-icon">
+                        <i class="bi bi-scissors"></i>
+                    </div>
+
+                    <div>
+
+                        <h5>
+                            Skilled Craftsmanship
+                        </h5>
+
+                        <p>
+                            Precise stitching and thoughtful finishing
+                            are at the heart of every piece.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="why-card reveal">
+
+                    <div class="why-icon">
+                        <i class="bi bi-palette"></i>
+                    </div>
+
+                    <div>
+
+                        <h5>
+                            Design Freedom
+                        </h5>
+
+                        <p>
+                            Mix colours, fabrics, silhouettes and
+                            details to create something personal.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="why-card reveal">
+
+                    <div class="why-icon">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+
+                    <div>
+
+                        <h5>
+                            Transparent Process
+                        </h5>
+
+                        <p>
+                            Clear communication about your design,
+                            measurements and order progress.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="why-card reveal">
+
+                    <div class="why-icon">
+                        <i class="bi bi-heart"></i>
+                    </div>
+
+                    <div>
+
+                        <h5>
+                            Made For You
+                        </h5>
+
+                        <p>
+                            We don't believe in one-size-fits-all
+                            fashion. Your outfit should feel like you.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     OUR JOURNEY
+========================================================= -->
+<section class="journey-section">
+
+    <div class="container">
+
+        <!-- HEADER -->
+
+        <div class="journey-intro">
+
+            <span class="journey-kicker">
+                OUR JOURNEY
+            </span>
+
+            <h2>
+                Every Stitch Has
+                <span>A Story.</span>
+            </h2>
+
+            <p>
+                From a simple tailoring dream to a boutique built around
+                individuality, craftsmanship and timeless elegance.
+            </p>
+
+        </div>
+
+
+        <!-- JOURNEY -->
+
+        <div class="atelier-journey">
+
+
+            <!-- 2018 -->
+
+            <article class="journey-story journey-left">
+
+                <div class="journey-visual">
+
+                    <img
+                        src="https://thumbs.dreamstime.com/b/female-hands-master-tailor-work-sewing-machine-needle-female-hands-master-tailor-work-sewing-machine-needle-264105989.jpg"
+                        alt="The beginning of Shylu Threads"
+                    >
+
+                    <div class="visual-overlay"></div>
+
+                    <span class="visual-number">
+                        01
+                    </span>
+
+                    <span class="visual-year">
+                        2018
+                    </span>
+
+                </div>
+
+
+                <div class="journey-story-content">
+
+                    <span class="story-tag">
+                        THE BEGINNING
+                    </span>
+
+                    <h3>
+                        A Small Dream
+                    </h3>
+
+                    <p>
+                        Our journey began with a simple passion for
+                        creating beautifully tailored outfits that feel
+                        personal, comfortable and timeless.
+                    </p>
+
+                    <span class="story-line"></span>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- 2020 -->
+
+            <article class="journey-story journey-right">
+
+                <div class="journey-ghost-year">
+                    2020
+                </div>
+
+                <div class="journey-story-content">
+
+                    <span class="story-tag">
+                        GROWING TOGETHER
+                    </span>
+
+                    <h3>
+                        Finding Our Style
+                    </h3>
+
+                    <p>
+                        With every customer, we discovered new ideas,
+                        new silhouettes and new ways to make traditional
+                        fashion feel beautifully modern.
+                    </p>
+
+                    <span class="story-line"></span>
+
+                </div>
+
+
+                <div class="journey-visual">
+
+                    <img
+                        src="https://img.freepik.com/premium-photo/confident-young-indian-fashion-designer-studio-empowerment-concept_1208970-34983.jpg?w=996"
+                        alt="Growing together"
+                    >
+
+                    <div class="visual-overlay"></div>
+
+                    <span class="visual-number">
+                        02
+                    </span>
+
+                    <span class="visual-year">
+                        2020
+                    </span>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- 2023 -->
+
+            <article class="journey-story journey-left">
+
+                <div class="journey-visual">
+
+                    <img
+                        src="https://i.pinimg.com/originals/3e/01/c0/3e01c0005e2ffd0ea8e1acf0da8a4ce7.jpg"
+                        alt="Boutique collection"
+                    >
+
+                    <div class="visual-overlay"></div>
+
+                    <span class="visual-number">
+                        03
+                    </span>
+
+                    <span class="visual-year">
+                        2023
+                    </span>
+
+                </div>
+
+
+                <div class="journey-story-content">
+
+                    <span class="story-tag">
+                        A NEW CHAPTER
+                    </span>
+
+                    <h3>
+                        Boutique Collection
+                    </h3>
+
+                    <p>
+                        We expanded our vision beyond tailoring,
+                        bringing curated blouses, sarees, lehengas
+                        and boutique collections together.
+                    </p>
+
+                    <span class="story-line"></span>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- 2026 -->
+
+            <article class="journey-story journey-right">
+
+                <div class="journey-ghost-year">
+                    2026
+                </div>
+
+                <div class="journey-story-content">
+
+                    <span class="story-tag">
+                        TODAY & BEYOND
+                    </span>
+
+                    <h3>
+                        Your Style, Our Craft
+                    </h3>
+
+                    <p>
+                        Today, Shylu Threads continues to blend
+                        thoughtful design, personalised tailoring
+                        and a modern boutique experience.
+                    </p>
+
+                    <span class="story-line"></span>
+
+                </div>
+
+
+                <div class="journey-visual">
+
+                    <img
+                        src="https://cdn0.weddingwire.in/article-gallery-o/00000/3_2/960/jpg/articulos-india/2019/non-troncales/designer-saree-hyderabad-price/ritu-kumar-store-lead-image.jpeg"
+                        alt="Shylu Threads today"
+                    >
+
+                    <div class="visual-overlay"></div>
+
+                    <span class="visual-number">
+                        04
+                    </span>
+
+                    <span class="visual-year">
+                        2026
+                    </span>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CRAFTSMANSHIP
+========================================================= -->
+
+<section class="section craft-section">
+
+    <div class="container">
+
+        <div class="row align-items-end mb-5">
+
+            <div class="col-lg-7 reveal">
+
+                <div class="section-label">
+                    THE CRAFT
+                </div>
+
+                <h2 class="section-title text-white">
+                    Details make the difference.
+                </h2>
+
+            </div>
+
+            <div class="col-lg-5 reveal">
+
+                <p class="section-description">
+                    From fabric selection to the final stitch,
+                    every detail contributes to the way an outfit
+                    looks, feels and fits.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <div class="col-md-4">
+
+                <div class="craft-card reveal">
+
+                    <img
+                        src="https://i.pinimg.com/originals/41/1c/30/411c3046a50493230b57da3cbf260ee8.jpg"
+                        alt="Tailoring craftsmanship"
+                        loading="lazy"
+                    >
+
+                    <div class="craft-content">
+
+                        <span>
+                            STEP 01
+                        </span>
+
+                        <h4>
+                            Fabric & Design
+                        </h4>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="craft-card reveal">
+
+                    <img
+                        src="https://risedigitizing.com/wp-content/uploads/2026/04/robotic-arm-precisely-embroidering-colorful-floral-design-scaled.jpg"
+                        alt="Fashion design"
+                        loading="lazy"
+                    >
+
+                    <div class="craft-content">
+
+                        <span>
+                            STEP 02
+                        </span>
+
+                        <h4>
+                            Precision Stitching
+                        </h4>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="craft-card reveal">
+
+                    <img
+                        src="https://cf-images.us-east-1.prod.boltdns.net/v1/static/6168786647001/1d23819e-1650-4a42-8cf5-ab47faacd5c8/bca5ddb1-f432-4994-91d5-2b9e794a3bea/1920x1080/match/image.jpg"
+                        alt="Boutique clothing details"
+                        loading="lazy"
+                    >
+
+                    <div class="craft-content">
+
+                        <span>
+                            STEP 03
+                        </span>
+
+                        <h4>
+                            Final Finishing
+                        </h4>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CUSTOMER PROMISE
+========================================================= -->
+
+<section class="section promise-section">
+
+    <div class="container">
+
+        <div class="promise-box reveal">
+
+            <div class="section-label" style="color:var(--gold-light);">
+                YOUR STYLE MATTERS
+            </div>
+
+            <h2>
+                Let's make something
+                uniquely yours.
+            </h2>
+
+            <p>
+                Explore our latest designs, discover our tailoring
+                services or talk to us about the outfit you've been
+                imagining.
+            </p>
+
+
+            <div class="d-flex flex-wrap justify-content-center gap-2">
+
+                <a
+                    href="{% url 'designs' %}"
+                    class="promise-btn"
+                >
+
+                    Explore Designs
+
+                    <i class="bi bi-arrow-right"></i>
+
+                </a>
+
+
+                <a
+                    href="{% url 'contact' %}"
+                    class="promise-btn"
+                >
+
+                    Start a Conversation
+
+                    <i class="bi bi-chat"></i>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+
+
+
+<!-- =========================================================
+     FLOATING WHATSAPP
+========================================================= -->
+
+
+
+
+
+<!-- =========================================================
+     BACK TO TOP
+========================================================= -->
+
+<button
+    type="button"
+    class="back-top"
+    id="backTop"
+    aria-label="Back to top"
+>
+
+    <i class="bi bi-arrow-up"></i>
+
+</button>
+
+
+
+
+<!-- Bootstrap JS -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+></script>
+
+
+<script>
+
+    /* =====================================================
+       NAVBAR SCROLL
+    ===================================================== */
+
+    const navbar =
+        document.getElementById("mainNavbar");
+
+    window.addEventListener("scroll", () => {
+
+        if (window.scrollY > 40) {
+
+            navbar.classList.add("scrolled");
+
+        } else {
+
+            navbar.classList.remove("scrolled");
+
+        }
+
+    });
+
+
+
+    /* =====================================================
+       BACK TO TOP
+    ===================================================== */
+
+    const backTop =
+        document.getElementById("backTop");
+
+    window.addEventListener("scroll", () => {
+
+        if (window.scrollY > 500) {
+
+            backTop.classList.add("show");
+
+        } else {
+
+            backTop.classList.remove("show");
+
+        }
+
+    });
+
+
+    backTop.addEventListener("click", () => {
+
+        window.scrollTo({
+
+            top: 0,
+
+            behavior: "smooth"
+
+        });
+
+    });
+
+
+
+    /* =====================================================
+       SCROLL REVEAL
+    ===================================================== */
+
+    const revealElements =
+        document.querySelectorAll(".reveal");
+
+
+    const revealObserver =
+        new IntersectionObserver(
+
+            (entries) => {
+
+                entries.forEach((entry) => {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.classList.add("visible");
+
+                        revealObserver.unobserve(
+                            entry.target
+                        );
+
+                    }
+
+                });
+
+            },
+
+            {
+                threshold: 0.12
+            }
+
+        );
+
+
+    revealElements.forEach((element) => {
+
+        revealObserver.observe(element);
+
+    });
+
+
+
+    /* =====================================================
+       CLOSE MOBILE NAV AFTER CLICK
+    ===================================================== */
+
+    document
+        .querySelectorAll(".nav-links .nav-link")
+        .forEach((link) => {
+
+            link.addEventListener("click", () => {
+
+                const menu =
+                    document.getElementById(
+                        "mainNavbarMenu"
+                    );
+
+                if (
+                    menu.classList.contains("show")
+                ) {
+
+                    const collapse =
+                        bootstrap.Collapse
+                            .getInstance(menu);
+
+                    if (collapse) {
+                        collapse.hide();
+                    }
+
+                }
+
+            });
+
+        });
+
+</script>
+
+</body>
+</html>
+
+
+{% endblock %}

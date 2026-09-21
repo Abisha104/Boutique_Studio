@@ -1,0 +1,212 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}Shylu Threads Admin{% endblock %}
+    </title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{% static 'app/css/custom_admin/style.css' %}">
+
+    <style>
+        /* Smooth Collapse Animation & Styling */
+        .nav-group-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            padding: 0.5rem 0.75rem;
+            user-select: none;
+            border-radius: 8px;
+            transition: background 0.2s ease;
+        }
+
+        .nav-group-header:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-group-header .group-chevron {
+            font-size: 0.75rem;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0.7;
+        }
+
+        .nav-group.collapsed .group-chevron {
+            transform: rotate(-90deg);
+        }
+
+        .nav-group-items {
+            max-height: 500px;
+            overflow: hidden;
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+            opacity: 1;
+        }
+
+        .nav-group.collapsed .nav-group-items {
+            max-height: 0;
+            opacity: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="admin-layout">
+
+    <aside class="admin-sidebar">
+
+        <div class="sidebar-brand">
+            <div class="brand-mark">S</div>
+            <div>
+                <h2>Shylu Threads</h2>
+                <span>ADMIN STUDIO</span>
+            </div>
+        </div>
+
+        <div class="sidebar-scroll">
+
+            <a href="{% url 'custom_admin_dashboard' %}" class="dashboard-link {% if request.resolver_match.url_name == 'custom_admin_dashboard' %}active{% endif %}">
+                <i class="bi bi-grid-1x2-fill"></i>
+                <span>Dashboard</span>
+            </a>
+
+            {% for group in admin_groups %}
+                <div class="nav-group" id="group-{{ forloop.counter }}">
+                    <div class="nav-group-header" onclick="toggleGroup('group-{{ forloop.counter }}')">
+                        <div class="nav-group-title mb-0">
+                            {{ group.title }}
+                        </div>
+                        <i class="bi bi-chevron-down group-chevron"></i>
+                    </div>
+
+                    <div class="nav-group-items">
+                        {% for item in group.items %}
+                            {% with item_slug=item.0 item_title=item.1 item_icon=item.2 %}
+                                <a href="{% if item_slug == 'inventory' %}{% url 'custom_admin_inventory' %}{% elif item_slug == 'stock-movements' %}{% url 'custom_admin_stock_history' %}{% else %}{% url 'custom_admin_model_list' item_slug %}{% endif %}"
+                                   class="admin-nav-link {% if request.resolver_match.kwargs.model_name == item_slug or request.resolver_match.url_name == 'custom_admin_'|add:item_slug or item_slug == 'stock-movements' and request.resolver_match.url_name == 'custom_admin_stock_history' %}active{% endif %}">
+                                    <i class="bi {{ item_icon }}"></i>
+                                    <span>{{ item_title }}</span>
+                                </a>
+                            {% endwith %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+
+        <div class="sidebar-bottom">
+            <a href="{% url 'home' %}" class="sidebar-bottom-link">
+                <i class="bi bi-shop"></i>
+                View Website
+            </a>
+            <a href="{% url 'custom_admin_logout' %}" class="sidebar-bottom-link logout-link">
+                <i class="bi bi-box-arrow-right"></i>
+                Logout
+            </a>
+        </div>
+
+    </aside>
+
+    <main class="admin-main">
+
+        <header class="admin-topbar">
+            <div class="d-flex align-items-center gap-3">
+                <button class="mobile-menu" id="mobileMenu" aria-label="Toggle menu">
+                    <i class="bi bi-list"></i>
+                </button>
+                <div>
+                    <span class="topbar-label">SHYLU THREADS</span>
+                    <h1>
+                        {% block page_title %}Admin Studio{% endblock %}
+                    </h1>
+                </div>
+            </div>
+
+            <div class="admin-user">
+                <div class="admin-user-icon">
+                    {{ request.user.username|first|upper }}
+                </div>
+                <div>
+                    <strong>
+                        {{ request.user.get_full_name|default:request.user.username }}
+                    </strong>
+                    <span>Administrator</span>
+                </div>
+            </div>
+        </header>
+
+        {% if messages %}
+            <div class="messages-container">
+                {% for message in messages %}
+                    <div class="admin-message {{ message.tags }}">
+                        <i class="bi bi-check-circle-fill"></i>
+                        <span>{{ message }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <section class="admin-page">
+            {% block content %}
+            {% endblock %}
+        </section>
+
+    </main>
+
+</div>
+
+<script>
+    // Mobile Sidebar Toggle
+    const menuButton = document.getElementById("mobileMenu");
+    const sidebar = document.querySelector(".admin-sidebar");
+
+    if (menuButton) {
+        menuButton.addEventListener("click", function () {
+            sidebar.classList.toggle("open");
+        });
+    }
+
+    // Collapse / Accordion Logic with Local Storage Memory
+    function toggleGroup(groupId) {
+        const groupEl = document.getElementById(groupId);
+        if (groupEl) {
+            groupEl.classList.toggle('collapsed');
+            const isCollapsed = groupEl.classList.contains('collapsed');
+            localStorage.setItem('sidebar_' + groupId, isCollapsed ? 'closed' : 'open');
+        }
+    }
+
+    // Restore Saved Collapse States & Auto-open active child groups
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.nav-group').forEach((group) => {
+            const groupId = group.id;
+            const hasActiveChild = group.querySelector('.admin-nav-link.active');
+            
+            if (hasActiveChild) {
+                // Always keep the group holding the active page open
+                group.classList.remove('collapsed');
+                localStorage.setItem('sidebar_' + groupId, 'open');
+            } else {
+                const savedState = localStorage.getItem('sidebar_' + groupId);
+                if (savedState === 'closed') {
+                    group.classList.add('collapsed');
+                }
+            }
+        });
+    });
+</script>
+
+{% block extra_js %}
+{% endblock %}
+
+</body>
+</html>

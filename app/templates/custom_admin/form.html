@@ -1,0 +1,120 @@
+{% extends "custom_admin/base.html" %}
+
+{% block title %}
+{{ action }} {{ verbose_name }} | Admin
+{% endblock %}
+
+{% block page_title %}
+{{ action }} {{ verbose_name }}
+{% endblock %}
+
+{% block content %}
+
+<div class="form-page">
+
+
+<div class="list-header">
+
+    <div>
+        <span class="section-eyebrow">
+            MANAGEMENT
+        </span>
+
+        <h2>
+            Add {{ verbose_name }}
+        </h2>
+
+        <p>
+            {% if action == "Add" %}Create a new{% else %}Update the existing{% endif %} {{ verbose_name|lower }}.
+        </p>
+    </div>
+
+    <a
+        href="{% url 'custom_admin_model_list' model_name %}"
+        class="secondary-button"
+    >
+        <i class="bi bi-arrow-left"></i>
+        Back
+    </a>
+
+</div>
+
+
+<div class="data-card">
+
+    <form
+        method="POST"
+        enctype="multipart/form-data"
+        class="admin-form"
+    >
+
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div class="form-errors">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+
+        {% for field in form %}
+
+            <div class="form-group">
+
+                <label for="{{ field.id_for_label }}">
+                    {{ field.label }}
+
+                    {% if field.field.required %}
+                        <span class="required">*</span>
+                    {% endif %}
+                </label>
+
+
+                {{ field }}
+
+
+                {% if field.help_text %}
+                    <small class="help-text">
+                        {{ field.help_text }}
+                    </small>
+                {% endif %}
+
+
+                {% for error in field.errors %}
+                    <div class="field-error">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+
+            </div>
+
+        {% endfor %}
+
+
+        <div class="form-actions">
+
+            <a
+                href="{% url 'custom_admin_model_list' model_name %}"
+                class="secondary-button"
+            >
+                Cancel
+            </a>
+
+            <button
+                type="submit"
+                class="primary-button"
+            >
+                <i class="bi bi-check-lg"></i>
+                {{ action }} {{ verbose_name }}
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+</div>
+
+{% endblock %}

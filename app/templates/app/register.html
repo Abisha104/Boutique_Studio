@@ -1,0 +1,1155 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="Create your Shylu Threads Boutique account"
+    >
+
+    <title>Create Account | Shylu Threads Boutique</title>
+ <link rel="icon" type="image/png" href="{% static 'images/tailorshop_logo.png' %}">
+
+    <!-- =========================================================
+         GOOGLE FONTS
+    ========================================================== -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =========================================================
+         BOOTSTRAP
+    ========================================================== -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- =========================================================
+         BOOTSTRAP ICONS
+    ========================================================== -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+<link rel="stylesheet" href="{% static 'app/css/register/style.css' %}">
+
+</head>
+
+
+<body>
+
+
+<div class="register-page">
+
+
+    <!-- =====================================================
+         LEFT BRAND / DESIGN PANEL
+    ===================================================== -->
+
+    <aside class="design-panel">
+
+
+        <!-- Decorative shapes -->
+
+        <div class="floating-shape shape-one"></div>
+
+        <div class="floating-shape shape-two"></div>
+
+        <div class="floating-shape shape-three"></div>
+
+
+        <!-- Brand -->
+
+        <a
+            href="{% url 'home' %}"
+            class="brand"
+        >
+
+            <div class="brand-icon">
+                S
+            </div>
+
+            <div>
+
+                <span class="brand-name">
+                    Shylu Threads
+                </span>
+
+                <span class="brand-subtitle">
+                    Boutique Studio
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- Content -->
+
+        <div class="design-content">
+
+
+            <div class="eyebrow">
+                Your Style Begins Here
+            </div>
+
+
+            <h1>
+
+                Create your
+                <br>
+
+                <span>signature style.</span>
+
+            </h1>
+
+
+            <p>
+
+                Build your personal tailoring profile,
+                save your details and discover designs
+                made around your style, measurements
+                and occasion.
+
+            </p>
+
+
+            <div class="features">
+
+
+                <div class="feature">
+
+                    <span class="feature-icon">
+                        <i class="bi bi-person-check"></i>
+                    </span>
+
+                    Personalized customer profile
+
+                </div>
+
+
+                <div class="feature">
+
+                    <span class="feature-icon">
+                        <i class="bi bi-heart"></i>
+                    </span>
+
+                    Save your favorite designs
+
+                </div>
+
+
+                <div class="feature">
+
+                    <span class="feature-icon">
+                        <i class="bi bi-scissors"></i>
+                    </span>
+
+                    Custom tailoring experience
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         RIGHT REGISTER PANEL
+    ===================================================== -->
+
+    <main class="form-panel">
+
+
+        <!-- Decorative rings -->
+
+        <div class="ring ring-one"></div>
+
+        <div class="ring ring-two"></div>
+
+
+        <div class="register-container">
+
+
+            <!-- =================================================
+                 TOP BAR
+            ================================================== -->
+
+            <div class="top-bar">
+
+
+                <!-- Mobile brand -->
+
+                <a
+                    href="{% url 'home' %}"
+                    class="mobile-brand"
+                >
+
+                    <span class="mobile-brand-icon">
+                        S
+                    </span>
+
+                    Shylu Threads
+
+                </a>
+
+
+                <!-- Home -->
+
+                <a
+                    href="{% url 'home' %}"
+                    class="home-link"
+                >
+
+                    <i class="bi bi-arrow-left"></i>
+
+                    Back to Home
+
+                </a>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 HEADER
+            ================================================== -->
+
+            <div class="register-header">
+
+                <div class="register-eyebrow">
+                    New Member
+                </div>
+
+                <h2>
+                    Create your account.
+                </h2>
+
+                <p>
+                    Join Shylu Threads and start your personalized fashion journey.
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 DJANGO MESSAGES
+            ================================================== -->
+
+            {% if messages %}
+
+                {% for message in messages %}
+
+                    <div
+                        class="alert custom-alert alert-{% if message.tags == 'error' %}danger{% elif message.tags == 'success' %}success{% else %}warning{% endif %} alert-dismissible fade show"
+                        role="alert"
+                    >
+
+                        <i class="bi bi-info-circle me-2"></i>
+
+                        {{ message }}
+
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert"
+                            aria-label="Close"
+                        ></button>
+
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+
+
+            <!-- =================================================
+                 REGISTER FORM
+            ================================================== -->
+
+            <form
+                method="POST"
+                action="{% url 'register' %}"
+                id="registerForm"
+                class="register-form"
+            >
+
+                {% csrf_token %}
+
+
+
+                <!-- NAME -->
+
+                <div class="form-group">
+
+                    <label
+                        for="registerName"
+                        class="form-label"
+                    >
+                        Full Name
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <input
+                            id="registerName"
+                            name="name"
+                            type="text"
+                            class="form-control-custom"
+                            placeholder="Your full name"
+                            autocomplete="name"
+                            minlength="2"
+                            required
+                        >
+
+                        <i class="bi bi-person input-icon"></i>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PHONE -->
+
+                <div class="form-group">
+
+                    <label
+                        for="registerPhone"
+                        class="form-label"
+                    >
+                        Phone Number
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <input
+                            id="registerPhone"
+                            name="phone"
+                            type="tel"
+                            maxlength="10"
+                            class="form-control-custom"
+                            placeholder="+91 9876443210"
+                            autocomplete="tel"
+                            required
+                        >
+
+                        <i class="bi bi-phone input-icon"></i>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group full-width">
+
+                    <label
+                        for="registerEmail"
+                        class="form-label"
+                    >
+                        Email Address
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <input
+                            id="registerEmail"
+                            name="email"
+                            type="email"
+                            class="form-control-custom"
+                            placeholder="you@example.com"
+                            autocomplete="email"
+                            required
+                        >
+
+                        <i class="bi bi-envelope input-icon"></i>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-group">
+
+                    <label
+                        for="registerPassword"
+                        class="form-label"
+                    >
+                        Password
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <input
+                            id="registerPassword"
+                            name="password"
+                            type="password"
+                            class="form-control-custom"
+                            placeholder="Create password"
+                            autocomplete="new-password"
+                            minlength="8"
+                            required
+                        >
+
+                        <i class="bi bi-lock input-icon"></i>
+
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            id="passwordToggle"
+                            aria-label="Show password"
+                        >
+
+                            <i
+                                class="bi bi-eye"
+                                id="passwordIcon"
+                            ></i>
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- Strength -->
+
+                    <div class="strength-area">
+
+                        <div class="strength-bars">
+
+                            <span
+                                class="strength-bar"
+                                id="bar1"
+                            ></span>
+
+                            <span
+                                class="strength-bar"
+                                id="bar2"
+                            ></span>
+
+                            <span
+                                class="strength-bar"
+                                id="bar3"
+                            ></span>
+
+                            <span
+                                class="strength-bar"
+                                id="bar4"
+                            ></span>
+
+                        </div>
+
+
+                        <span
+                            class="strength-text"
+                            id="strengthText"
+                        >
+                            Use at least 8 characters.
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CONFIRM PASSWORD -->
+
+                <div class="form-group">
+
+                    <label
+                        for="registerConfirmPassword"
+                        class="form-label"
+                    >
+                        Confirm Password
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <input
+                            id="registerConfirmPassword"
+                            name="confirm_password"
+                            type="password"
+                            class="form-control-custom"
+                            placeholder="Repeat password"
+                            autocomplete="new-password"
+                            minlength="8"
+                            required
+                        >
+
+                        <i class="bi bi-shield-lock input-icon"></i>
+
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            id="confirmToggle"
+                            aria-label="Show password"
+                        >
+
+                            <i
+                                class="bi bi-eye"
+                                id="confirmIcon"
+                            ></i>
+
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        class="match-message"
+                        id="matchMessage"
+                    ></div>
+
+                </div>
+
+
+
+                <!-- TERMS -->
+
+                <div class="form-group full-width">
+
+
+                    <div class="terms">
+
+                        <input
+                            id="terms"
+                            type="checkbox"
+                            required
+                        >
+
+
+                        <label for="terms">
+
+                            I agree to the Shylu Threads
+                            <a href="#">
+                                Terms & Conditions
+                            </a>
+                            and
+                            <a href="#">
+                                Privacy Policy
+                            </a>.
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- BUTTON -->
+
+                <div class="form-group full-width">
+
+                    <button
+                        type="submit"
+                        class="create-button"
+                        id="createButton"
+                    >
+
+                        <span class="button-content">
+
+                            <span
+                                class="spinner"
+                                id="registerSpinner"
+                            ></span>
+
+                            <i
+                                class="bi bi-person-plus me-2"
+                                id="registerIcon"
+                            ></i>
+
+                            <span id="registerText">
+                                Create My Account
+                            </span>
+
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+            </form>
+
+
+
+            <!-- =================================================
+                 LOGIN
+            ================================================== -->
+
+            <div class="login-link">
+
+                Already have an account?
+
+                <a href="{% url 'login' %}">
+                    Sign in
+                </a>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 SECURITY
+            ================================================== -->
+
+            <div class="security">
+
+                <i class="bi bi-shield-check"></i>
+
+                Your information is securely protected.
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+</div>
+
+
+
+<!-- =========================================================
+     BOOTSTRAP JS
+========================================================== -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+></script>
+
+
+
+<script>
+
+(function () {
+
+
+    /* =====================================================
+       PASSWORD TOGGLE FUNCTION
+    ===================================================== */
+
+    function setupPasswordToggle(
+        inputId,
+        buttonId,
+        iconId
+    ) {
+
+        const input =
+            document.getElementById(inputId);
+
+        const button =
+            document.getElementById(buttonId);
+
+        const icon =
+            document.getElementById(iconId);
+
+
+        if (!input || !button || !icon) {
+            return;
+        }
+
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                if (input.type === "password") {
+
+                    input.type = "text";
+
+                    icon.classList.replace(
+                        "bi-eye",
+                        "bi-eye-slash"
+                    );
+
+                    button.setAttribute(
+                        "aria-label",
+                        "Hide password"
+                    );
+
+                } else {
+
+                    input.type = "password";
+
+                    icon.classList.replace(
+                        "bi-eye-slash",
+                        "bi-eye"
+                    );
+
+                    button.setAttribute(
+                        "aria-label",
+                        "Show password"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    setupPasswordToggle(
+        "registerPassword",
+        "passwordToggle",
+        "passwordIcon"
+    );
+
+
+    setupPasswordToggle(
+        "registerConfirmPassword",
+        "confirmToggle",
+        "confirmIcon"
+    );
+
+
+
+    /* =====================================================
+       PASSWORD STRENGTH
+    ===================================================== */
+
+    const password =
+        document.getElementById(
+            "registerPassword"
+        );
+
+
+    const bars = [
+
+        document.getElementById("bar1"),
+
+        document.getElementById("bar2"),
+
+        document.getElementById("bar3"),
+
+        document.getElementById("bar4")
+
+    ];
+
+
+    const strengthText =
+        document.getElementById(
+            "strengthText"
+        );
+
+
+    function checkPasswordStrength(value) {
+
+
+        let score = 0;
+
+
+        if (value.length >= 8) {
+            score++;
+        }
+
+
+        if (/[A-Z]/.test(value)) {
+            score++;
+        }
+
+
+        if (/[0-9]/.test(value)) {
+            score++;
+        }
+
+
+        if (/[^A-Za-z0-9]/.test(value)) {
+            score++;
+        }
+
+
+        bars.forEach(
+            function (bar) {
+
+                bar.style.background =
+                    "#e8e5df";
+
+            }
+        );
+
+
+        if (!value) {
+
+            strengthText.textContent =
+                "Use at least 8 characters.";
+
+            return;
+
+        }
+
+
+        if (score === 1) {
+
+            bars[0].style.background =
+                "#d9534f";
+
+            strengthText.textContent =
+                "Weak password";
+
+        }
+
+
+        else if (score === 2) {
+
+            bars[0].style.background =
+                "#e0a32a";
+
+            bars[1].style.background =
+                "#e0a32a";
+
+            strengthText.textContent =
+                "Fair password";
+
+        }
+
+
+        else if (score === 3) {
+
+            bars[0].style.background =
+                "#b8a33b";
+
+            bars[1].style.background =
+                "#b8a33b";
+
+            bars[2].style.background =
+                "#b8a33b";
+
+            strengthText.textContent =
+                "Good password";
+
+        }
+
+
+        else if (score === 4) {
+
+            bars.forEach(
+                function (bar) {
+
+                    bar.style.background =
+                        "#5f9969";
+
+                }
+            );
+
+            strengthText.textContent =
+                "Strong password";
+
+        }
+
+    }
+
+
+    if (password) {
+
+        password.addEventListener(
+            "input",
+            function () {
+
+                checkPasswordStrength(
+                    password.value
+                );
+
+                checkPasswordMatch();
+
+            }
+        );
+
+    }
+
+
+
+    /* =====================================================
+       PASSWORD MATCH
+    ===================================================== */
+
+    const confirmPassword =
+        document.getElementById(
+            "registerConfirmPassword"
+        );
+
+
+    const matchMessage =
+        document.getElementById(
+            "matchMessage"
+        );
+
+
+    function checkPasswordMatch() {
+
+
+        if (
+            !confirmPassword.value
+        ) {
+
+            matchMessage.textContent =
+                "";
+
+            matchMessage.className =
+                "match-message";
+
+            return false;
+
+        }
+
+
+        if (
+            password.value ===
+            confirmPassword.value
+        ) {
+
+            matchMessage.textContent =
+                "✓ Passwords match";
+
+            matchMessage.className =
+                "match-message match-success";
+
+            return true;
+
+        }
+
+
+        matchMessage.textContent =
+            "Passwords do not match.";
+
+        matchMessage.className =
+            "match-message match-error";
+
+        return false;
+
+    }
+
+
+    if (confirmPassword) {
+
+        confirmPassword.addEventListener(
+            "input",
+            checkPasswordMatch
+        );
+
+    }
+
+
+
+    /* =====================================================
+       PHONE VALIDATION
+    ===================================================== */
+
+    const phone =
+        document.getElementById(
+            "registerPhone"
+        );
+
+
+    if (phone) {
+
+        phone.addEventListener(
+            "input",
+            function () {
+
+                this.value =
+                    this.value.replace(
+                        /[^0-9+\-\s]/g,
+                        ""
+                    );
+
+            }
+        );
+
+    }
+
+
+
+    /* =====================================================
+       FORM SUBMIT
+    ===================================================== */
+
+    const form =
+        document.getElementById(
+            "registerForm"
+        );
+
+
+    const button =
+        document.getElementById(
+            "createButton"
+        );
+
+
+    const spinner =
+        document.getElementById(
+            "registerSpinner"
+        );
+
+
+    const icon =
+        document.getElementById(
+            "registerIcon"
+        );
+
+
+    const text =
+        document.getElementById(
+            "registerText"
+        );
+
+
+    if (form) {
+
+
+        form.addEventListener(
+            "submit",
+            function (event) {
+
+
+                /* Browser validation */
+
+                if (!form.checkValidity()) {
+
+                    event.preventDefault();
+
+                    form.reportValidity();
+
+                    return;
+
+                }
+
+
+                /* Password match */
+
+                if (
+                    password.value !==
+                    confirmPassword.value
+                ) {
+
+                    event.preventDefault();
+
+                    checkPasswordMatch();
+
+                    confirmPassword.focus();
+
+                    return;
+
+                }
+
+
+                /*
+                    Do NOT use preventDefault()
+                    here.
+
+                    Django must receive
+                    the POST request.
+                */
+
+
+                button.disabled = true;
+
+
+                spinner.style.display =
+                    "inline-block";
+
+
+                icon.style.display =
+                    "none";
+
+
+                text.textContent =
+                    "Creating account…";
+
+            }
+        );
+
+    }
+
+
+
+    /* =====================================================
+       SMALL INPUT ANIMATION
+    ===================================================== */
+
+    const inputs =
+        document.querySelectorAll(
+            ".form-control-custom"
+        );
+
+
+    inputs.forEach(
+        function (input) {
+
+            input.addEventListener(
+                "focus",
+                function () {
+
+                    this.parentElement
+                        .style.transform =
+                        "translateY(-1px)";
+
+                }
+            );
+
+
+            input.addEventListener(
+                "blur",
+                function () {
+
+                    this.parentElement
+                        .style.transform =
+                        "translateY(0)";
+
+                }
+            );
+
+        }
+    );
+
+
+})();
+
+</script>
+
+
+</body>
+</html>

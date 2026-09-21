@@ -1,0 +1,1057 @@
+{% extends "custom_admin/base.html" %}
+
+{% block title %}
+Stock History | Shylu Threads Admin
+{% endblock %}
+
+{% block page_title %}
+Stock Movements
+{% endblock %}
+
+{% block content %}
+
+<style>
+    /* ============================================================
+       STOCK MOVEMENT PAGE — ENHANCED MODERN DESIGN
+       ============================================================ */
+
+    .stock-movement-page {
+        animation: movementPageIn .7s ease both;
+    }
+
+    /* ---------- HERO SECTION ---------- */
+    .movement-hero {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 32px;
+        padding: 34px 38px;
+        margin-bottom: 24px;
+        border-radius: 22px;
+        overflow: hidden;
+        background: linear-gradient(135deg, #211a1e 0%, #3d212b 45%, #7a4350 85%, #a65d68 100%);
+        box-shadow: 0 20px 50px rgba(88, 44, 54, .22);
+        isolation: isolate;
+    }
+
+    .movement-hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background:
+            radial-gradient(ellipse at 20% 30%, rgba(199, 154, 82, .12) 0%, transparent 50%),
+            radial-gradient(ellipse at 80% 70%, rgba(166, 93, 104, .15) 0%, transparent 50%);
+        pointer-events: none;
+    }
+
+    /* floating orbs */
+    .movement-hero .orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(60px);
+        opacity: .35;
+        pointer-events: none;
+        z-index: 0;
+    }
+    .movement-hero .orb-1 {
+        width: 300px;
+        height: 300px;
+        top: -120px;
+        right: -80px;
+        background: var(--gold);
+    }
+    .movement-hero .orb-2 {
+        width: 200px;
+        height: 200px;
+        bottom: -100px;
+        left: -60px;
+        background: var(--rose);
+    }
+    .movement-hero .orb-3 {
+        width: 140px;
+        height: 140px;
+        top: 10px;
+        left: 40%;
+        background: rgba(255, 255, 255, .06);
+        filter: blur(40px);
+    }
+
+    .movement-hero-copy {
+        position: relative;
+        z-index: 1;
+        flex: 1;
+    }
+
+    .movement-hero-copy .section-eyebrow {
+        display: inline-block;
+        color: rgba(255, 255, 255, .6);
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        background: rgba(255, 255, 255, .08);
+        padding: 4px 14px;
+        border-radius: 100px;
+        border: 1px solid rgba(255, 255, 255, .06);
+        backdrop-filter: blur(4px);
+        margin-bottom: 10px;
+    }
+
+    .movement-hero-copy h2 {
+        margin: 6px 0 6px;
+        color: #fff;
+        font-family: "Playfair Display", serif;
+        font-size: 34px;
+        letter-spacing: -.3px;
+        line-height: 1.15;
+    }
+
+    .movement-hero-copy h2 em {
+        font-style: normal;
+        color: var(--gold);
+        position: relative;
+    }
+    .movement-hero-copy h2 em::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 2px;
+        width: 100%;
+        height: 3px;
+        background: var(--gold);
+        border-radius: 4px;
+        opacity: .4;
+    }
+
+    .movement-hero-copy p {
+        margin: 0;
+        color: rgba(255, 255, 255, .75);
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: .2px;
+        max-width: 420px;
+    }
+
+    /* ---------- HERO ACTIONS ---------- */
+    .movement-hero .stock-movement-actions {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        gap: 14px;
+        flex-shrink: 0;
+    }
+
+    .movement-action {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 16px 22px 16px 18px;
+        border-radius: 16px;
+        color: #fff;
+        text-decoration: none;
+        border: 1px solid rgba(255, 255, 255, .15);
+        background: rgba(255, 255, 255, .07);
+        backdrop-filter: blur(8px);
+        transition: transform .35s cubic-bezier(.2, .8, .2, 1), box-shadow .4s ease, background .35s ease, border-color .35s ease;
+        min-width: 190px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .movement-action::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 16px;
+        padding: 1px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, .25), transparent 60%);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+    }
+
+    .movement-action:hover {
+        transform: translateY(-6px) scale(1.01);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, .25);
+        border-color: rgba(255, 255, 255, .3);
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .movement-action-in {
+        background: linear-gradient(135deg, rgba(45, 155, 92, .25), rgba(45, 155, 92, .05));
+        border-color: rgba(45, 155, 92, .35);
+    }
+    .movement-action-in:hover {
+        background: linear-gradient(135deg, rgba(45, 155, 92, .4), rgba(45, 155, 92, .1));
+        border-color: rgba(45, 155, 92, .6);
+        box-shadow: 0 18px 40px rgba(45, 155, 92, .25);
+    }
+
+    .movement-action-out {
+        background: linear-gradient(135deg, rgba(211, 92, 82, .25), rgba(211, 92, 82, .05));
+        border-color: rgba(211, 92, 82, .35);
+    }
+    .movement-action-out:hover {
+        background: linear-gradient(135deg, rgba(211, 92, 82, .4), rgba(211, 92, 82, .1));
+        border-color: rgba(211, 92, 82, .6);
+        box-shadow: 0 18px 40px rgba(211, 92, 82, .25);
+    }
+
+    .movement-action-icon {
+        width: 46px;
+        height: 46px;
+        min-width: 46px;
+        display: grid;
+        place-items: center;
+        border-radius: 14px;
+        font-size: 20px;
+        background: rgba(255, 255, 255, .1);
+        border: 1px solid rgba(255, 255, 255, .08);
+        transition: transform .35s ease, background .35s ease;
+    }
+    .movement-action:hover .movement-action-icon {
+        transform: scale(1.08) translateY(-2px);
+        background: rgba(255, 255, 255, .18);
+    }
+    .movement-action-in .movement-action-icon {
+        color: #5edb9a;
+    }
+    .movement-action-out .movement-action-icon {
+        color: #ff8a7a;
+    }
+
+    .movement-action-text {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.2;
+    }
+    .movement-action-text small {
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        opacity: .55;
+    }
+    .movement-action-text strong {
+        font-size: 17px;
+        font-weight: 700;
+        letter-spacing: -.2px;
+        margin-top: 2px;
+    }
+
+    .action-arrow {
+        margin-left: auto;
+        font-size: 14px;
+        opacity: .5;
+        transition: transform .4s ease, opacity .3s ease;
+    }
+    .movement-action:hover .action-arrow {
+        transform: translateX(6px) rotate(-8deg);
+        opacity: 1;
+    }
+
+    /* glow pulse for stock in/out */
+    .movement-action-in::after,
+    .movement-action-out::after {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle at 30% 40%, rgba(255, 255, 255, .03), transparent 60%);
+        pointer-events: none;
+        animation: actionGlow 4s ease-in-out infinite alternate;
+    }
+    .movement-action-out::after {
+        animation-delay: 2s;
+    }
+    @keyframes actionGlow {
+        0% {
+            transform: scale(1) rotate(0deg);
+            opacity: .4;
+        }
+        100% {
+            transform: scale(1.1) rotate(8deg);
+            opacity: .8;
+        }
+    }
+
+    /* ---------- STATS GRID ---------- */
+    .movement-stat-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+
+    .movement-stat {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 20px 24px;
+        border-radius: 18px;
+        background: #fff;
+        border: 1px solid var(--line);
+        box-shadow: 0 6px 24px rgba(38, 25, 30, .045);
+        transition: transform .35s cubic-bezier(.2, .8, .2, 1), box-shadow .4s ease, border-color .3s ease;
+        animation: statSlideUp .6s ease both;
+        position: relative;
+        overflow: hidden;
+    }
+    .movement-stat:nth-child(1) {
+        animation-delay: .08s;
+    }
+    .movement-stat:nth-child(2) {
+        animation-delay: .14s;
+    }
+    .movement-stat:nth-child(3) {
+        animation-delay: .20s;
+    }
+
+    .movement-stat:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 14px 36px rgba(38, 25, 30, .09);
+        border-color: rgba(166, 93, 104, .15);
+    }
+
+    .movement-stat::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        border-radius: 18px 18px 0 0;
+        opacity: 0;
+        transition: opacity .4s ease;
+    }
+    .movement-stat:hover::before {
+        opacity: 1;
+    }
+    .movement-stat-in::before {
+        background: linear-gradient(90deg, #18733c, #5edb9a);
+    }
+    .movement-stat-out::before {
+        background: linear-gradient(90deg, #b42318, #ff8a7a);
+    }
+    .movement-stat-neutral::before {
+        background: linear-gradient(90deg, #806126, #f5d68a);
+    }
+
+    .movement-stat-icon {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        display: grid;
+        place-items: center;
+        border-radius: 14px;
+        font-size: 20px;
+        transition: transform .35s ease;
+    }
+    .movement-stat:hover .movement-stat-icon {
+        transform: scale(1.06) rotate(-3deg);
+    }
+    .movement-stat-in .movement-stat-icon {
+        color: #18733c;
+        background: #e8f7ee;
+    }
+    .movement-stat-out .movement-stat-icon {
+        color: #b42318;
+        background: #fde8e8;
+    }
+    .movement-stat-neutral .movement-stat-icon {
+        color: #806126;
+        background: #fff4d6;
+    }
+
+    .movement-stat-info {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.2;
+    }
+    .movement-stat-info small {
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        color: var(--muted);
+    }
+    .movement-stat-info strong {
+        font-size: 24px;
+        font-weight: 800;
+        letter-spacing: -.4px;
+        margin-top: 3px;
+    }
+    .movement-stat-in .movement-stat-info strong {
+        color: #18733c;
+    }
+    .movement-stat-out .movement-stat-info strong {
+        color: #b42318;
+    }
+    .movement-stat-neutral .movement-stat-info strong {
+        color: var(--ink);
+    }
+
+    .movement-stat .stat-trend {
+        margin-left: auto;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 100px;
+        background: #f4f1ee;
+        color: var(--muted);
+        transition: background .3s ease, color .3s ease;
+    }
+    .movement-stat:hover .stat-trend {
+        background: #f0e8e4;
+    }
+
+    /* ---------- CARD ---------- */
+    .stock-movement-card {
+        border-radius: 20px;
+        background: #fff;
+        border: 1px solid var(--line);
+        box-shadow: 0 8px 32px rgba(38, 25, 30, .045);
+        overflow: hidden;
+        animation: cardSlideUp .7s .24s ease both;
+    }
+
+    .admin-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 22px 28px;
+        border-bottom: 1px solid var(--line);
+        background: linear-gradient(180deg, #fefcf9, #faf8f5);
+    }
+    .admin-card-header h3 {
+        margin: 0 0 3px;
+        font-family: "Playfair Display", serif;
+        font-size: 20px;
+        letter-spacing: -.2px;
+    }
+    .admin-card-header p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 11px;
+    }
+    .admin-card-header .header-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 14px;
+        border-radius: 100px;
+        background: #f4e4e6;
+        color: var(--rose-dark);
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: .5px;
+    }
+    .admin-card-header .header-badge i {
+        font-size: 12px;
+    }
+
+    /* ---------- FILTERS ---------- */
+    .stock-movement-filters {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 16px 24px;
+        background: #fcfaf8;
+        border-bottom: 1px solid var(--line);
+        flex-wrap: wrap;
+    }
+
+    .stock-movement-filters select,
+    .stock-movement-filters input {
+        height: 40px;
+        padding: 0 14px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: #fff;
+        color: var(--ink);
+        font-size: 10px;
+        outline: none;
+        transition: border-color .25s ease, box-shadow .25s ease, transform .2s ease;
+        min-width: 150px;
+    }
+    .stock-movement-filters select:focus,
+    .stock-movement-filters input:focus {
+        border-color: var(--rose);
+        box-shadow: 0 0 0 3px rgba(166, 93, 104, .08);
+    }
+    .stock-movement-filters select:hover,
+    .stock-movement-filters input:hover {
+        border-color: rgba(166, 93, 104, .3);
+    }
+
+    .date-filter {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .date-filter span {
+        color: var(--muted);
+        font-size: 8px;
+        font-weight: 800;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+    }
+    .date-filter input {
+        min-width: 140px;
+    }
+
+    .filter-actions {
+        display: flex;
+        gap: 8px;
+        margin-left: auto;
+    }
+
+    .btn-filter {
+        height: 40px;
+        padding: 0 18px;
+        border: none;
+        border-radius: 10px;
+        font-size: 10px;
+        font-weight: 800;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        cursor: pointer;
+        transition: transform .25s ease, box-shadow .3s ease, background .3s ease;
+        text-decoration: none;
+    }
+    .btn-filter:hover {
+        transform: translateY(-2px);
+        text-decoration: none;
+    }
+    .btn-filter-primary {
+        color: #fff;
+        background: linear-gradient(135deg, var(--rose), var(--rose-dark));
+        box-shadow: 0 6px 16px rgba(166, 93, 104, .2);
+    }
+    .btn-filter-primary:hover {
+        box-shadow: 0 10px 24px rgba(166, 93, 104, .28);
+        color: #fff;
+    }
+    .btn-filter-secondary {
+        color: var(--ink);
+        background: #fff;
+        border: 1px solid var(--line);
+    }
+    .btn-filter-secondary:hover {
+        border-color: var(--rose);
+        color: var(--rose);
+        background: #fff;
+    }
+
+    /* ---------- TABLE ---------- */
+    .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-width: thin;
+        scrollbar-color: #d9c7ca transparent;
+    }
+    .table-responsive::-webkit-scrollbar {
+        height: 5px;
+    }
+    .table-responsive::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    .table-responsive::-webkit-scrollbar-thumb {
+        background: #d9c7ca;
+        border-radius: 100px;
+    }
+
+    .admin-table {
+        width: 100%;
+        min-width: 820px;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .admin-table thead th {
+        height: 46px;
+        padding: 10px 18px;
+        text-align: left;
+        background: #fcfaf8;
+        color: var(--muted);
+        font-size: 8px;
+        font-weight: 800;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        border-bottom: 1px solid var(--line);
+        white-space: nowrap;
+    }
+
+    .admin-table tbody td {
+        height: 60px;
+        padding: 8px 18px;
+        border-bottom: 1px solid rgba(23, 21, 26, .06);
+        font-size: 10px;
+        vertical-align: middle;
+        white-space: nowrap;
+        background: #fff;
+        transition: background .25s ease;
+    }
+    .admin-table tbody tr {
+        transition: transform .2s ease;
+    }
+    .admin-table tbody tr:hover td {
+        background: #fffaf8;
+    }
+    .admin-table tbody tr:last-child td {
+        border-bottom: 0;
+    }
+
+    .admin-table td .item-name {
+        font-weight: 700;
+        color: var(--ink);
+        display: block;
+        font-size: 11px;
+    }
+    .admin-table td .item-meta {
+        font-size: 9px;
+        color: var(--muted);
+        display: block;
+        margin-top: 1px;
+    }
+
+    /* status badges */
+    .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 14px;
+        border-radius: 100px;
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: .2px;
+        border: 1px solid transparent;
+        transition: transform .25s ease, box-shadow .3s ease;
+    }
+    .status-badge:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, .06);
+    }
+    .status-badge i {
+        font-size: 11px;
+    }
+    .status-in {
+        color: #18733c;
+        background: #e8f7ee;
+        border-color: #c5e6d2;
+    }
+    .status-out {
+        color: #b42318;
+        background: #fde8e8;
+        border-color: #f6d0ce;
+    }
+
+    .qty-value {
+        font-weight: 700;
+        font-size: 12px;
+    }
+    .qty-value.positive {
+        color: #18733c;
+    }
+    .qty-value.negative {
+        color: #b42318;
+    }
+
+    .reason-text {
+        color: var(--muted);
+        font-size: 10px;
+        max-width: 160px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: block;
+    }
+
+    .date-text {
+        font-size: 10px;
+        color: var(--muted);
+        font-weight: 500;
+    }
+    .date-text strong {
+        font-weight: 600;
+        color: var(--ink);
+    }
+
+    /* ---------- EMPTY STATE ---------- */
+    .movement-empty {
+        display: grid;
+        justify-items: center;
+        gap: 6px;
+        padding: 48px 20px;
+        text-align: center;
+        color: var(--muted);
+    }
+    .movement-empty .empty-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: 20px;
+        display: grid;
+        place-items: center;
+        background: #f5ecd9;
+        color: var(--gold);
+        font-size: 26px;
+        margin-bottom: 8px;
+        transition: transform .4s ease;
+    }
+    .movement-empty:hover .empty-icon {
+        transform: scale(1.05) rotate(-4deg);
+    }
+    .movement-empty strong {
+        color: var(--ink);
+        font-size: 15px;
+        font-family: "Playfair Display", serif;
+    }
+    .movement-empty span {
+        font-size: 11px;
+        max-width: 280px;
+    }
+
+    /* ---------- ANIMATIONS ---------- */
+    @keyframes movementPageIn {
+        from {
+            opacity: 0;
+            transform: translateY(14px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    @keyframes statSlideUp {
+        from {
+            opacity: 0;
+            transform: translateY(18px) scale(.97);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+    @keyframes cardSlideUp {
+        from {
+            opacity: 0;
+            transform: translateY(22px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 1100px) {
+        .movement-hero {
+            flex-direction: column;
+            align-items: stretch;
+            padding: 28px;
+        }
+        .movement-hero .stock-movement-actions {
+            width: 100%;
+            flex-wrap: wrap;
+        }
+        .movement-action {
+            flex: 1;
+            min-width: 160px;
+        }
+        .movement-stat-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 750px) {
+        .movement-hero {
+            padding: 24px 20px;
+        }
+        .movement-hero-copy h2 {
+            font-size: 26px;
+        }
+        .movement-hero .stock-movement-actions {
+            flex-direction: column;
+        }
+        .movement-action {
+            min-width: 0;
+            width: 100%;
+        }
+        .movement-stat-grid {
+            grid-template-columns: 1fr;
+        }
+        .admin-card-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 18px 20px;
+        }
+        .stock-movement-filters {
+            flex-direction: column;
+            align-items: stretch;
+            padding: 14px 16px;
+        }
+        .stock-movement-filters select,
+        .stock-movement-filters input {
+            min-width: 0;
+            width: 100%;
+        }
+        .date-filter {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 4px;
+        }
+        .date-filter input {
+            min-width: 0;
+            width: 100%;
+        }
+        .filter-actions {
+            margin-left: 0;
+            flex-wrap: wrap;
+        }
+        .filter-actions .btn-filter {
+            flex: 1;
+            justify-content: center;
+        }
+        .admin-table {
+            min-width: 700px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .movement-hero {
+            padding: 20px 16px;
+            border-radius: 16px;
+        }
+        .movement-hero-copy h2 {
+            font-size: 22px;
+        }
+        .movement-action {
+            padding: 14px 16px;
+            gap: 12px;
+        }
+        .movement-action-icon {
+            width: 38px;
+            height: 38px;
+            min-width: 38px;
+            font-size: 16px;
+        }
+        .movement-action-text strong {
+            font-size: 15px;
+        }
+        .movement-stat {
+            padding: 16px 18px;
+        }
+        .movement-stat-info strong {
+            font-size: 20px;
+        }
+        .admin-card-header h3 {
+            font-size: 18px;
+        }
+        .admin-table td,
+        .admin-table th {
+            padding: 8px 12px;
+        }
+        .admin-table {
+            min-width: 620px;
+        }
+    }
+</style>
+
+<div class="stock-movement-page">
+
+    <!-- ============================================================
+    HERO
+    ============================================================ -->
+    <div class="movement-hero">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+
+        <div class="movement-hero-copy">
+            <span class="section-eyebrow">
+                <i class="bi bi-clock-history" style="margin-right:6px;"></i> Inventory Control
+            </span>
+            <h2>Stock <em>Movements</em></h2>
+            <p>Track every addition and deduction in one clear, real-time view.</p>
+        </div>
+
+        <div class="stock-movement-actions">
+            <a href="{% url 'custom_admin_stock_in' %}" class="movement-action movement-action-in">
+                <span class="movement-action-icon"><i class="bi bi-plus-lg"></i></span>
+                <span class="movement-action-text">
+                    <small>Add Inventory</small>
+                    <strong>Stock In</strong>
+                </span>
+                <i class="bi bi-arrow-up-right action-arrow"></i>
+            </a>
+            <a href="{% url 'custom_admin_stock_out' %}" class="movement-action movement-action-out">
+                <span class="movement-action-icon"><i class="bi bi-dash-lg"></i></span>
+                <span class="movement-action-text">
+                    <small>Reduce Inventory</small>
+                    <strong>Stock Out</strong>
+                </span>
+                <i class="bi bi-arrow-up-right action-arrow"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    STATS
+    ============================================================ -->
+    <div class="movement-stat-grid">
+        <div class="movement-stat movement-stat-in">
+            <span class="movement-stat-icon"><i class="bi bi-box-arrow-in-down"></i></span>
+            <span class="movement-stat-info">
+                <small>Stock In</small>
+                <strong>+{{ stock_in_total|default:"0" }} pcs</strong>
+            </span>
+            <span class="stat-trend"><i class="bi bi-arrow-up"></i> Inflow</span>
+        </div>
+        <div class="movement-stat movement-stat-out">
+            <span class="movement-stat-icon"><i class="bi bi-box-arrow-up"></i></span>
+            <span class="movement-stat-info">
+                <small>Stock Out</small>
+                <strong>-{{ stock_out_total|default:"0" }} pcs</strong>
+            </span>
+            <span class="stat-trend"><i class="bi bi-arrow-down"></i> Outflow</span>
+        </div>
+        <div class="movement-stat movement-stat-neutral">
+            <span class="movement-stat-icon"><i class="bi bi-activity"></i></span>
+            <span class="movement-stat-info">
+                <small>Total Activities</small>
+                <strong>{{ movement_count|default:"0" }}</strong>
+            </span>
+            <span class="stat-trend"><i class="bi bi-clock"></i> Events</span>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    MAIN CARD
+    ============================================================ -->
+    <div class="stock-movement-card">
+
+        <!-- CARD HEADER -->
+        <div class="admin-card-header">
+            <div>
+                <h3>Movement History</h3>
+                <p>
+                    {% if date_from or date_to %}
+                        Filtered stock activity
+                    {% else %}
+                        Today's stock activity
+                    {% endif %}
+                </p>
+            </div>
+            <span class="header-badge">
+                <i class="bi bi-layers"></i>
+                {{ movements|length }} entries
+            </span>
+        </div>
+
+        <!-- FILTERS -->
+        <form method="get" class="stock-movement-filters">
+            <select name="movement_type" class="form-select">
+                <option value="">All movements</option>
+                <option value="IN" {% if movement_type == "IN" %}selected{% endif %}>Stock In</option>
+                <option value="OUT" {% if movement_type == "OUT" %}selected{% endif %}>Stock Out</option>
+            </select>
+
+            <div class="date-filter">
+                <span>From</span>
+                <input type="date" name="date_from" value="{{ date_from }}" class="form-control">
+            </div>
+            <div class="date-filter">
+                <span>To</span>
+                <input type="date" name="date_to" value="{{ date_to }}" class="form-control">
+            </div>
+
+            <div class="filter-actions">
+                <button type="submit" class="btn-filter btn-filter-primary">
+                    <i class="bi bi-search"></i> Search
+                </button>
+                {% if movement_type or date_from or date_to %}
+                    <a href="{% url 'custom_admin_stock_history' %}" class="btn-filter btn-filter-secondary">
+                        <i class="bi bi-arrow-counterclockwise"></i> Clear
+                    </a>
+                {% endif %}
+            </div>
+        </form>
+
+        <!-- TABLE -->
+        <div class="table-responsive">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Item</th>
+                        <th>Type</th>
+                        <th>Quantity</th>
+                        <th>Reason</th>
+                        <th>Date &amp; Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for movement in movements %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>
+                                <span class="item-name">{{ movement.item.item_name }}</span>
+                                <span class="item-meta">{{ movement.item.category|default:"" }}</span>
+                            </td>
+                            <td>
+                                {% if movement.movement_type == "IN" %}
+                                    <span class="status-badge status-in">
+                                        <i class="bi bi-arrow-down-circle"></i> Stock In
+                                    </span>
+                                {% else %}
+                                    <span class="status-badge status-out">
+                                        <i class="bi bi-arrow-up-circle"></i> Stock Out
+                                    </span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <span class="qty-value {% if movement.movement_type == "IN" %}positive{% else %}negative{% endif %}">
+                                    {% if movement.movement_type == "IN" %}+{% else %}-{% endif %}
+                                    {{ movement.quantity }}
+                                </span>
+                                <span style="color:var(--muted);font-size:9px;margin-left:4px;">{{ movement.item.unit }}</span>
+                            </td>
+                            <td>
+                                <span class="reason-text">{{ movement.reason|default:"—" }}</span>
+                            </td>
+                            <td>
+                                <span class="date-text">
+                                    <strong>{{ movement.created_at|date:"d M Y" }}</strong>
+                                    <span style="color:var(--muted);font-size:9px;">{{ movement.created_at|date:"h:i A" }}</span>
+                                </span>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="6">
+                                <div class="movement-empty">
+                                    <div class="empty-icon"><i class="bi bi-bar-chart-line"></i></div>
+                                    <strong>No movements found</strong>
+                                    <span>Stock activity matching your filters will appear here.</span>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div><!-- /stock-movement-card -->
+</div><!-- /stock-movement-page -->
+
+{% endblock %}

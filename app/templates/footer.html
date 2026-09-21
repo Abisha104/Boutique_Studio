@@ -1,0 +1,242 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Shylu Threads{% endblock %}</title>
+
+    <link rel="stylesheet"
+          href="{% static 'app/css/index/style.css' %}">
+
+    {% block extra_css %}
+    {% endblock %}
+
+</head>
+
+<body>
+
+
+
+<!-- EVERY PAGE CONTENT COMES HERE -->
+
+<main>
+
+    {% block content %}
+    {% endblock %}
+
+</main>
+
+
+
+   
+   
+   
+   
+   
+   <footer class="modern-footer" id="contact">
+        <div class="footer-newsletter">
+            <div class="footer-newsletter-content">
+                <div class="newsletter-text">
+                    <span class="newsletter-label">STAY IN STYLE</span>
+                    <h2>Get the latest designs <span>in your inbox.</span></h2>
+                    <p>Subscribe to receive new collections, special offers, tailoring tips and exclusive boutique updates.</p>
+                </div>
+                <form class="newsletter-form" id="newsletterForm" method="post" action="{% url 'newsletter_subscribe' %}">
+                    {% csrf_token %}
+                    <div class="newsletter-input">
+                        <i class="bi bi-envelope"></i>
+                        <input type="email" name="newsletter_email" placeholder="Enter your email address" required>
+                    </div>
+                    <button type="submit">Subscribe <i class="bi bi-arrow-right"></i></button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-main">
+            <div class="footer-container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <a href="{% url 'home' %}" class="footer-logo">
+                            <div class="footer-logo-mark">S</div>
+                            <div class="footer-logo-text">
+                                <strong>Shylu Threads</strong>
+                                <span>BOUTIQUE STUDIO</span>
+                            </div>
+                        </a>
+                        <p class="footer-description">Premium tailoring services, curated collections and personalized stitching crafted with care for every occasion.</p>
+                        <div class="footer-trust">
+                            <div class="trust-item"><i class="bi bi-patch-check"></i><span>Quality<br>Assured</span></div>
+                            <div class="trust-item"><i class="bi bi-scissors"></i><span>Expert<br>Tailoring</span></div>
+                        </div>
+                        <div class="footer-social">
+                            <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                            <a href="#" aria-label="Pinterest"><i class="bi bi-pinterest"></i></a>
+                            <a href="#" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Boutique</h4>
+                        <span class="footer-line"></span>
+                        <a href="{% url 'about' %}">About Us</a>
+                        <a href="{% url 'services' %}">Our Services</a>
+                        <a href="{% url 'designs' %}">Design Collections</a>
+                        <a href="{% url 'how_it_works' %}">How It Works</a>
+                        <a href="{% url 'contact' %}">Book a Consultation</a>
+                        <a href="#">Custom Designs</a>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Our Services</h4>
+                        <span class="footer-line"></span>
+                        <a href="{% url 'services' %}">Blouse Stitching</a>
+                        <a href="{% url 'services' %}">Bridal Wear</a>
+                        <a href="{% url 'services' %}">Kurti Stitching</a>
+                        <a href="{% url 'services' %}">Lehenga Design</a>
+                        <a href="{% url 'services' %}">Alterations</a>
+                        <a href="{% url 'services' %}">Custom Tailoring</a>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Customer Care</h4>
+                        <span class="footer-line"></span>
+                        <a href="{% url 'contact' %}">Contact Us</a>
+                        <a href="{% url 'how_it_works' %}">How It Works</a>
+                        <a href="#">Delivery Information</a>
+                        <a href="#">Size Guide</a>
+                        <a href="#">Terms & Conditions</a>
+                        <a href="#">Privacy Policy</a>
+                    </div>
+
+                    <div class="footer-column footer-contact">
+                        <h4>Visit Our Boutique</h4>
+                        <span class="footer-line"></span>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="bi bi-geo-alt"></i></div>
+                            <div>
+                                <span>Address</span>
+                                <p>123 Fashion Street,<br>Kanniyakumari</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="bi bi-telephone"></i></div>
+                            <div>
+                                <span>Call Us</span>
+                                <a href="tel:+919876543210">+91 98765 43210</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="bi bi-envelope"></i></div>
+                            <div>
+                                <span>Email</span>
+                                <a href="mailto:hello@smarttailor.com">hello@shyluthreads.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="bi bi-clock"></i></div>
+                            <div>
+                                <span>Opening Hours</span>
+                                <p>Mon – Sat: 9:00 AM – 7:00 PM<br>Sunday: 10:00 AM – 4:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-features">
+                    <div class="footer-feature">
+                        <i class="bi bi-gem"></i>
+                        <div><strong>Premium Quality</strong><span>Finest fabrics & stitching</span></div>
+                    </div>
+                    <div class="footer-feature">
+                        <i class="bi bi-rulers"></i>
+                        <div><strong>Perfect Measurements</strong><span>Tailored to your fit</span></div>
+                    </div>
+                    <div class="footer-feature">
+                        <i class="bi bi-truck"></i>
+                        <div><strong>On-time Delivery</strong><span>We value your time</span></div>
+                    </div>
+                    <div class="footer-feature">
+                        <i class="bi bi-shield-check"></i>
+                        <div><strong>Trusted Service</strong><span>Customer satisfaction first</span></div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <div class="copyright">
+                        <p>© 2026 <strong>Shylu Threads Boutique</strong>. All rights reserved.</p>
+                    </div>
+                    <div class="footer-bottom-links">
+                        <a href="#">Privacy</a>
+                        <a href="#">Terms</a>
+                        <a href="#">Cookies</a>
+                    </div>
+                    <div class="payment-methods">
+                        <span>We Accept</span>
+                        <div class="payment-icons">
+                            <span>UPI</span>
+                            <span>VISA</span>
+                            <span>MASTER</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="footer-back-top" id="backToTop" aria-label="Back to top">
+            <i class="bi bi-arrow-up"></i>
+        </button>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const newsletterForm = document.getElementById('newsletterForm');
+            if (!newsletterForm) return;
+
+            newsletterForm.addEventListener('submit', async function (event) {
+                event.preventDefault();
+                const button = newsletterForm.querySelector('button');
+                const input = newsletterForm.querySelector('input[name="newsletter_email"]');
+                const originalText = button.innerHTML;
+                button.disabled = true;
+                button.innerHTML = '<i class="bi bi-hourglass-split"></i> Subscribing...';
+
+                try {
+                    const response = await fetch(newsletterForm.action, {
+                        method: 'POST',
+                        body: new FormData(newsletterForm),
+                        headers: {'X-Requested-With': 'XMLHttpRequest'}
+                    });
+                    const data = await response.json();
+                    if (!response.ok || data.status !== 'success') {
+                        throw new Error(data.message || 'Unable to subscribe right now.');
+                    }
+                    button.innerHTML = '<i class="bi bi-check-circle"></i> Subscribed';
+                    input.value = '';
+                    button.style.background = 'linear-gradient(135deg, #7fa45a, #527331)';
+                    setTimeout(() => {
+                        button.innerHTML = originalText;
+                        button.style.background = '';
+                    }, 3000);
+                } catch (error) {
+                    button.innerHTML = '<i class="bi bi-exclamation-circle"></i> Try again';
+                    window.alert(error.message);
+                    setTimeout(() => { button.innerHTML = originalText; }, 3000);
+                } finally {
+                    button.disabled = false;
+                }
+            });
+        });
+    </script>
+
+{% block extra_js %}
+{% endblock %}
+
+</body>
+</html>
+   
+   

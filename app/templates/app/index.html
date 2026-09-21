@@ -1,0 +1,1058 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Shylu Threads - Boutique Studio</title>
+    <link rel="icon" type="image/png" href="{% static 'images/tailorshop_logo.png' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static 'app/css/index/style.css' %}"/>
+</head>
+
+<body>
+  
+<!-- HEADER -->
+ <div id="progress"></div>
+
+    <!-- ─── NAVBAR ─── -->
+    <nav class="navbar" id="navbar">
+        <a class="brand" href="#home">
+            <span class="brand-mark">
+    <img src="{% static 'images/tailorshop_logo.png' %}" alt="Shylu Threads Logo">
+</span>
+            <span class="brand-text">
+                <strong>Shylu Threads</strong>
+                <small>Boutique Studio</small>
+            </span>
+        </a>
+
+        <div class="mobile-nav-panel">
+            <div class="nav-links">
+                <a class="active" href="#home">Home</a>
+                <a href="{% url 'about' %}">About</a>
+                <a href="{% url 'designs' %}">Designs</a>
+                <a href="{% url 'services' %}">Services</a>
+                <a href="{% url 'how_it_works' %}">How It Works</a>
+                <a href="{% url 'contact' %}">Contact</a>
+            </div>
+
+            <div class="nav-actions">
+                <a class="btn btn-outline auth-login-btn" href="{% url 'login' %}" id="loginNavBtn">Login</a>
+                <a class="btn btn-outline auth-user-btn" href="{% url 'customer_dashboard' %}" id="accountNavBtn"><i class="bi bi-person me-1"></i>My Account</a>
+                <a class="btn btn-outline auth-user-btn" href="{% url 'orders' %}" id="ordersNavBtn"><i class="bi bi-receipt me-1"></i>My Orders</a>
+                <a class="btn btn-outline auth-user-btn logout-link" href="#" id="logoutNavBtn"><i class="bi bi-box-arrow-right me-1"></i>Logout</a>
+                <a class="btn btn-gold" href="{% url 'contact' %}">Book Now</a>
+            </div>
+        </div>
+
+        <button class="mobile-btn" id="menuBtn"><i class="bi bi-list"></i></button>
+    </nav>
+
+    <main>
+        <!-- ─── HERO ─── -->
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <span class="eyebrow">CRAFTED FOR YOU</span>
+                <h1>Your Style.<br>Your Measurements.<br><span style="color:#e2b96e">Your Perfect Fit.</span></h1>
+                <p>Premium custom tailoring with thoughtful design, precise measurements and a modern boutique experience — from first idea to final fitting.</p>
+
+                <div class="hero-buttons">
+                    <a class="btn btn-gold" href="#designs">
+                        Explore Designs <i class="bi bi-arrow-right"></i>
+                    </a>
+                    <a class="btn btn-outline" href="{% url 'contact' %}">
+                        Book Stitching
+                    </a>
+                </div>
+
+                <div class="floating-note">
+                    <span class="blink">●</span>
+                    <span>Accepting new custom orders this week</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── STATS ─── -->
+        <div class="container">
+            <div class="stats reveal">
+                <div class="stat"><strong data-count="10">0</strong><span>Years Experience</span></div>
+                <div class="stat"><strong data-count="2500">0</strong><span>Happy Customers</span></div>
+                <div class="stat"><strong data-count="500">0</strong><span>Designs Created</span></div>
+                <div class="stat"><strong data-count="5000">0</strong><span>Completed Orders</span></div>
+            </div>
+        </div>
+
+        <!-- ─── ABOUT ─── -->
+        <section id="about">
+            <div class="container">
+                <div class="reveal">
+                    <p class="section-label">About Our Boutique</p>
+                    <h2 class="section-title">Handcrafted tailoring.<br>Modern experience.</h2>
+                    <p class="section-subtitle">We blend couture attention to detail with digital convenience, helping every client create outfits that fit beautifully and feel completely personal.</p>
+                </div>
+
+                <div class="feature-grid">
+                    <article class="feature reveal">
+                        <div class="icon"><i class="bi bi-rulers"></i></div>
+                        <h3>Made-to-Measure</h3>
+                        <p>Every order is shaped around your measurements, style notes and preferred finish for a confident, comfortable fit.</p>
+                    </article>
+                    <article class="feature reveal">
+                        <div class="icon"><i class="bi bi-stars"></i></div>
+                        <h3>Personal Styling</h3>
+                        <p>Get design suggestions, fabric guidance and finishing ideas tailored to your occasion and personal style.</p>
+                    </article>
+                    <article class="feature reveal">
+                        <div class="icon"><i class="bi bi-phone"></i></div>
+                        <h3>Smart Updates</h3>
+                        <p>Keep track of your order journey with simple digital updates from measurement and stitching to final fitting.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── COLLECTIONS ─── -->
+        <section class="collections-section" id="designs">
+            <div class="container">
+
+                <div class="collections-header reveal">
+                    <div class="section-eyebrow">
+                        <span></span>
+                        POPULAR DESIGNS
+                        <span></span>
+                    </div>
+                    <h2 class="collections-title">
+                        Our <span>Collections</span>
+                    </h2>
+                    <p class="collections-subtitle">
+                        Handcrafted designs with elegance, made just for you.
+                    </p>
+                </div>
+
+                <!-- Filters -->
+                <div class="design-filters reveal">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="bi bi-grid-3x3-gap"></i>
+                        <span>All</span>
+                    </button>
+                    <button class="filter-btn" data-filter="blouse">
+                        <i class="bi bi-person-standing-dress"></i>
+                        <span>Blouse</span>
+                    </button>
+                    <button class="filter-btn" data-filter="bridal">
+                        <i class="bi bi-gem"></i>
+                        <span>Bridal Wear</span>
+                    </button>
+                    <button class="filter-btn" data-filter="kurti">
+                        <i class="bi bi-person"></i>
+                        <span>Kurti</span>
+                    </button>
+                    <button class="filter-btn" data-filter="lehenga">
+                        <i class="bi bi-stars"></i>
+                        <span>Lehenga</span>
+                    </button>
+                    <button class="filter-btn" data-filter="kids">
+                        <i class="bi bi-balloon"></i>
+                        <span>Kids Wear</span>
+                    </button>
+                </div>
+
+                <!-- Grid -->
+                <div class="design-grid-modern" id="designGrid">
+
+                    <!-- 1 -->
+                    <article class="fashion-card" data-category="blouse">
+                        <div class="fashion-image">
+                            <img src="https://a.1stdibscdn.com/1980s-valentino-blush-rose-silk-lace-blouse-for-sale-picture-4/v_33892/1710267319552/mobilejpegupload_31A8F3735C72466D9E8E9D8A71A7750E_master.jpg" alt="Silk Lace Blouse">
+                            <div class="design-badge bestseller"><i class="bi bi-crown"></i>Bestseller</div>
+                            <button class="wishlist-btn" aria-label="Add to wishlist"><i class="bi bi-heart"></i></button>
+                            <div class="image-overlay">
+                                <a href="design-details.html?design=Silk%20Lace%20Blouse" class="quick-view"><i class="bi bi-eye"></i>Quick View</a>
+                            </div>
+                        </div>
+                        <div class="fashion-content">
+                            <div class="design-category">BLOUSE</div>
+                            <h3>Silk Lace Blouse</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span>4.8</span><small>(120+)</small></div>
+                            <p>Elegant detailing with a refined finish, crafted for a graceful silhouette.</p>
+                            <div class="card-bottom">
+                                <div class="price-area"><small>Starting from</small><strong>₹1,200</strong></div>
+                                <a href="design-details.html?design=Silk%20Lace%20Blouse" class="view-btn" data-name="Silk Lace Blouse">View Details <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 2 -->
+                    <article class="fashion-card" data-category="bridal">
+                        <div class="fashion-image">
+                            <img src="https://i.pinimg.com/originals/40/69/e5/4069e50ae67292cd0fd1e9e63aa36eac.jpg" alt="Ivory Bridal Gown">
+                            <div class="design-badge premium"><i class="bi bi-gem"></i>Premium</div>
+                            <button class="wishlist-btn" aria-label="Add to wishlist"><i class="bi bi-heart"></i></button>
+                            <div class="image-overlay">
+                                <a href="design-details.html?design=Ivory%20Bridal%20Gown" class="quick-view"><i class="bi bi-eye"></i>Quick View</a>
+                            </div>
+                        </div>
+                        <div class="fashion-content">
+                            <div class="design-category bridal">BRIDAL WEAR</div>
+                            <h3>Ivory Bridal Gown</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span>4.9</span><small>(85+)</small></div>
+                            <p>Statement bridal styling with couture-inspired details for your special day.</p>
+                            <div class="card-bottom">
+                                <div class="price-area"><small>Starting from</small><strong>₹8,200</strong></div>
+                                <a href="design-details.html?design=Ivory%20Bridal%20Gown" class="view-btn" data-name="Ivory Bridal Gown">View Details <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 3 -->
+                    <article class="fashion-card" data-category="kurti">
+                        <div class="fashion-image">
+                            <img src="https://www.clohi.in/cdn/shop/files/lavender-blush-kurta-set-for-women-hand-embroidered-ethnic-wear-1676289.jpg?v=1752038104" alt="Hand embroidered Kurti">
+                            <div class="design-badge new"><i class="bi bi-leaf"></i>New Arrival</div>
+                            <button class="wishlist-btn" aria-label="Add to wishlist"><i class="bi bi-heart"></i></button>
+                            <div class="image-overlay">
+                                <a href="design-details.html?design=Hand-embroidered%20Kurti" class="quick-view"><i class="bi bi-eye"></i>Quick View</a>
+                            </div>
+                        </div>
+                        <div class="fashion-content">
+                            <div class="design-category kurti">KURTI</div>
+                            <h3>Hand-embroidered Kurti</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span>4.7</span><small>(95+)</small></div>
+                            <p>Modern silhouette with handcrafted character and beautiful embroidery.</p>
+                            <div class="card-bottom">
+                                <div class="price-area"><small>Starting from</small><strong>₹1,800</strong></div>
+                                <a href="design-details.html?design=Hand-embroidered%20Kurti" class="view-btn" data-name="Hand-embroidered Kurti">View Details <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 4 -->
+                    <article class="fashion-card" data-category="lehenga">
+                        <div class="fashion-image">
+                            <img src="https://anayadesignerstudio.com/cdn/shop/files/Unique-Wedding-Lehenga-For-Bride.jpg?v=1714631381" alt="Designer Lehenga">
+                            <div class="design-badge premium"><i class="bi bi-gem"></i>Premium</div>
+                            <button class="wishlist-btn" aria-label="Add to wishlist"><i class="bi bi-heart"></i></button>
+                            <div class="image-overlay">
+                                <a href="design-details.html?design=Designer%20Lehenga" class="quick-view"><i class="bi bi-eye"></i>Quick View</a>
+                            </div>
+                        </div>
+                        <div class="fashion-content">
+                            <div class="design-category">LEHENGA</div>
+                            <h3>Designer Festive Lehenga</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span>4.9</span><small>(64+)</small></div>
+                            <p>Rich festive detailing with a contemporary and elegant finish.</p>
+                            <div class="card-bottom">
+                                <div class="price-area"><small>Starting from</small><strong>₹6,500</strong></div>
+                                <a href="design-details.html?design=Designer%20Festive%20Lehenga" class="view-btn" data-name="Designer Festive Lehenga">View Details <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 5 -->
+                    <article class="fashion-card" data-category="blouse">
+                        <div class="fashion-image">
+                            <img src="https://k4fashion.com/wp-content/uploads/2019/07/Keyhole-blouse-design.jpg" alt="Modern Designer Blouse">
+                            <div class="design-badge bestseller"><i class="bi bi-fire"></i>Trending</div>
+                            <button class="wishlist-btn" aria-label="Add to wishlist"><i class="bi bi-heart"></i></button>
+                            <div class="image-overlay">
+                                <a href="design-details.html?design=Modern%20Designer%20Blouse" class="quick-view"><i class="bi bi-eye"></i>Quick View</a>
+                            </div>
+                        </div>
+                        <div class="fashion-content">
+                            <div class="design-category">BLOUSE</div>
+                            <h3>Modern Designer Blouse</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span>4.8</span><small>(76+)</small></div>
+                            <p>A contemporary blouse with a stylish neckline, elegant structure and refined finishing.</p>
+                            <div class="card-bottom">
+                                <div class="price-area"><small>Starting from</small><strong>₹1,500</strong></div>
+                                <a href="design-details.html?design=Modern%20Designer%20Blouse" class="view-btn" data-name="Modern Designer Blouse">View Details <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 6 -->
+                    <article class="fashion-card" data-category="blouse">
+                        <div class="fashion-image">
+                            <img src="https://stylishladiestailoring.com/wp-content/uploads/2026/04/Aari-Work-Blouse-Design-%E2%80%93-Heavy-Zardosi-Embroidery-front-600x900.webp" alt="Embroidered Party Blouse">
+                            <div class="design-badge premium"><i class="bi bi-gem"></i>Premium</div>
+                            <button class="wishlist-btn" aria-label="Add to wishlist"><i class="bi bi-heart"></i></button>
+                            <div class="image-overlay">
+                                <a href="design-details.html?design=Embroidered%20Party%20Blouse" class="quick-view"><i class="bi bi-eye"></i>Quick View</a>
+                            </div>
+                        </div>
+                        <div class="fashion-content">
+                            <div class="design-category">BLOUSE</div>
+                            <h3>Embroidered Party Blouse</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span>4.9</span><small>(68+)</small></div>
+                            <p>Intricate embroidery and elegant detailing created for festive and party occasions.</p>
+                            <div class="card-bottom">
+                                <div class="price-area"><small>Starting from</small><strong>₹1,900</strong></div>
+                                <a href="design-details.html?design=Embroidered%20Party%20Blouse" class="view-btn" data-name="Embroidered Party Blouse">View Details <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 7 -->
+                    <article class="fashion-card" data-category="blouse">
+                        <div class="fashion-image">
+                            <img src="https://www.shaadidukaan.com/vogue/wp-content/uploads/2025/04/embellished-blouse-10.webp" alt="Bridal Embellished Blouse">
+                            <div class="design-badge premium"><i class="bi bi-gem"></i>Bridal</div>
+                            <button class="wishlist-btn" aria-label="Add to wishlist"><i class="bi bi-heart"></i></button>
+                            <div class="image-overlay">
+                                <a href="design-details.html?design=Bridal%20Embellished%20Blouse" class="quick-view"><i class="bi bi-eye"></i>Quick View</a>
+                            </div>
+                        </div>
+                        <div class="fashion-content">
+                            <div class="design-category">BLOUSE</div>
+                            <h3>Bridal Embellished Blouse</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span>5.0</span><small>(91+)</small></div>
+                            <p>Luxurious embellishments with a custom silhouette designed for bridal celebrations.</p>
+                            <div class="card-bottom">
+                                <div class="price-area"><small>Starting from</small><strong>₹2,800</strong></div>
+                                <a href="design-details.html?design=Bridal%20Embellished%20Blouse" class="view-btn" data-name="Bridal Embellished Blouse">View Details <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 8 -->
+                    <article class="fashion-card" data-category="blouse">
+                        <div class="fashion-image">
+                            <img src="https://i.pinimg.com/736x/15/cc/df/15ccdf76406bbbed4f39c02725d300e3.jpg" alt="Minimal Silk Blouse">
+                            <div class="design-badge new"><i class="bi bi-stars"></i>New Arrival</div>
+                            <button class="wishlist-btn" aria-label="Add to wishlist"><i class="bi bi-heart"></i></button>
+                            <div class="image-overlay">
+                                <a href="design-details.html?design=Minimal%20Silk%20Blouse" class="quick-view"><i class="bi bi-eye"></i>Quick View</a>
+                            </div>
+                        </div>
+                        <div class="fashion-content">
+                            <div class="design-category">BLOUSE</div>
+                            <h3>Minimal Silk Blouse</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span>4.7</span><small>(54+)</small></div>
+                            <p>Clean lines, premium fabric and subtle details for effortless modern elegance.</p>
+                            <div class="card-bottom">
+                                <div class="price-area"><small>Starting from</small><strong>₹1,350</strong></div>
+                                <a href="design-details.html?design=Minimal%20Silk%20Blouse" class="view-btn" data-name="Minimal Silk Blouse">View Details <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 9 -->
+                    <article class="fashion-card" data-category="bridal">
+                        <div class="fashion-image">
+                            <img src="https://www.dhresource.com/webp/m/0x0/f2/albu/g22/M00/1E/84/rBVaE2MF8yCADbYlAAO87gB2P6A989.jpg" alt="Luxury Bridal Gown">
+                            <div class="design-badge premium"><i class="bi bi-gem"></i>Luxury</div>
+                            <button class="wishlist-btn" aria-label="Add to wishlist"><i class="bi bi-heart"></i></button>
+                            <div class="image-overlay">
+                                <a href="design-details.html?design=Luxury%20Bridal%20Gown" class="quick-view"><i class="bi bi-eye"></i>Quick View</a>
+                            </div>
+                        </div>
+                        <div class="fashion-content">
+                            <div class="design-category bridal">BRIDAL WEAR</div>
+                            <h3>Luxury Bridal Gown</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span>4.9</span><small>(87+)</small></div>
+                            <p>Couture-inspired bridal styling with graceful layers and luxurious finishing.</p>
+                            <div class="card-bottom">
+                                <div class="price-area"><small>Starting from</small><strong>₹9,500</strong></div>
+                                <a href="design-details.html?design=Luxury%20Bridal%20Gown" class="view-btn" data-name="Luxury Bridal Gown">View Details <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 10 -->
+                    <article class="fashion-card" data-category="bridal">
+                        <div class="fashion-image">
+                            <img src="https://i.pinimg.com/originals/1c/a9/05/1ca9056d619a7c2ec42fa151cfe1746d.jpg" alt="Bridal Reception Dress">
+                            <div class="design-badge bestseller"><i class="bi bi-crown"></i>Bestseller</div>
+                            <button class="wishlist-btn" aria-label="Add to wishlist"><i class="bi bi-heart"></i></button>
+                            <div class="image-overlay">
+                                <a href="design-details.html?design=Bridal%20Reception%20Dress" class="quick-view"><i class="bi bi-eye"></i>Quick View</a>
+                            </div>
+                        </div>
+                        <div class="fashion-content">
+                            <div class="design-category bridal">BRIDAL WEAR</div>
+                            <h3>Bridal Reception Dress</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span>4.8</span><small>(73+)</small></div>
+                            <p>Elegant reception styling with a flattering silhouette and statement finish.</p>
+                            <div class="card-bottom">
+                                <div class="price-area"><small>Starting from</small><strong>₹7,800</strong></div>
+                                <a href="design-details.html?design=Bridal%20Reception%20Dress" class="view-btn" data-name="Bridal Reception Dress">View Details <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 11 -->
+                    <article class="fashion-card" data-category="bridal">
+                        <div class="fashion-image">
+                            <img src="https://i.etsystatic.com/20782667/r/il/ee765c/3465444381/il_1140xN.3465444381_d5iv.jpg" alt="Royal Wedding Outfit">
+                            <div class="design-badge premium"><i class="bi bi-gem"></i>Signature</div>
+                            <button class="wishlist-btn" aria-label="Add to wishlist"><i class="bi bi-heart"></i></button>
+                            <div class="image-overlay">
+                                <a href="design-details.html?design=Royal%20Wedding%20Outfit" class="quick-view"><i class="bi bi-eye"></i>Quick View</a>
+                            </div>
+                        </div>
+                        <div class="fashion-content">
+                            <div class="design-category bridal">BRIDAL WEAR</div>
+                            <h3>Royal Wedding Outfit</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span>5.0</span><small>(64+)</small></div>
+                            <p>Regal detailing, premium fabrics and personalized tailoring for your most memorable occasion.</p>
+                            <div class="card-bottom">
+                                <div class="price-area"><small>Starting from</small><strong>₹10,500</strong></div>
+                                <a href="design-details.html?design=Royal%20Wedding%20Outfit" class="view-btn" data-name="Royal Wedding Outfit">View Details <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 12 -->
+                    <article class="fashion-card" data-category="kurti">
+                        <div class="fashion-image">
+                            <img src="https://i.pinimg.com/originals/a1/93/85/a19385bd4f4f027238f8aefc54f9c498.png" alt="Festive Embroidered Kurti">
+                            <div class="design-badge bestseller"><i class="bi bi-fire"></i>Popular</div>
+                            <button class="wishlist-btn" aria-label="Add to wishlist"><i class="bi bi-heart"></i></button>
+                            <div class="image-overlay">
+                                <a href="design-details.html?design=Festive%20Embroidered%20Kurti" class="quick-view"><i class="bi bi-eye"></i>Quick View</a>
+                            </div>
+                        </div>
+                        <div class="fashion-content">
+                            <div class="design-category kurti">KURTI</div>
+                            <h3>Festive Embroidered Kurti</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span>4.8</span><small>(82+)</small></div>
+                            <p>Delicate embroidery with a comfortable silhouette perfect for festive occasions.</p>
+                            <div class="card-bottom">
+                                <div class="price-area"><small>Starting from</small><strong>₹1,900</strong></div>
+                                <a href="design-details.html?design=Festive%20Embroidered%20Kurti" class="view-btn" data-name="Festive Embroidered Kurti">View Details <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 13 -->
+                    <article class="fashion-card" data-category="kurti">
+                        <div class="fashion-image">
+                            <img src="https://english.cdn.zeenews.com/sites/default/files/83XGHvhS_17147f6ea4fb42f286c1cbb908bf5cbd.jpg" alt="Contemporary Long Kurti">
+                            <div class="design-badge new"><i class="bi bi-leaf"></i>New Arrival</div>
+                            <button class="wishlist-btn" aria-label="Add to wishlist"><i class="bi bi-heart"></i></button>
+                            <div class="image-overlay">
+                                <a href="design-details.html?design=Contemporary%20Long%20Kurti" class="quick-view"><i class="bi bi-eye"></i>Quick View</a>
+                            </div>
+                        </div>
+                        <div class="fashion-content">
+                            <div class="design-category kurti">KURTI</div>
+                            <h3>Contemporary Long Kurti</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span>4.7</span><small>(46+)</small></div>
+                            <p>A modern longline silhouette with clean detailing for effortless everyday elegance.</p>
+                            <div class="card-bottom">
+                                <div class="price-area"><small>Starting from</small><strong>₹1,600</strong></div>
+                                <a href="design-details.html?design=Contemporary%20Long%20Kurti" class="view-btn" data-name="Contemporary Long Kurti">View Details <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 14 -->
+                    <article class="fashion-card" data-category="kurti">
+                        <div class="fashion-image">
+                            <img src="https://www.suratsareefactory.com/uploaded-files/product-images/6818a8c6f1c2b.jpg" alt="Luxury Anarkali Kurti">
+                            <div class="design-badge premium"><i class="bi bi-gem"></i>Premium</div>
+                            <button class="wishlist-btn" aria-label="Add to wishlist"><i class="bi bi-heart"></i></button>
+                            <div class="image-overlay">
+                                <a href="design-details.html?design=Luxury%20Anarkali%20Kurti" class="quick-view"><i class="bi bi-eye"></i>Quick View</a>
+                            </div>
+                        </div>
+                        <div class="fashion-content">
+                            <div class="design-category kurti">KURTI</div>
+                            <h3>Luxury Anarkali Kurti</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span>4.9</span><small>(59+)</small></div>
+                            <p>Flowing layers and intricate detailing bring sophisticated festive charm.</p>
+                            <div class="card-bottom">
+                                <div class="price-area"><small>Starting from</small><strong>₹2,700</strong></div>
+                                <a href="design-details.html?design=Luxury%20Anarkali%20Kurti" class="view-btn" data-name="Luxury Anarkali Kurti">View Details <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 15 -->
+                    <article class="fashion-card" data-category="lehenga">
+                        <div class="fashion-image">
+                            <img src="https://i.pinimg.com/736x/d9/01/bc/d901bc90d9009be01fd336ec20f2e912.jpg" alt="Royal Bridal Lehenga">
+                            <div class="design-badge premium"><i class="bi bi-gem"></i>Premium</div>
+                            <button class="wishlist-btn" aria-label="Add to wishlist"><i class="bi bi-heart"></i></button>
+                            <div class="image-overlay">
+                                <a href="design-details.html?design=Royal%20Bridal%20Lehenga" class="quick-view"><i class="bi bi-eye"></i>Quick View</a>
+                            </div>
+                        </div>
+                        <div class="fashion-content">
+                            <div class="design-category">LEHENGA</div>
+                            <h3>Royal Bridal Lehenga</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span>5.0</span><small>(104+)</small></div>
+                            <p>Rich bridal embroidery with a graceful silhouette created for the perfect wedding look.</p>
+                            <div class="card-bottom">
+                                <div class="price-area"><small>Starting from</small><strong>₹8,500</strong></div>
+                                <a href="design-details.html?design=Royal%20Bridal%20Lehenga" class="view-btn" data-name="Royal Bridal Lehenga">View Details <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 16 -->
+                    <article class="fashion-card" data-category="lehenga">
+                        <div class="fashion-image">
+                            <img src="https://i.pinimg.com/736x/7e/7d/9f/7e7d9f97c19e405c217386b76977b2b4.jpg" alt="Pastel Designer Lehenga">
+                            <div class="design-badge"><i class="bi bi-stars"></i>Trending</div>
+                            <button class="wishlist-btn" aria-label="Add to wishlist"><i class="bi bi-heart"></i></button>
+                            <div class="image-overlay">
+                                <a href="design-details.html?design=Pastel%20Designer%20Lehenga" class="quick-view"><i class="bi bi-eye"></i>Quick View</a>
+                            </div>
+                        </div>
+                        <div class="fashion-content">
+                            <div class="design-category">LEHENGA</div>
+                            <h3>Pastel Designer Lehenga</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span>4.8</span><small>(57+)</small></div>
+                            <p>Soft pastel elegance with delicate embellishments and contemporary bridal styling.</p>
+                            <div class="card-bottom">
+                                <div class="price-area"><small>Starting from</small><strong>₹6,800</strong></div>
+                                <a href="design-details.html?design=Pastel%20Designer%20Lehenga" class="view-btn" data-name="Pastel Designer Lehenga">View Details <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 17 -->
+                    <article class="fashion-card" data-category="lehenga">
+                        <div class="fashion-image">
+                            <img src="https://www.samyakk.com/blog/wp-content/uploads/2024/03/Festive-Designer-Lehenga-Choli.jpg" alt="Festive Embroidered Lehenga">
+                            <div class="design-badge bestseller"><i class="bi bi-crown"></i>Bestseller</div>
+                            <button class="wishlist-btn" aria-label="Add to wishlist"><i class="bi bi-heart"></i></button>
+                            <div class="image-overlay">
+                                <a href="design-details.html?design=Festive%20Embroidered%20Lehenga" class="quick-view"><i class="bi bi-eye"></i>Quick View</a>
+                            </div>
+                        </div>
+                        <div class="fashion-content">
+                            <div class="design-category">LEHENGA</div>
+                            <h3>Festive Embroidered Lehenga</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span>4.9</span><small>(71+)</small></div>
+                            <p>Statement festive embroidery with elegant layers and a luxurious contemporary finish.</p>
+                            <div class="card-bottom">
+                                <div class="price-area"><small>Starting from</small><strong>₹7,200</strong></div>
+                                <a href="design-details.html?design=Festive%20Embroidered%20Lehenga" class="view-btn" data-name="Festive Embroidered Lehenga">View Details <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 18 -->
+                    <article class="fashion-card" data-category="kids">
+                        <div class="fashion-image">
+                            <img src="https://i.etsystatic.com/64351941/r/il/db3c1f/7745196922/il_794xN.7745196922_g7fm.jpg" alt="Kids Festive Dress">
+                            <div class="design-badge new"><i class="bi bi-balloon"></i>Kids</div>
+                            <button class="wishlist-btn" aria-label="Add to wishlist"><i class="bi bi-heart"></i></button>
+                            <div class="image-overlay">
+                                <a href="design-details.html?design=Kids%20Festive%20Dress" class="quick-view"><i class="bi bi-eye"></i>Quick View</a>
+                            </div>
+                        </div>
+                        <div class="fashion-content">
+                            <div class="design-category">KIDS WEAR</div>
+                            <h3>Kids Festive Dress</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span>4.8</span><small>(42+)</small></div>
+                            <p>Cute festive styling with comfortable fabrics designed for little fashion lovers.</p>
+                            <div class="card-bottom">
+                                <div class="price-area"><small>Starting from</small><strong>₹1,200</strong></div>
+                                <a href="design-details.html?design=Kids%20Festive%20Dress" class="view-btn" data-name="Kids Festive Dress">View Details <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 19 -->
+                    <article class="fashion-card" data-category="kids">
+                        <div class="fashion-image">
+                            <img src="https://5.imimg.com/data5/SELLER/PDFImage/2025/3/499345862/QR/UT/QA/15408429/designer-kids-lehenga-choli-1000x1000.png" alt="Kids Designer Lehenga">
+                            <div class="design-badge premium"><i class="bi bi-gem"></i>Special</div>
+                            <button class="wishlist-btn" aria-label="Add to wishlist"><i class="bi bi-heart"></i></button>
+                            <div class="image-overlay">
+                                <a href="design-details.html?design=Kids%20Designer%20Lehenga" class="quick-view"><i class="bi bi-eye"></i>Quick View</a>
+                            </div>
+                        </div>
+                        <div class="fashion-content">
+                            <div class="design-category">KIDS WEAR</div>
+                            <h3>Kids Designer Lehenga</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span>4.9</span><small>(38+)</small></div>
+                            <p>Adorable designer styling with beautiful detailing for weddings and celebrations.</p>
+                            <div class="card-bottom">
+                                <div class="price-area"><small>Starting from</small><strong>₹2,400</strong></div>
+                                <a href="design-details.html?design=Kids%20Designer%20Lehenga" class="view-btn" data-name="Kids Designer Lehenga">View Details <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 20 -->
+                    <article class="fashion-card" data-category="kids">
+                        <div class="fashion-image">
+                            <img src="https://i.pinimg.com/originals/c4/9b/00/c49b00bca4dddec74a4f8813380ec4ed.jpg" alt="Kids Traditional Outfit">
+                            <div class="design-badge"><i class="bi bi-stars"></i>Popular</div>
+                            <button class="wishlist-btn" aria-label="Add to wishlist"><i class="bi bi-heart"></i></button>
+                            <div class="image-overlay">
+                                <a href="design-details.html?design=Kids%20Traditional%20Outfit" class="quick-view"><i class="bi bi-eye"></i>Quick View</a>
+                            </div>
+                        </div>
+                        <div class="fashion-content">
+                            <div class="design-category">KIDS WEAR</div>
+                            <h3>Kids Traditional Outfit</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span>4.7</span><small>(35+)</small></div>
+                            <p>Traditional charm with a playful modern touch, tailored especially for little ones.</p>
+                            <div class="card-bottom">
+                                <div class="price-area"><small>Starting from</small><strong>₹1,800</strong></div>
+                                <a href="design-details.html?design=Kids%20Traditional%20Outfit" class="view-btn" data-name="Kids Traditional Outfit">View Details <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 21 -->
+                    <article class="fashion-card" data-category="kids">
+                        <div class="fashion-image">
+                            <img src="https://www.pinkblueindia.com/wp-content/uploads/2024/11/Kids-party-wear-structured-dress-girls.jpg" alt="Kids Party Wear Dress">
+                            <div class="design-badge new"><i class="bi bi-stars"></i>New</div>
+                            <button class="wishlist-btn" aria-label="Add to wishlist"><i class="bi bi-heart"></i></button>
+                            <div class="image-overlay">
+                                <a href="design-details.html?design=Kids%20Party%20Wear%20Dress" class="quick-view"><i class="bi bi-eye"></i>Quick View</a>
+                            </div>
+                        </div>
+                        <div class="fashion-content">
+                            <div class="design-category">KIDS WEAR</div>
+                            <h3>Kids Party Wear Dress</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span>4.8</span><small>(29+)</small></div>
+                            <p>Charming party wear with playful detailing and a comfortable custom fit.</p>
+                            <div class="card-bottom">
+                                <div class="price-area"><small>Starting from</small><strong>₹1,600</strong></div>
+                                <a href="design-details.html?design=Kids%20Party%20Wear%20Dress" class="view-btn" data-name="Kids Party Wear Dress">View Details <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 22 -->
+                    <article class="fashion-card" data-category="kids">
+                        <div class="fashion-image">
+                            <img src="https://live.staticflickr.com/65535/52894157049_d9770aa79b_b.jpg" alt="Kids Ethnic Wear">
+                            <div class="design-badge premium"><i class="bi bi-gem"></i>Premium</div>
+                            <button class="wishlist-btn" aria-label="Add to wishlist"><i class="bi bi-heart"></i></button>
+                            <div class="image-overlay">
+                                <a href="design-details.html?design=Kids%20Ethnic%20Wear" class="quick-view"><i class="bi bi-eye"></i>Quick View</a>
+                            </div>
+                        </div>
+                        <div class="fashion-content">
+                            <div class="design-category">KIDS WEAR</div>
+                            <h3>Kids Ethnic Celebration Wear</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span>4.9</span><small>(33+)</small></div>
+                            <p>Elegant ethnic styling with beautiful details perfect for special family occasions.</p>
+                            <div class="card-bottom">
+                                <div class="price-area"><small>Starting from</small><strong>₹2,000</strong></div>
+                                <a href="design-details.html?design=Kids%20Ethnic%20Wear" class="view-btn" data-name="Kids Ethnic Celebration Wear">View Details <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 23 -->
+                    <article class="fashion-card" data-category="blouse">
+                        <div class="fashion-image">
+                            <img src="https://i.pinimg.com/736x/28/c3/c8/28c3c8b75cf4124d97355ef0e6a8fffa.jpg" alt="Statement Party Blouse">
+                            <div class="design-badge bestseller"><i class="bi bi-fire"></i>Bestseller</div>
+                            <button class="wishlist-btn" aria-label="Add to wishlist"><i class="bi bi-heart"></i></button>
+                            <div class="image-overlay">
+                                <a href="design-details.html?design=Statement%20Party%20Blouse" class="quick-view"><i class="bi bi-eye"></i>Quick View</a>
+                            </div>
+                        </div>
+                        <div class="fashion-content">
+                            <div class="design-category">BLOUSE</div>
+                            <h3>Statement Party Blouse</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span>4.9</span><small>(88+)</small></div>
+                            <p>A bold contemporary design with statement details made for glamorous occasions.</p>
+                            <div class="card-bottom">
+                                <div class="price-area"><small>Starting from</small><strong>₹2,100</strong></div>
+                                <a href="design-details.html?design=Statement%20Party%20Blouse" class="view-btn" data-name="Statement Party Blouse">View Details <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 24 -->
+                    <article class="fashion-card" data-category="bridal">
+                        <div class="fashion-image">
+                            <img src="https://img.weddingbazaar.com/photos/pictures/008/848/226/new_medium/2_a870fb4b-67b2-41ef-aa3e-5f7850669719_700x.jpg?1755855427" alt="Couture Bridal Collection">
+                            <div class="design-badge premium"><i class="bi bi-gem"></i>Couture</div>
+                            <button class="wishlist-btn" aria-label="Add to wishlist"><i class="bi bi-heart"></i></button>
+                            <div class="image-overlay">
+                                <a href="design-details.html?design=Couture%20Bridal%20Collection" class="quick-view"><i class="bi bi-eye"></i>Quick View</a>
+                            </div>
+                        </div>
+                        <div class="fashion-content">
+                            <div class="design-category bridal">BRIDAL WEAR</div>
+                            <h3>Couture Bridal Collection</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span>5.0</span><small>(112+)</small></div>
+                            <p>Our signature bridal styling with luxurious detailing and personalized craftsmanship.</p>
+                            <div class="card-bottom">
+                                <div class="price-area"><small>Starting from</small><strong>₹12,000</strong></div>
+                                <a href="design-details.html?design=Couture%20Bridal%20Collection" class="view-btn" data-name="Couture Bridal Collection">View Details <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+
+                <!-- ─── PAGINATION CONTROLS ─── -->
+                <div class="collection-controls reveal">
+                    <button class="collection-arrow" id="designPrev" disabled>
+                        <i class="bi bi-arrow-left"></i> Previous
+                    </button>
+                    <span class="page-indicator" id="pageIndicator">1 / 4</span>
+                    <button class="collection-arrow" id="designNext">
+                        Next <i class="bi bi-arrow-right"></i>
+                    </button>
+                </div>
+
+                <div class="collection-dots" id="collectionDots">
+                    <!-- Generated by JavaScript -->
+                </div>
+
+                <!-- Trust Features -->
+                <div class="collection-features reveal">
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="bi bi-gem"></i></div>
+                        <div><h4>Premium Quality</h4><p>Finest fabrics & stitching</p></div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="bi bi-person-badge"></i></div>
+                        <div><h4>Custom Tailoring</h4><p>Made to your measurements</p></div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="bi bi-truck"></i></div>
+                        <div><h4>On-time Delivery</h4><p>Always on our promise</p></div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="bi bi-shield-check"></i></div>
+                        <div><h4>100% Satisfaction</h4><p>We ensure you love it</p></div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ─── SERVICES ─── -->
+        <section id="services">
+            <div class="container">
+                <div class="reveal">
+                    <p class="section-label">Our Services</p>
+                    <h2 class="section-title">From idea to perfect fit.</h2>
+                </div>
+                <div class="feature-grid">
+                    <article class="feature reveal"><div class="icon"><i class="bi bi-pencil-square"></i></div><h3>Custom Design</h3><p>Turn your inspiration into a personalized design with neckline, sleeve, fit and finishing options.</p></article>
+                    <article class="feature reveal"><div class="icon"><i class="bi bi-person-bounding-box"></i></div><h3>Measurement</h3><p>Save your measurements securely and reuse them for future orders.</p></article>
+                    <article class="feature reveal"><div class="icon"><i class="bi bi-scissors"></i></div><h3>Stitching & Alteration</h3><p>Professional stitching with fitting adjustments for a polished final result.</p></article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── PROCESS ─── -->
+        <section id="process" style="background:#f4ede6">
+            <div class="container">
+                <div class="reveal">
+                    <p class="section-label">Simple Process</p>
+                    <h2 class="section-title">Four steps to your perfect outfit.</h2>
+                </div>
+                <div class="timeline">
+                    <div class="step reveal"><div class="step-num">01</div><h3>Choose</h3><p>Pick a design or share your own reference.</p></div>
+                    <div class="step reveal"><div class="step-num">02</div><h3>Measure</h3><p>Add measurements and your preferred fit.</p></div>
+                    <div class="step reveal"><div class="step-num">03</div><h3>Stitch</h3><p>Our tailor creates your custom piece.</p></div>
+                    <div class="step reveal"><div class="step-num">04</div><h3>Deliver</h3><p>Review, fit and enjoy your finished outfit.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── CTA ─── -->
+        <section id="book">
+            <div class="cta reveal">
+                <p class="section-label" style="color:#ffe1a4">READY WHEN YOU ARE</p>
+                <h2>Let's create something made just for you.</h2>
+                <p>Book a consultation, share your design idea and start your custom tailoring journey.</p>
+                <a class="btn" style="background:#fff;color:#7f3f4a" id="bookBtn" href="{% url 'contact' %}">Book a Consultation <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </section>
+    </main>
+
+  {% include 'footer.html' %}
+
+    
+    <button id="topBtn" aria-label="Back to top"><i class="bi bi-arrow-up"></i></button>
+    <div id="toast"></div>
+
+
+   
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+    <script src="{% static 'js/storage.js' %}"></script>
+    <script>
+        /* ======================================================
+               PAGE  :  PAGINATION + FILTERS + NAV + ANIMATIONS
+               ====================================================== */
+
+        // ─── NAVBAR ───
+        const navbar = document.getElementById("navbar");
+        const topBtn = document.getElementById("topBtn");
+        const progress = document.getElementById("progress");
+        const menuBtn = document.getElementById("menuBtn");
+
+        const AUTH_KEY = "isLoggedIn";
+
+        function isUserLoggedIn() {
+            return localStorage.getItem(AUTH_KEY) === "true";
+        }
+
+        function updateAuthNavbar() {
+            const loggedIn = isUserLoggedIn();
+            navbar.classList.toggle("authenticated", loggedIn);
+            const loginBtn = document.getElementById("loginNavBtn");
+            const accountBtn = document.getElementById("accountNavBtn");
+            const ordersBtn = document.getElementById("ordersNavBtn");
+            const logoutBtn = document.getElementById("logoutNavBtn");
+            if (loginBtn) loginBtn.style.display = loggedIn ? "none" : "inline-flex";
+            if (accountBtn) accountBtn.style.display = loggedIn ? "inline-flex" : "none";
+            if (ordersBtn) ordersBtn.style.display = loggedIn ? "inline-flex" : "none";
+            if (logoutBtn) logoutBtn.style.display = loggedIn ? "inline-flex" : "none";
+        }
+        updateAuthNavbar();
+
+        document.getElementById("logoutNavBtn")?.addEventListener("click", function(e) {
+            e.preventDefault();
+            if (!isUserLoggedIn()) return;
+            localStorage.removeItem(AUTH_KEY);
+            updateAuthNavbar();
+            navbar.classList.remove("menu-open");
+            menuBtn.innerHTML = '<i class="bi bi-list"></i>';
+            menuBtn.setAttribute("aria-expanded", "false");
+            window.location.href = "{% url 'home' %}";
+        });
+
+        window.addEventListener("scroll", () => {
+            navbar.classList.toggle("scrolled", window.scrollY > 40);
+            topBtn.classList.toggle("show", window.scrollY > 500);
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            progress.style.width = (window.scrollY / max * 100) + "%";
+        });
+
+        topBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+        menuBtn.addEventListener("click", () => {
+            const isOpen = navbar.classList.toggle("menu-open");
+            menuBtn.innerHTML = isOpen ? '<i class="bi bi-x-lg"></i>' : '<i class="bi bi-list"></i>';
+            menuBtn.setAttribute('aria-expanded', String(isOpen));
+        });
+
+        document.querySelectorAll(".nav-links a, .nav-actions a").forEach(link => {
+            link.addEventListener("click", () => navbar.classList.remove("menu-open"));
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 900) {
+                navbar.classList.remove('menu-open');
+                menuBtn.innerHTML = '<i class="bi bi-list"></i>';
+                menuBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // ─── REVEAL ON SCROLL ───
+        const revealObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: .12 });
+        document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
+
+        // ─── COUNTERS ───
+        const counterObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const el = entry.target;
+                const target = Number(el.dataset.count);
+                let current = 0;
+                const step = Math.max(1, Math.ceil(target / 70));
+                const timer = setInterval(() => {
+                    current += step;
+                    if (current >= target) { current = target;
+                        clearInterval(timer); }
+                    el.textContent = current.toLocaleString() + (target >= 500 ? "+" : "+");
+                }, 22);
+                counterObserver.unobserve(el);
+            });
+        }, { threshold: .6 });
+        document.querySelectorAll("[data-count]").forEach(el => counterObserver.observe(el));
+
+        // ─── TOAST ───
+        const toast = document.getElementById("toast");
+        let toastTimer;
+
+        function showToast(message) {
+            toast.textContent = message;
+            toast.classList.add("show");
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => toast.classList.remove("show"), 2800);
+        }
+
+        document.querySelectorAll(".details-btn").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                const target = btn.getAttribute("href");
+                if (target) {
+                    e.preventDefault();
+                    showToast(btn.dataset.name + " opened in the design studio.");
+                    setTimeout(() => { window.location.href = target; }, 500);
+                }
+            });
+        });
+
+        // ─── ACTIVE NAV ───
+        const sections = document.querySelectorAll("main section[id]");
+        const navLinks = document.querySelectorAll(".nav-links a");
+        window.addEventListener("scroll", () => {
+            let current = "home";
+            sections.forEach(section => {
+                if (window.scrollY >= section.offsetTop - 150) current = section.id;
+            });
+            navLinks.forEach(link => {
+                link.classList.toggle("active", link.getAttribute("href") === "#" + current);
+            });
+        });
+
+        /* ======================================================
+               PAGINATION + FILTERS
+               ====================================================== */
+
+        const ITEMS_PER_PAGE = 6;
+        let currentPage = 1;
+        let currentFilter = 'all';
+
+        const allCards = document.querySelectorAll('.fashion-card');
+        const grid = document.getElementById('designGrid');
+        const prevBtn = document.getElementById('designPrev');
+        const nextBtn = document.getElementById('designNext');
+        const pageIndicator = document.getElementById('pageIndicator');
+        const dotsContainer = document.getElementById('collectionDots');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+
+        // ─── Get filtered cards ───
+        function getFilteredCards() {
+            if (currentFilter === 'all') {
+                return Array.from(allCards);
+            }
+            return Array.from(allCards).filter(card => card.dataset.category === currentFilter);
+        }
+
+        // ─── Render current page ───
+        function renderPage() {
+            const filtered = getFilteredCards();
+            const totalItems = filtered.length;
+            const totalPages = Math.max(1, Math.ceil(totalItems / ITEMS_PER_PAGE));
+
+            // Clamp page
+            if (currentPage < 1) currentPage = 1;
+            if (currentPage > totalPages) currentPage = totalPages;
+
+            const start = (currentPage - 1) * ITEMS_PER_PAGE;
+            const end = Math.min(start + ITEMS_PER_PAGE, totalItems);
+
+            // Show/hide cards
+            allCards.forEach(card => {
+                const matchesFilter = currentFilter === 'all' || card.dataset.category === currentFilter;
+                if (!matchesFilter) {
+                    card.style.display = 'none';
+                    return;
+                }
+                const idx = filtered.indexOf(card);
+                card.style.display = (idx >= start && idx < end) ? 'block' : 'none';
+            });
+
+            // Update pagination UI
+            updatePagination(currentPage, totalPages);
+        }
+
+        // ─── Update pagination controls ───
+        function updatePagination(page, totalPages) {
+            pageIndicator.textContent = `${page} / ${totalPages}`;
+
+            prevBtn.disabled = (page <= 1);
+            nextBtn.disabled = (page >= totalPages);
+
+            // Build dots
+            dotsContainer.innerHTML = '';
+            for (let i = 1; i <= totalPages; i++) {
+                const dot = document.createElement('span');
+                dot.className = 'dot' + (i === page ? ' active' : '');
+                dot.dataset.page = i;
+                dot.addEventListener('click', () => {
+                    if (i !== currentPage) {
+                        currentPage = i;
+                        renderPage();
+                    }
+                });
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        // ─── Go to page ───
+        function goToPage(page) {
+            const filtered = getFilteredCards();
+            const totalPages = Math.max(1, Math.ceil(filtered.length / ITEMS_PER_PAGE));
+            if (page < 1) page = 1;
+            if (page > totalPages) page = totalPages;
+            if (page !== currentPage) {
+                currentPage = page;
+                renderPage();
+            }
+        }
+
+        // ─── Filter change ───
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.dataset.filter;
+                currentPage = 1;
+                renderPage();
+            });
+        });
+
+        // ─── Previous / Next ───
+        prevBtn.addEventListener('click', () => goToPage(currentPage - 1));
+        nextBtn.addEventListener('click', () => goToPage(currentPage + 1));
+
+        // ─── Keyboard navigation ───
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') goToPage(currentPage - 1);
+            if (e.key === 'ArrowRight') goToPage(currentPage + 1);
+        });
+
+        // ─── INIT ───
+        renderPage();
+
+        // ─── WISHLIST ───
+        document.querySelectorAll('.wishlist-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                this.classList.toggle('liked');
+                if (this.classList.contains('liked')) {
+                    icon.classList.remove('bi-heart');
+                    icon.classList.add('bi-heart-fill');
+                } else {
+                    icon.classList.remove('bi-heart-fill');
+                    icon.classList.add('bi-heart');
+                }
+            });
+        });
+
+        // ─── BACK TO TOP ───
+        document.getElementById('backToTop')?.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+
+
+  
+</body> 
+</html>
